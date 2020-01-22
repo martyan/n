@@ -1,27 +1,39 @@
+import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
+
 export const initialState = {
-    photos: []
+    searchStr: '',
+    teams: [],
+    allPlayers: [],
+    player: null,
+    team: null,
+    teamSchedule: [],
+    teamStats: []
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'GET_PHOTOS_SUCCESS':
-            return {...state, photos: action.payload}
+        case 'SET_SEARCH_STR':
+            return {...state, searchStr: action.searchStr }
 
-        case 'GET_PHOTO_SUCCESS': {
-            const photo = state.photos.find(photo => photo.id === action.payload.id)
+        case 'GET_PLAYER_SUCCESS':
+            return {...state, player: action.payload.people[0]}
 
-            if(photo) {
-                return {...state, photos: state.photos.map(photo => {
-                        if(photo.id === action.payload.id) return action.payload
-                        return photo
-                    })}
-            }
+        case 'GET_TEAM_SUCCESS':
+            return {...state, team: action.payload.teams[0]}
 
-            return {...state, photos: [action.payload, ...state.photos]}
-        }
+        case 'GET_TEAM_SCHEDULE_SUCCESS':
+            return {...state, teamSchedule: action.payload.dates}
 
-        case 'PHOTO_DELETED':
-            return {...state, photos: state.photos.filter(photo => photo.id !== action.photoId)}
+        case 'GET_TEAM_STATS_SUCCESS':
+            return {...state, teamStats: action.payload.stats}
+
+        case 'GET_TEAMS_SUCCESS':
+            const allPlayers = sortPlayersByPoints(action.payload.teams.reduce((acc, currVal) => {
+                const roster = currVal.roster.roster.map(roster => ({...roster, teamId: currVal.id}))
+                return [...acc, ...roster]
+            }, []))
+
+            return {...state, teams: sortTeamsByName(action.payload.teams), allPlayers}
 
         default:
             return state

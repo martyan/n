@@ -19,6 +19,7 @@ export const getData = (res) => {
 const isPromise = (v) => v && typeof v.then === 'function'
 
 const promiseMiddleware = store => next => action => {
+
     if(isPromise(action.payload)) {
 
         next({type: `${action.type}_REQUEST`})

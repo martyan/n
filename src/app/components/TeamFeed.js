@@ -1,7 +1,5 @@
-import { useEffect, useState } from 'react'
-import axios from 'axios'
-import moment from 'moment'
 import React from 'react'
+import moment from 'moment'
 import Roster from './Roster'
 
 export const getStats = (type, stats) => {
@@ -9,49 +7,27 @@ export const getStats = (type, stats) => {
     return (selected && selected.splits[0]) ? selected.splits[0].stat : null
 }
 
-const TeamFeed = ({ teamId, onPlayerClick }) => {
-
-    const [ team, setTeam ] = useState(null)
-    const [ stats, setStats ] = useState([])
-    const [ schedule, setSchedule ] = useState([])
-
-    useEffect(() => {
-        axios.get(`https://statsapi.web.nhl.com/api/v1/teams/${teamId}?hydrate=roster(person(stats(splits=statsSingleSeason)))`)
-            .then(response => setTeam(response.data.teams[0]))
-            .catch(console.error)
-
-        axios.get(`https://statsapi.web.nhl.com/api/v1/teams/${teamId}/stats`)
-            .then(response => setStats(response.data.stats))
-            .catch(console.error)
-
-        axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?teamId=${teamId}&startDate=${moment().subtract(7, 'days').format('YYYY-MM-DD')}&endDate=${moment().add(1, 'month').format('YYYY-MM-DD')}`)
-            .then(response => setSchedule(response.data.dates))
-            .catch(console.error)
-
-        // axios.get(`https://statsapi.web.nhl.com/api/v1/game/2019020755/feed/live`)
-        //     .then(console.log)
-        //     .catch(console.error)
-    }, [])
+const TeamFeed = ({ team, teamStats, teamSchedule }) => {
 
     const getNextGame = () => {
-        const game = [...schedule].reverse().find(game => game.date > moment().format('YYYY-MM-DD'))
+        const game = [...teamSchedule].reverse().find(game => game.date > moment().format('YYYY-MM-DD'))
         return game ? game.games[0] : null
     }
 
     const getLastGame = () => {
-        const game = [...schedule].reverse().find(game => game.date < moment().format('YYYY-MM-DD'))
+        const game = [...teamSchedule].reverse().find(game => game.date < moment().format('YYYY-MM-DD'))
         return game ? game.games[0] : null
     }
 
-    const seasonStats = getStats('statsSingleSeason', stats)
-    const rankingStats = getStats('regularSeasonStatRankings', stats)
+    const seasonStats = getStats('statsSingleSeason', teamStats)
+    const rankingStats = getStats('regularSeasonStatRankings', teamStats)
 
     console.log(team)
 
     const lastGame = getLastGame()
     const nextGame = getNextGame()
 
-    if(!team || !stats.length) return null
+    if(!team || !teamStats.length) return null
 
     return (
         <div className="team-feed">
@@ -93,7 +69,6 @@ const TeamFeed = ({ teamId, onPlayerClick }) => {
                 <Roster
                     roster={team.roster.roster}
                     gamesPlayed={seasonStats.gamesPlayed}
-                    onClick={onPlayerClick}
                 />
             )}
 

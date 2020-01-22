@@ -19,7 +19,7 @@ const mergeClassNames = (classNames) => {
     return classes
 }
 
-const Modal = ({ visible, onClose, classNames, children}) => {
+const Modal = ({ visible, onClose, classNames, children }) => {
     const mergedClassNames = mergeClassNames(classNames)
 
     return (

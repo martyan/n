@@ -1,31 +1,46 @@
-import { db, storage } from '../firebase'
+import { CALL_API } from '../apiMiddleware'
+import moment from 'moment'
 
-export const getPhotos = () => ({
-    type: 'GET_PHOTOS',
-    payload: db.collection('photos')/*.orderBy('createdAt', 'desc')*/.get()
+const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
+
+export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr })
+
+export const getPlayer = (playerId) => ({
+    [CALL_API]: {
+        type: 'GET_PLAYER',
+        endpoint: `${NHL_API}/people/${playerId}`,
+        method: 'GET'
+    }
 })
 
-export const getPhoto = (photoId) => ({
-    type: 'GET_PHOTO',
-    payload: db.collection('photos').doc(photoId).get()
+export const getTeams = () => ({
+    [CALL_API]: {
+        type: 'GET_TEAMS',
+        endpoint: `${NHL_API}/teams?hydrate=roster(person(stats(splits=statsSingleSeason)))`,
+        method: 'GET'
+    }
 })
 
-export const createPhoto = (photo) => ({
-    type: 'CREATE_PHOTO',
-    payload: db.collection('photos').add(photo)
+export const getTeam = (teamId) => ({
+    [CALL_API]: {
+        type: 'GET_TEAM',
+        endpoint: `${NHL_API}/teams/${teamId}?hydrate=roster(person(stats(splits=statsSingleSeason)))`,
+        method: 'GET'
+    }
 })
 
-export const uploadFile = (file, name, path) => ({
-    type: 'UPLOAD_FILE',
-    payload: new Promise((resolve, reject) => {
-        const storageRef = storage.ref()
+export const getTeamSchedule = (teamId) => ({
+    [CALL_API]: {
+        type: 'GET_TEAM_SCHEDULE',
+        endpoint: `${NHL_API}/schedule?teamId=${teamId}&startDate=${moment().subtract(7, 'days').format('YYYY-MM-DD')}&endDate=${moment().add(1, 'month').format('YYYY-MM-DD')}`,
+        method: 'GET'
+    }
+})
 
-        const imageDir = storageRef.child(path)
-        const task = imageDir.put(file)
-
-        task.on('state_changed', snapshot => {
-            const progress = Math.ceil((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
-            console.log(progress)
-        }, error => reject(error), () => resolve(task.snapshot))
-    })
+export const getTeamStats = (teamId) => ({
+    [CALL_API]: {
+        type: 'GET_TEAM_STATS',
+        endpoint: `${NHL_API}/teams/${teamId}/stats`,
+        method: 'GET'
+    }
 })

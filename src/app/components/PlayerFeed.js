@@ -4,48 +4,63 @@ import axios from 'axios'
 import moment from 'moment'
 import GameFeed from './GameFeed'
 import { Parallax, Background } from 'react-parallax'
+import { arrow } from './icons'
+import { Router } from '../../functions/routes'
 
-const PlayerFeed = ({ playerId, ...props }) => {
+const PlayerFeed = ({ player, playerId }) => {
 
-    const [ player, setPlayer ] = useState(null)
     const [ feed, setFeed ] = useState([])
 
     useEffect(() => {
-        axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}`)
-            .then(response => setPlayer(response.data.people[0]))
-            .catch(console.error)
-
         // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
         //     .then(response => setFeed(response.data.stats[0].splits))
         //     .catch(console.error)
     }, [])
 
-    console.log(player)
+    const notLoaded = !player || String(player.id) !== String(playerId)
+
+    console.log(player, playerId)
 
     if(!player) return null
 
     return (
         <div className="player-feed">
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <Parallax
-                bgImage={`https://nhl.bamcontent.com/images/actionshots/${playerId}.jpg`}
-                bgImageAlt="Some alt text"
-                blur={10}
-                bgClassName={`cover`}
-                // onClick={() => handleSlideClick(2)}
-            >
-                <div style={{ height: '120px' }} />
-            </Parallax>
+            {!notLoaded && (
+                <>
+                    <div className="cover">
+                        <Parallax
+                            bgImage={`https://nhl.bamcontent.com/images/actionshots/${playerId}.jpg`}
+                            bgImageAlt={player.fullName}
+                            strength={60}
+                        >
+                            <div style={{ height: '100px' }} />
+                        </Parallax>
 
-            <img className="photo" src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`} />
-            {player.fullName}
-            {player.nationality}
-            {player.currentAge}
-            {player.primaryNumber}
-            {player.weight}
-            {player.height}
+                        <h1 className="name">{!notLoaded && player.fullName}</h1>
+
+                        <div className="photo">
+                            <img src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`} />
+                        </div>
+
+                        <div className="number">
+                            {player.primaryNumber}
+                        </div>
+
+                        <button className="arrow" onClick={() => Router.pushRoute('/')}>
+                            {arrow}
+                        </button>
+                    </div>
+                    {player.nationality}
+                    {player.currentAge}
+
+                    {player.weight}
+                    {player.height}
+                </>
+            )}
 
             <br />
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
+            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
             <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 
             {/*{feed.map(game => (
