@@ -2,74 +2,90 @@
 
 :global {
 
-    .modal {
+  .modal {
 
-        width: 100%;
-        max-width: 420px;
-        padding: 10px;
-        border-radius: 3px;
-        overflow: hidden;
+    width: 100%;
+    max-width: 420px;
+    padding: 10px;
+    border-radius: 3px;
+    //overflow: hidden;
+    z-index: -1;
 
-        @media (min-width: $tablet) {
-            padding: 15px;
-        }
+    @media (min-width: $tablet) {
+      padding: 15px;
+    }
 
-        &.no-padding {
-            padding: 0;
-        }
+    &.full {
+      max-width: none;
+    }
 
-        &.menu {
+    &.stretch {
+      width: auto;
+      max-width: 100%;
+      min-width: 280px;
+    }
 
-            margin: 0 0 0 auto;
+    &.no-padding {
+      padding: 0;
+      margin: 0
+    }
 
-            @media (min-width: 420px) {
-                margin: 3px 7px 3px auto;
-            }
+    &.menu {
 
-        }
+      margin: 0 0 0 auto;
+
+      @media (min-width: 420px) {
+        margin: 3px 7px 3px auto;
+      }
 
     }
 
-    .modal-overlay {
+  }
 
-        background: rgba(#222, .9);
-        padding: 5px;
-        z-index: 9999;
+  .modal-overlay {
 
-        &.menu {
-            align-items: flex-start;
-        }
+    background: rgba(#222, .9);
+    padding: 5px;
+    z-index: 9999;
+
+    &.menu {
+      align-items: flex-start;
+    }
+
+    &.no-padding {
+      padding: 0;
+    }
+
+  }
+
+  .modal-close {
+
+    cursor: pointer;
+    top: 4px;
+    right: 4px;
+    padding: 8px;
+
+    svg path {
+      fill: #ccc;
+      transition: .1s ease;
+    }
+
+    &:hover svg path {
+      fill: #aaa;
+    }
+
+    &.white {
+
+      svg path {
+        fill: #fff;
+      }
+
+      &:hover svg path {
+        fill: #000;
+      }
 
     }
 
-    .modal-close {
-
-        cursor: pointer;
-        top: 4px;
-        right: 4px;
-        padding: 8px;
-
-        svg path {
-            fill: #ccc;
-            transition: .1s ease;
-        }
-
-        &:hover svg path {
-            fill: #aaa;
-        }
-
-        &.white {
-
-            svg path {
-                fill: #fff;
-            }
-
-            &:hover svg path {
-                fill: #000;
-            }
-
-        }
-
-    }
+  }
 
 }

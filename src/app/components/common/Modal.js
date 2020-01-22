@@ -3,24 +3,34 @@ import PropTypes from 'prop-types'
 import ResponsiveModal from 'react-responsive-modal'
 import './Modal.scss'
 
-const Modal = (props) => {
-    let className =  'modal'
-    if(props.noPadding) className += ' no-padding'
-    if(props.menu) className += ' menu'
+const mergeClassNames = (classNames) => {
+    const classes = {
+        modal: 'modal',
+        overlay: 'modal-overlay',
+        closeButton: 'modal-close'
+    }
+
+    if(!classNames) return classes
+
+    if(classNames.modal) classes.modal += ` ${classNames.modal}`
+    if(classNames.overlay) classes.overlay += ` ${classNames.overlay}`
+    if(classNames.closeButton) classes.closeButton += ` ${classNames.closeButton}`
+
+    return classes
+}
+
+const Modal = ({ visible, onClose, classNames, children}) => {
+    const mergedClassNames = mergeClassNames(classNames)
 
     return (
         <ResponsiveModal
-            open={props.visible}
-            onClose={props.onClose ? props.onClose : () => {}}
-            classNames={{
-                modal: className,
-                overlay: props.menu ? 'modal-overlay menu' : 'modal-overlay',
-                closeButton: props.whiteClose ? 'modal-close white' : 'modal-close'
-            }}
-            showCloseIcon={!props.noClose}
+            open={visible}
+            onClose={onClose ? onClose : () => {}}
+            classNames={mergedClassNames}
+            showCloseIcon={true}
             center
         >
-            {props.children}
+            {children}
         </ResponsiveModal>
     )
 }
@@ -29,10 +39,7 @@ Modal.propTypes = {
     visible: PropTypes.bool.isRequired,
     children: PropTypes.node.isRequired,
     onClose: PropTypes.func,
-    noPadding: PropTypes.bool,
-    noClose: PropTypes.bool,
-    menu: PropTypes.bool,
-    whiteClose: PropTypes.bool
+    classNames: PropTypes.object
 }
 
 export default Modal

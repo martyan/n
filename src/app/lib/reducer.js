@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux'
 import auth, { initialState as initialStateAuth } from './auth/reducer'
-import todo, { initialState as initialStateTodo } from './todo/reducer'
+import app, { initialState as initialStateApp } from './app/reducer'
 
 export const initialState = {
     ...initialStateAuth,
-    ...initialStateTodo
+    ...initialStateApp
 }
 
 export default combineReducers({
     auth,
-    todo
+    app
 })
