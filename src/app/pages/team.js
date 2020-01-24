@@ -7,22 +7,26 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import TeamFeed from '../components/TeamFeed'
-import { getTeam, getTeamStats, getTeamSchedule } from '../lib/app/actions'
+import { getTeam, setTeam, getTeamStats, getTeamSchedule } from '../lib/app/actions'
 import './index.scss'
 
-const TeamPage = ({ teamId, team, teams, getTeam, teamStats, teamSchedule, getTeamStats, getTeamSchedule }) => {
+const TeamPage = ({ teamId, team, setTeam, teamStats, teamSchedule, getTeam, getTeamStats, getTeamSchedule }) => {
 
     useEffect(() => {
-        if(!team && !teams.length) {
+        if(!team) {
             getTeam(teamId).catch(console.error)
             getTeamStats(teamId).catch(console.error)
             getTeamSchedule(teamId).catch(console.error)
         }
+
+        return () => {
+            setTeam(null)
+        }
     }, [])
 
-    if(!team && !teams.length) return null
+    if(!team) return null
 
-    const theTeam = team || teams.find(team => team.id === teamId)
+    console.log(team)
 
     return (
         <PageWrapper>
@@ -35,7 +39,7 @@ const TeamPage = ({ teamId, team, teams, getTeam, teamStats, teamSchedule, getTe
             <div className="nhl">
 
                 <TeamFeed
-                    team={theTeam}
+                    team={team}
                     teamStats={teamStats}
                     teamSchedule={teamSchedule}
                 />
@@ -65,6 +69,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
+        setTeam,
         getTeam,
         getTeamStats,
         getTeamSchedule

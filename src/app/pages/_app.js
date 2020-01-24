@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import App, { Container } from 'next/app'
 import Head from 'next/head'
 import { Provider } from 'react-redux'
+import Router from 'next/dist/client/router'
 import withRedux from 'next-redux-wrapper'
 import createStore from '../lib/store'
 
@@ -20,6 +21,13 @@ class MyApp extends App {
     componentDidMount() {
         calculateVH()
         window.addEventListener('resize', calculateVH)
+
+        Router.events.on('routeChangeComplete', () => {
+            //scroll to top on page change
+            try {
+                window.scrollTo(0, 0)
+            } catch(error) {}
+        })
     }
 
     render () {

@@ -5,10 +5,12 @@ const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
 
 export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr })
 
+export const setTeam = (team) => ({ type: 'SET_TEAM', team })
+
 export const getPlayer = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER',
-        endpoint: `${NHL_API}/people/${playerId}`,
+        endpoint: `${NHL_API}/people/${playerId}?expand=person.stats&stats=statsSingleSeason,regularSeasonStatRankings&expand=stats.team`,
         method: 'GET'
     }
 })
