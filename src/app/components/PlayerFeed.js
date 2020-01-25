@@ -7,116 +7,8 @@ import { Parallax, Background } from 'react-parallax'
 import { arrow } from './icons'
 import { Router } from '../../functions/routes'
 import { getStats } from './TeamFeed'
-
-const getRankText = (rank) => {
-    switch(rank) {
-        case 'rankPowerPlayGoals':
-            return 'Power play goals'
-        case 'rankBlockedShots':
-            return 'Blocked shots'
-        case 'rankAssists':
-            return 'Assists'
-        case 'rankShotPct':
-            return 'Shot percentage'
-        case 'rankGoals':
-            return 'Goals'
-        case 'rankHits':
-            return 'Hits'
-        case 'rankPenaltyMinutes':
-            return 'Penalty minutes'
-        case 'rankShortHandedGoals':
-            return 'Short-handed goals'
-        case 'rankPlusMinus':
-            return '+ -'
-        case 'rankShots':
-            return 'Shots'
-        case 'rankPoints':
-            return 'Points'
-        case 'rankOvertimeGoals':
-            return 'Overtime goals'
-        case 'rankGamesPlayed':
-            return 'Games played'
-        case 'shutOuts':
-            return 'Shutouts'
-        case 'shotsAgainst':
-            return 'Shots against'
-        case 'ot':
-            return 'Overtime'
-        case 'timeOnIce':
-            return 'Time on ice'
-        case 'saves':
-            return 'Saves'
-        case 'losses':
-            return 'Losses'
-        case 'goalsAgainst':
-            return 'Goals against'
-        case 'savePercentage':
-            return 'Save percentage'
-        case 'games':
-            return 'Games'
-        case 'goalsAgainstAverage':
-            return 'Goals against average'
-        case 'wins':
-            return 'Wins'
-        default:
-            return rank
-    }
-}
-
-const getStatName = (rank) => {
-    switch(rank) {
-        case 'rankPowerPlayGoals':
-            return 'powerPlayGoals'
-        case 'rankBlockedShots':
-            return 'blocked'
-        case 'rankAssists':
-            return 'assists'
-        case 'rankShotPct':
-            return 'shotPct'
-        case 'rankGoals':
-            return 'goals'
-        case 'rankHits':
-            return 'hits'
-        case 'rankPenaltyMinutes':
-            return 'penaltyMinutes'
-        case 'rankShortHandedGoals':
-            return 'shortHandedGoals'
-        case 'rankPlusMinus':
-            return 'plusMinus'
-        case 'rankShots':
-            return 'shots'
-        case 'rankPoints':
-            return 'points'
-        case 'rankOvertimeGoals':
-            return 'overTimeGoals'
-        case 'rankGamesPlayed':
-            return 'games'
-        case 'shutOuts':
-            return 'shutouts'
-        case 'shotsAgainst':
-            return 'shotsAgainst'
-        case 'ot':
-            return 'ot'
-        case 'timeOnIce':
-            return 'timeOnIce'
-        case 'saves':
-            return 'saves'
-        case 'losses':
-            return 'losses'
-        case 'goalsAgainst':
-            return 'goalsAgainst'
-        case 'savePercentage':
-            return 'savePercentage'
-        case 'games':
-            return 'games'
-        case 'goalsAgainstAverage':
-            return 'goalAgainstAverage'
-        case 'wins':
-            return 'wins'
-        default:
-            return rank
-    }
-}
+import { getRankText, getStatName } from '../helpers/stats'
+import PlayerStats from './PlayerStats'
 
 const PlayerFeed = ({ player, playerId }) => {
 
@@ -129,8 +21,6 @@ const PlayerFeed = ({ player, playerId }) => {
     }, [])
 
     const notLoaded = !player || String(player.id) !== String(playerId)
-
-    console.log(player, playerId)
 
     if(!player) return null
 
@@ -177,6 +67,8 @@ const PlayerFeed = ({ player, playerId }) => {
                             <div style={{ height: '160px' }} />
                         </Parallax>
 
+                        {player.rookie && <div className="rookie">Rookie</div>}
+
                         <div className="caption">
                             <span className="no">{player.primaryNumber}</span>
                             <h1 className="name">{player.fullName}</h1>
@@ -198,6 +90,8 @@ const PlayerFeed = ({ player, playerId }) => {
                         </button>
                     </div>
 
+                    <PlayerStats player={player} />
+
                     <div className="ranks">
                         {goodRanks.map(rank => {
                             const value = seasonStats[getStatName(rank.key)]
@@ -216,8 +110,7 @@ const PlayerFeed = ({ player, playerId }) => {
 
                     <br /><br />
 
-                    {console.log(player)}
-
+                    <div>{player.primaryPosition.abbreviation}</div>
                     {player.nationality}
                     {player.currentAge}
 
