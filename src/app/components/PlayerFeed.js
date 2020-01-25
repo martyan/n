@@ -9,6 +9,7 @@ import { Router } from '../../functions/routes'
 import { getStats } from './TeamFeed'
 import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
+import { goToPlayerTeamFeed } from '../helpers/navigation'
 
 const PlayerFeed = ({ player, playerId }) => {
 
@@ -77,7 +78,7 @@ const PlayerFeed = ({ player, playerId }) => {
                             )}
                         </div>
 
-                        <div className="team-logo">
+                        <div className="team-logo" onClick={() => goToPlayerTeamFeed(player.currentTeam.id)}>
                             <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
                         </div>
 
@@ -90,13 +91,22 @@ const PlayerFeed = ({ player, playerId }) => {
                         </button>
                     </div>
 
+
+                    <div className="info">
+                        <div>{player.primaryPosition.name}</div>
+                        <div>{player.nationality}</div>
+                        <div>{player.currentAge}</div>
+                        <div onClick={settings.toggleMeasure}>{player.height}</div>
+                        <div onClick={settings.toggleMeasure}>{player.weight}</div>
+                    </div>
+
                     <PlayerStats player={player} />
 
                     <div className="ranks">
                         {goodRanks.map(rank => {
                             const value = seasonStats[getStatName(rank.key)]
                             return (
-                                <div className="rank">
+                                <div key={rank.key} className="rank">
                                     <div className="position">
                                         <span className="n">{rank.n}</span>
                                         <span className="sup">{rank.sup}</span>
@@ -107,15 +117,6 @@ const PlayerFeed = ({ player, playerId }) => {
                             )
                         })}
                     </div>
-
-                    <br /><br />
-
-                    <div>{player.primaryPosition.abbreviation}</div>
-                    {player.nationality}
-                    {player.currentAge}
-
-                    {player.weight}
-                    {player.height}
                 </>
             )}
 

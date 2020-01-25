@@ -395,7 +395,7 @@
     .cover {
 
       position: relative;
-      margin-bottom: 50px;
+      margin-bottom: 15px;
 
       button.arrow {
 
@@ -430,10 +430,11 @@
         position: absolute;
         top: 0;
         right: 0;
-        padding: 2px 5px;
+        padding: 3px 5px;
         background: rgba(black, .9);
-        font-size: .8em;
+        font-size: .7em;
         color: white;
+        text-transform: uppercase;
       }
 
       .team-logo {
@@ -442,6 +443,7 @@
         bottom: 0;
         right: 15px;
         width: 64px;
+        z-index: 2;
         transform: translate(0, 50%);
 
         img {
@@ -524,9 +526,24 @@
 
     .player-stats {
 
-      width: 100%;
-      padding: 0 15px;
-      overflow: auto;
+      position: relative;
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(white, 0), rgba(white, 1));
+        pointer-events: none;
+      }
+
+      .wrapper {
+        width: 100%;
+        padding: 0 15px;
+        overflow: auto;
+      }
 
       table {
 

@@ -146,7 +146,9 @@ const PlayerStats = ({ player }) => {
 
     return (
         <div className="player-stats">
-            <Stats player={player}/>
+            <div className="wrapper">
+                <Stats player={player}/>
+            </div>
         </div>
     )
 
