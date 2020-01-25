@@ -93,11 +93,11 @@ const PlayerFeed = ({ player, playerId }) => {
 
 
                     <div className="info">
-                        <div>{player.primaryPosition.name}</div>
-                        <div>{player.nationality}</div>
-                        <div>{player.currentAge}</div>
-                        <div onClick={settings.toggleMeasure}>{player.height}</div>
-                        <div onClick={settings.toggleMeasure}>{player.weight}</div>
+                        <div className="position">{player.primaryPosition.abbreviation}</div>
+                        <div className="nationality">{player.nationality}</div>
+                        <div className="age">{player.currentAge}y</div>
+                        <div className="height">{player.height}</div>
+                        <div className="weight">{player.weight} lb</div>
                     </div>
 
                     <PlayerStats player={player} />

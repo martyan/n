@@ -524,6 +524,34 @@
 
     }
 
+    .info {
+
+      display: flex;
+      font-size: .8em;
+      color: #888;
+      margin-bottom: 15px;
+
+      > div {
+        margin-right: 2px;
+        padding: 2px 5px;
+      }
+
+      .position {
+      }
+
+      .nationality {
+      }
+
+      .age {
+      }
+
+      .height {
+      }
+
+      .weight {}
+
+    }
+
     .player-stats {
 
       position: relative;
@@ -535,7 +563,7 @@
         right: 0;
         width: 20px;
         height: 100%;
-        background: linear-gradient(to right, rgba(white, 0), rgba(white, 1));
+        background: linear-gradient(to right, rgba(white, 0), rgba(white, .5));
         pointer-events: none;
       }
 
