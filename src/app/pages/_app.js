@@ -16,6 +16,8 @@ const calculateVH = () => {
     }, 200)
 }
 
+export const SettingsContext = React.createContext({})
+
 class MyApp extends App {
 
     componentDidMount() {
@@ -36,12 +38,17 @@ class MyApp extends App {
         return (
             <Container>
                 <Provider store={store}>
-                    <>
-                        <Head>
-                            <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-                        </Head>
-                        <Component {...pageProps} />
-                    </>
+                    <SettingsContext.Provider value={{
+                        measure: store.getState().app.measure,
+                        toggleMeasure: () => store.dispatch({ type: 'TOGGLE_MEASURE' })
+                    }}>
+                        <>
+                            <Head>
+                                <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+                            </Head>
+                            <Component {...pageProps} />
+                        </>
+                    </SettingsContext.Provider>
                 </Provider>
             </Container>
         )

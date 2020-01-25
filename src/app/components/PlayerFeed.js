@@ -1,5 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import axios from 'axios'
 import moment from 'moment'
 import GameFeed from './GameFeed'
@@ -10,8 +10,11 @@ import { getStats } from './TeamFeed'
 import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
+import { SettingsContext } from '../pages/_app'
 
 const PlayerFeed = ({ player, playerId }) => {
+
+    const settings = useContext(SettingsContext)
 
     const [ feed, setFeed ] = useState([])
 
@@ -98,6 +101,8 @@ const PlayerFeed = ({ player, playerId }) => {
                         <div>{player.currentAge}</div>
                         <div onClick={settings.toggleMeasure}>{player.height}</div>
                         <div onClick={settings.toggleMeasure}>{player.weight}</div>
+                        <div>{settings.measure}</div>
+                        {console.log(settings.measure, 'vole')}
                     </div>
 
                     <PlayerStats player={player} />

@@ -1,6 +1,7 @@
 import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
 
 export const initialState = {
+    measure: 'imperial',
     searchStr: 'cze',
     teams: [],
     allPlayers: [],
@@ -12,6 +13,10 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'TOGGLE_MEASURE':
+            console.log(state.measure)
+            return {...state, measure: state.measure === 'imperial' ? 'metric' : 'imperial'}
+
         case 'SET_SEARCH_STR':
             return {...state, searchStr: action.searchStr }
 
