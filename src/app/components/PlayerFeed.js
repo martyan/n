@@ -14,11 +14,12 @@ import { goToPlayerTeamFeed } from '../helpers/navigation'
 const PlayerFeed = ({ player, playerId }) => {
 
     const [ feed, setFeed ] = useState([])
+    const [ activeMedia, setActiveMedia ] = useState(null)
 
     useEffect(() => {
-        // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
-        //     .then(response => setFeed(response.data.stats[0].splits))
-        //     .catch(console.error)
+        axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
+            .then(response => setFeed(response.data.stats[0].splits))
+            .catch(console.error)
     }, [])
 
     const notLoaded = !player || String(player.id) !== String(playerId)
@@ -29,10 +30,8 @@ const PlayerFeed = ({ player, playerId }) => {
 
     const seasonStats = getStats('statsSingleSeason', player.stats)
     const rankingStats = getStats('regularSeasonStatRankings', player.stats)
-    console.log(seasonStats, rankingStats)
 
     const rankKeys = Object.keys(rankingStats)
-    console.log(rankKeys)
     const ranks = rankKeys.map(key => {
         const [ string, n, sup ] = /(\d+)([A-Za-z]+)/g.exec(rankingStats[key])
         return {
@@ -51,9 +50,6 @@ const PlayerFeed = ({ player, playerId }) => {
         if(a.n < b.n) return -1
         return 0
     })
-
-
-    console.log(seasonStats)
 
     return (
         <div className="player-feed">
@@ -120,30 +116,28 @@ const PlayerFeed = ({ player, playerId }) => {
                 </>
             )}
 
-            <br />
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-            <br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
-
-            {/*{feed.map(game => (
-                <div key={game.date} className="game">
-                    <div className={game.isHome ? 'teams' : 'teams away'}>
-                        <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />
-                        <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />
+            <div className="game-feed">
+                {feed.map(game => (
+                    <div key={game.date} className="game">
+                        {/*<div className={game.isHome ? 'teams' : 'teams away'}>*/}
+                            {/*<img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />*/}
+                            {/*<img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />*/}
+                        {/*</div>*/}
+                        {/*<div className="stats">*/}
+                            {/*/!*<span>G{game.stat.goals} A{game.stat.assists}</span>*!/*/}
+                            {/*<span className="date">{moment(game.date).format('ddd MMM DD')}</span>*/}
+                        {/*</div>*/}
+                        {/*{(game.stat.goals > 0 || game.stat.assists > 0) && (*/}
+                            <GameFeed
+                                gameId={game.game.gamePk}
+                                player={player}
+                                activeMedia={activeMedia}
+                                setActiveMedia={setActiveMedia}
+                            />
+                        {/*)}*/}
                     </div>
-                    <div className="stats">
-                        <span>G{game.stat.goals} A{game.stat.assists}</span>
-                        <span className="date">{moment(game.date).format('ddd MMM DD')}</span>
-                    </div>
-                    {(game.stat.goals > 0 || game.stat.assists > 0) && (
-                        <GameFeed
-                            gameId={game.game.gamePk}
-                            player={player}
-                            {...props}
-                        />
-                    )}
-                </div>
-            ))}*/}
+                ))}
+            </div>
         </div>
     )
 

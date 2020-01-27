@@ -3,7 +3,6 @@ import { getStats } from './TeamFeed'
 
 const Stats = ({ player }) => {
     const seasonStats = getStats('statsSingleSeason', player.stats)
-    console.log(seasonStats)
 
     switch(player.primaryPosition.type) {
         case 'Forward':
