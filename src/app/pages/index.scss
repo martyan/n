@@ -759,12 +759,48 @@
 
   .game-feed {
 
+    .post {
+
+      margin-bottom: 30px;
+
+      .caption {
+        padding: 15px;
+        font-size: .9em;
+        line-height: 140%;
+        color: #444;
+      }
+
+    }
+
     .media {
 
       position: relative;
       width: 100vw;
       height: calc((100vw * 9) / 16);
-      margin-bottom: 100px;
+
+      .play {
+
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 99;
+        opacity: .5;
+        color: white;
+        text-shadow: 0 0 3px rgba(black, .5);
+
+        &.is-playing {
+          animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+
+          0% { opacity: .5; }
+          50% { opacity: 1; }
+          100% { opacity: .5; }
+
+        }
+
+      }
 
       iframe {
         display: block;

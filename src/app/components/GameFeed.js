@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Media from './Media'
-import { useDebounce } from 'use-debounce'
 
 const GameFeed = ({ gameId, player, activeMedia, setActiveMedia }) => {
 
     const [ feed, setFeed ] = useState(null)
-    const [ debouncedActiveMedia ] = useDebounce(activeMedia, 1000)
 
     useEffect(() => {
         axios.get(`https://statsapi.web.nhl.com/api/v1/game/${gameId}/content`)
@@ -21,7 +19,7 @@ const GameFeed = ({ gameId, player, activeMedia, setActiveMedia }) => {
 
     return (
         <div className="game-feed">
-            {applicableMedia.map(media => <Media key={media.id} media={media} activeMedia={debouncedActiveMedia} setActiveMedia={setActiveMedia} />)}
+            {applicableMedia.map(media => <Media key={media.id} media={media} activeMedia={activeMedia} setActiveMedia={setActiveMedia} />)}
         </div>
     )
 
