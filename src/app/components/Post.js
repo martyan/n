@@ -5,10 +5,11 @@ import { useDebounce } from 'use-debounce'
 import moment from 'moment'
 
 const Video = ({ media }) => {
+    const LQ = media.playbacks.find(pb => pb.name.indexOf('FLASH_450K') > -1)
     const HQ = media.playbacks.find(pb => pb.name.indexOf('FLASH_1800K') > -1)
-    if(!HQ) return null
+    if(!LQ || !HQ) return null
 
-    return <iframe key={HQ.url} src={HQ.url} frameBorder="0"></iframe>
+    return <iframe key={LQ.url} src={LQ.url} frameBorder="0"></iframe>
 }
 
 const Thumb = ({ media, activeMedia, setActiveMedia }) => {
@@ -62,7 +63,7 @@ const Post = ({ game, media, activeMedia, setActiveMedia }) => {
                     <i className="fa fa-play"></i>
                 </span>
 
-                {media.id === activeMedia && <Video media={media} />}
+                {media.id === debouncedActiveMedia && <Video media={media} />}
 
                 <Thumb
                     media={media}

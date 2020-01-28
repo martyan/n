@@ -763,6 +763,7 @@
           opacity: 1;
 
           &.hidden {
+            transition-delay: 1.25s;
             pointer-events: none;
             opacity: 0;
           }
@@ -796,8 +797,8 @@
           display: flex;
 
           img {
-            width: 24px;
-            max-height: 24px;
+            width: 20px;
+            max-height: 20px;
             margin-right: 10px;
             filter: grayscale(100%);
           }

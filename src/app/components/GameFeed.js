@@ -17,8 +17,6 @@ const GameFeed = ({ game, player, activeMedia, setActiveMedia }) => {
 
     if(!feed) return null
 
-    console.log(game)
-
     const media = feed.highlights.scoreboard.items
     const applicableMedia = media.filter(m => m.description.indexOf(player.lastName) > -1)
 
