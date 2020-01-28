@@ -5,8 +5,8 @@ import GameFeed from './GameFeed'
 import { Parallax, Background } from 'react-parallax'
 import { arrow } from './icons'
 import { Router } from '../../functions/routes'
-import { getStats } from './TeamFeed'
-import { getRankText, getStatName } from '../helpers/stats'
+// import { getStats } from './TeamFeed'
+// import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
 
@@ -23,32 +23,30 @@ const PlayerFeed = ({ player, playerId }) => {
 
     const notLoaded = !player || String(player.id) !== String(playerId)
 
-    if(!player) return null
+    // const isGoalie = player.primaryPosition.code === 'G'
 
-    const isGoalie = player.primaryPosition.code === 'G'
+    // const seasonStats = getStats('statsSingleSeason', player.stats)
+    // const rankingStats = getStats('regularSeasonStatRankings', player.stats)
 
-    const seasonStats = getStats('statsSingleSeason', player.stats)
-    const rankingStats = getStats('regularSeasonStatRankings', player.stats)
+    // const rankKeys = Object.keys(rankingStats)
+    // const ranks = rankKeys.map(key => {
+    //     const [ string, n, sup ] = /(\d+)([A-Za-z]+)/g.exec(rankingStats[key])
+    //     return {
+    //         key,
+    //         n: parseInt(n),
+    //         sup
+    //     }
+    // })
 
-    const rankKeys = Object.keys(rankingStats)
-    const ranks = rankKeys.map(key => {
-        const [ string, n, sup ] = /(\d+)([A-Za-z]+)/g.exec(rankingStats[key])
-        return {
-            key,
-            n: parseInt(n),
-            sup
-        }
-    })
+    // const filteredRanks = ranks
+    //     .filter(rank => isGoalie ? rank.n <= 10 : rank.n <= 30)
+    //     .filter(rank => !(isGoalie && rank.key === 'penaltyMinutes'))
 
-    const filteredRanks = ranks
-        .filter(rank => isGoalie ? rank.n <= 10 : rank.n <= 30)
-        .filter(rank => !(isGoalie && rank.key === 'penaltyMinutes'))
-
-    const goodRanks = filteredRanks.sort((a, b) => {
-        if(a.n > b.n) return 1
-        if(a.n < b.n) return -1
-        return 0
-    })
+    // const goodRanks = filteredRanks.sort((a, b) => {
+    //     if(a.n > b.n) return 1
+    //     if(a.n < b.n) return -1
+    //     return 0
+    // })
 
     return (
         <div className="player-feed">

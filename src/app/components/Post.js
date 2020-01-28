@@ -3,6 +3,7 @@ import { useInView } from 'react-intersection-observer'
 import { LazyLoadImage } from 'react-lazy-load-image-component'
 import { useDebounce } from 'use-debounce'
 import moment from 'moment'
+import { getDateText } from '../helpers/data'
 
 const Video = ({ media }) => {
     const LQ = media.playbacks.find(pb => pb.name.indexOf('FLASH_450K') > -1)
@@ -26,20 +27,6 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
             className={activeMedia === media.id ? 'hidden' : ''}
         />
     )
-}
-
-const getDateWZero = (d) => (d < 10 ? '0' : '') + d
-
-const getDateText = (d) => {
-    const now = moment()
-    const today = moment.utc(`${now.get('year')}-${getDateWZero(now.get('month') + 1)}-${getDateWZero(now.get('date'))}`)
-    const diff = today.diff(d, 'days')
-
-    if(diff === 0) return 'Today'
-    if(diff === 1) return 'Yesterday'
-    if(diff > 2 && diff < 7) return 'This week'
-    if(now.get('year') > d.get('year')) return d.format('DD MMM YYYY')
-    return d.format('DD MMM')
 }
 
 const Post = ({ game, media, activeMedia, setActiveMedia }) => {
