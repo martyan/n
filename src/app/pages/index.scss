@@ -536,17 +536,13 @@
         padding: 2px 5px;
       }
 
-      .position {
-      }
+      .position {}
 
-      .nationality {
-      }
+      .nationality {}
 
-      .age {
-      }
+      .age {}
 
-      .height {
-      }
+      .height {}
 
       .weight {}
 
@@ -715,46 +711,6 @@
 
     }
 
-
-
-
-    .game {
-
-      display: flex;
-
-      .teams {
-
-        display: flex;
-
-        img {
-          width: 24px;
-          max-height: 24px;
-          margin-right: 10px;
-        }
-
-        &.away {
-          flex-direction: row-reverse;
-        }
-
-      }
-
-      .stats {
-
-        flex: 1;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        .date {
-          color: #aaa;
-          text-transform: uppercase;
-          font-size: .7em;
-        }
-
-      }
-
-    }
-
   }
 
   .game-feed {
@@ -763,6 +719,62 @@
 
       margin-bottom: 30px;
 
+      .media {
+
+        position: relative;
+        width: 100vw;
+        height: calc((100vw * 9) / 16);
+
+        .play {
+
+          position: absolute;
+          right: 15px;
+          top: 15px;
+          z-index: 99;
+          opacity: .5;
+          color: white;
+          text-shadow: 0 0 3px rgba(black, .5);
+
+          &.is-playing {
+            animation: fadeInOut 2s infinite;
+          }
+
+          @keyframes fadeInOut {
+
+            0% { opacity: .5; }
+            50% { opacity: 1; }
+            100% { opacity: .5; }
+
+          }
+
+        }
+
+        iframe {
+          display: block;
+          width: 100vw;
+          height: 100%;
+        }
+
+        img {
+
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          transition: .25s ease;
+          opacity: 1;
+
+          &.hidden {
+            pointer-events: none;
+            opacity: 0;
+          }
+
+        }
+
+      }
+
       .caption {
         padding: 15px;
         font-size: .9em;
@@ -770,65 +782,39 @@
         color: #444;
       }
 
-    }
+      .foot {
 
-    .media {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 15px;
 
-      position: relative;
-      width: 100vw;
-      height: calc((100vw * 9) / 16);
-
-      .play {
-
-        position: absolute;
-        right: 15px;
-        top: 15px;
-        z-index: 99;
-        opacity: .5;
-        color: white;
-        text-shadow: 0 0 3px rgba(black, .5);
-
-        &.is-playing {
-          animation: fadeInOut 2s infinite;
+        .date {
+          font-size: .8em;
+          color: #999;
+          font-weight: 300;
         }
 
-        @keyframes fadeInOut {
+        .teams {
 
-          0% { opacity: .5; }
-          50% { opacity: 1; }
-          100% { opacity: .5; }
+          display: flex;
 
-        }
+          img {
+            width: 24px;
+            max-height: 24px;
+            margin-right: 10px;
+            filter: grayscale(100%);
+          }
 
-      }
+          &.away {
+            flex-direction: row-reverse;
+          }
 
-      iframe {
-        display: block;
-        width: 100vw;
-        height: 100%;
-      }
-
-      img {
-
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: .25s ease;
-        opacity: 1;
-
-        &.hidden {
-          pointer-events: none;
-          opacity: 0;
-          transition-delay: 1s;
         }
 
       }
 
     }
-
 
   }
 

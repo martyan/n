@@ -41,7 +41,7 @@ const getDateText = (d) => {
     return d.format('DD MMM')
 }
 
-const Media = ({ game, media, activeMedia, setActiveMedia }) => {
+const Post = ({ game, media, activeMedia, setActiveMedia }) => {
 
     const [ debouncedActiveMedia ] = useDebounce(activeMedia, 1000)
     const [ ref, inView, entry ] = useInView({
@@ -89,4 +89,4 @@ const Media = ({ game, media, activeMedia, setActiveMedia }) => {
 
 }
 
-export default Media
+export default Post
