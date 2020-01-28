@@ -60,7 +60,7 @@ const PlayerFeed = ({ player, playerId }) => {
                             bgImageAlt={player.fullName}
                             strength={40}
                         >
-                            <div style={{ height: '160px' }} />
+                            <div style={{ height: '120px' }} />
                         </Parallax>
 
                         {player.rookie && <div className="rookie">Rookie</div>}
@@ -88,7 +88,7 @@ const PlayerFeed = ({ player, playerId }) => {
 
 
                     <div className="info">
-                        <div className="position">{player.primaryPosition.abbreviation}</div>
+                        <div className="position">{player.primaryPosition.name}</div>
                         <div className="nationality">{player.nationality}</div>
                         <div className="age">{player.currentAge}y</div>
                         <div className="height">{player.height}</div>
@@ -97,7 +97,7 @@ const PlayerFeed = ({ player, playerId }) => {
 
                     <PlayerStats player={player} />
 
-                    <div className="ranks">
+                    {/*<div className="ranks">
                         {goodRanks.map(rank => {
                             const value = seasonStats[getStatName(rank.key)]
                             return (
@@ -111,7 +111,7 @@ const PlayerFeed = ({ player, playerId }) => {
                                 </div>
                             )
                         })}
-                    </div>
+                    </div>*/}
                 </>
             )}
 

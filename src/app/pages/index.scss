@@ -484,7 +484,7 @@
           color: #fff;
           letter-spacing: .5px;
           font-family: 'Roboto Slab', serif;
-          background: rgba(#aaa, .95);
+          background: rgba(black, .95);
         }
 
         .name {
@@ -528,15 +528,18 @@
 
       display: flex;
       font-size: .8em;
-      color: #888;
-      margin-bottom: 15px;
+      color: #222;
+      font-weight: 300;
+      margin-bottom: 30px;
 
       > div {
         margin-right: 2px;
         padding: 2px 5px;
       }
 
-      .position {}
+      .position {
+        //text-transform: uppercase;
+      }
 
       .nationality {}
 
@@ -551,15 +554,16 @@
     .player-stats {
 
       position: relative;
+      margin-bottom: 40px;
 
       &:after {
         content: '';
         position: absolute;
         top: 0;
         right: 0;
-        width: 20px;
+        width: 30px;
         height: 100%;
-        background: linear-gradient(to right, rgba(white, 0), rgba(white, .5));
+        background: linear-gradient(to right, rgba(white, 0), rgba(white, 1));
         pointer-events: none;
       }
 
@@ -573,8 +577,17 @@
 
         position: relative;
         font-size: .82em;
-        color: #444;
+        color: #666;
         border-collapse: collapse;
+
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          right: -20px;
+          width: 20px;
+          height: 1px;
+        }
 
         tr:not(.groups) {
 
@@ -596,20 +609,8 @@
         tbody {
 
           td {
-
             position: relative;
             border-top: 1px solid #eee;
-
-            &:last-child:before {
-              content: '';
-              position: absolute;
-              right: 0;
-              width: 20px;
-              height: 100%;
-              background: white;
-              top: -50%;
-            }
-
           }
 
         }
@@ -618,11 +619,6 @@
 
           text-align: center;
           padding: 2px 5px;
-
-          &:last-child:after {
-            content: '';
-            padding-right: 20px;
-          }
 
           &.group {
             background: #f5f5f5;
