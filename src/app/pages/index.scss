@@ -773,10 +773,17 @@
       }
 
       .caption {
+
         padding: 15px;
         font-size: .9em;
         line-height: 140%;
         color: #444;
+
+        a {
+          font-weight: 700;
+          //font-family: 'Roboto Slab', serif;
+        }
+
       }
 
       .foot {
@@ -795,12 +802,22 @@
         .teams {
 
           display: flex;
+          align-items: center;
+          justify-content: space-between;
 
           img {
             width: 20px;
             max-height: 20px;
-            margin-right: 10px;
             filter: grayscale(100%);
+            opacity: .4;
+          }
+
+          span {
+            display: inline-block;
+            margin: 0 2px;
+            font-size: .7em;
+            color: #aaa;
+            font-weight: 300;
           }
 
           &.away {
