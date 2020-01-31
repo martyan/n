@@ -7,6 +7,8 @@ export const getPlayersFromTeams = (teams) => {
     }, [])
 }
 
+export const getPlayersMedia = (player, media) => media.filter(m => m.description.indexOf(player.lastName) > -1)
+
 export const getDateWZero = (d) => (d < 10 ? '0' : '') + d
 
 export const getDateText = (d) => {

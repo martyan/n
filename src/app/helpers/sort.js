@@ -10,8 +10,11 @@ export const sortTeamsByName = (teams) => {
 
 export const sortPlayersByTOI = (roster) => {
     return roster.sort((a, b) => {
+        if(!a.person.hasOwnProperty('stats') || !b.person.hasOwnProperty('stats')) return 0
+
         const statsA = getStats('statsSingleSeason', a.person.stats)
         const statsB = getStats('statsSingleSeason', b.person.stats)
+
         if(!statsA) return 1
         if(!statsB) return -1
 
@@ -29,6 +32,8 @@ export const sortPlayersByTOI = (roster) => {
 
 export const sortPlayersByPoints = (roster) => {
     return roster.sort((a, b) => {
+        if(!a.person.hasOwnProperty('stats') || !b.person.hasOwnProperty('stats')) return 0
+
         const statsA = getStats('statsSingleSeason', a.person.stats)
         const statsB = getStats('statsSingleSeason', b.person.stats)
 

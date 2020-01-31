@@ -569,8 +569,8 @@
 
       .wrapper {
         width: 100%;
-        padding: 0 15px;
-        overflow: auto;
+        padding: 0 15px 1px;
+        overflow-x: auto;
       }
 
       table {

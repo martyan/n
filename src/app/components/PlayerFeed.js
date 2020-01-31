@@ -10,7 +10,7 @@ import { Router } from '../../functions/routes'
 import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
 
-const PlayerFeed = ({ player, playerId }) => {
+const PlayerFeed = ({ player, playerId, teams }) => {
 
     const [ feed, setFeed ] = useState([])
     const [ activeMedia, setActiveMedia ] = useState(null)
@@ -118,6 +118,7 @@ const PlayerFeed = ({ player, playerId }) => {
                     <GameFeed
                         game={game}
                         player={player}
+                        teams={teams}
                         activeMedia={activeMedia}
                         setActiveMedia={setActiveMedia}
                     />

@@ -18,7 +18,7 @@ const SearchResults = ({ searchStr, allPlayers, teams }) => {
     const playerSearchCondition = (player) => {
         const name = player.person.fullName.toLowerCase()
         const position = player.position.abbreviation.toLowerCase()
-        const nationality = player.person.nationality.toLowerCase()
+        const nationality = player.person.hasOwnProperty('nationality') ? player.person.nationality.toLowerCase() : ''
         const isShort = searchStr.length <= 2
         const is3Long = searchStr.length === 3
         const isNumber = !isNaN(parseInt(searchStr))

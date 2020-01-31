@@ -1,4 +1,5 @@
 import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
+import { getPlayersFromTeams } from '../../helpers/data'
 
 export const initialState = {
     searchStr: 'cze',
@@ -31,12 +32,8 @@ const reducer = (state = initialState, action) => {
             return {...state, teamStats: action.payload.stats}
 
         case 'GET_TEAMS_SUCCESS':
-            const allPlayers = sortPlayersByPoints(action.payload.teams.reduce((acc, currVal) => {
-                const roster = currVal.roster.roster.map(roster => ({...roster, teamId: currVal.id}))
-                return [...acc, ...roster]
-            }, []))
-
-            return {...state, teams: sortTeamsByName(action.payload.teams), allPlayers}
+            const allPlayers = getPlayersFromTeams(action.payload.teams)
+            return {...state, teams: sortTeamsByName(action.payload.teams), allPlayers: sortPlayersByPoints(allPlayers)}
 
         default:
             return state

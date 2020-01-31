@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-
 import Post from './Post'
+import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 
-const GameFeed = ({ game, player, activeMedia, setActiveMedia }) => {
+const GameFeed = ({ game, player, teams, activeMedia, setActiveMedia }) => {
 
     const [ feed, setFeed ] = useState(null)
 
@@ -17,16 +17,19 @@ const GameFeed = ({ game, player, activeMedia, setActiveMedia }) => {
 
     if(!feed) return null
 
-    const media = feed.highlights.scoreboard.items
-    const applicableMedia = media.filter(m => m.description.indexOf(player.lastName) > -1)
+    const media = getPlayersMedia(player, feed.highlights.scoreboard.items)
+
+    const applicableTeams = teams.filter(team => team.id === game.team.id || team.id === game.opponent.id)
+    const applicablePlayers = getPlayersFromTeams(applicableTeams)
 
     return (
         <div className="game-feed">
-            {applicableMedia.map(media => (
+            {media.map(media => (
                 <Post
                     key={media.id}
                     game={game}
                     media={media}
+                    players={applicablePlayers}
                     activeMedia={activeMedia}
                     setActiveMedia={setActiveMedia}
                 />

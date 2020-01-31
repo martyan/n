@@ -7,21 +7,30 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer } from '../lib/app/actions'
+import { getPlayer, getTeams } from '../lib/app/actions'
 import './index.scss'
 
-const PlayerPage = ({ playerId, getPlayer, player }) => {
+const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams }) => {
+
+    useEffect(() => {
+        if(teams.length === 0) getTeams().catch(console.error)
+
+        // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
+        //     .then(response => setFeed(response.data.stats[0].splits))
+        //     .catch(console.error)
+    }, [])
 
     useEffect(() => {
         if(!player || player.id !== playerId) {
-            getPlayer(playerId)
-                .catch(console.error)
+            getPlayer(playerId).catch(console.error)
 
             // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
             //     .then(response => setFeed(response.data.stats[0].splits))
             //     .catch(console.error)
         }
-    }, [])
+    }, [playerId])
+
+
 
     return (
         <PageWrapper>
@@ -33,7 +42,11 @@ const PlayerPage = ({ playerId, getPlayer, player }) => {
 
             <div className="nhl">
 
-                <PlayerFeed playerId={playerId} player={player} />
+                <PlayerFeed
+                    playerId={playerId}
+                    player={player}
+                    teams={teams}
+                />
 
             </div>
         </PageWrapper>
@@ -49,16 +62,19 @@ PlayerPage.getInitialProps = async ({ store, query }) => {
 }
 
 PlayerPage.propTypes = {
+    teams: PropTypes.arrayOf(PropTypes.object).isRequired,
     player: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
-    player: state.app.player
+    player: state.app.player,
+    teams: state.app.teams
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        getPlayer
+        getPlayer,
+        getTeams
     }, dispatch)
 )
 

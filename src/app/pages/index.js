@@ -17,8 +17,10 @@ const NHLgram = ({ searchStr, setSearchStr, teams, getTeams, allPlayers }) => {
 
     const [ debouncedSearchStr ] = useDebounce(searchStr, 250);
 
+    const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
+
     useEffect(() => {
-        if(!teams.length) getTeams().catch(console.error)
+        if(!teamsLoaded) getTeams(true).catch(console.error)
     }, [])
 
     const search = debouncedSearchStr.trim().toLowerCase()
