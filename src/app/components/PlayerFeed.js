@@ -9,10 +9,12 @@ import { Router } from '../../functions/routes'
 // import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
+import LoadMore from './LoadMore'
 
 const PlayerFeed = ({ player, playerId, teams }) => {
 
     const [ feed, setFeed ] = useState([])
+    const [ loadedIndex, setLoadedIndex ] = useState(5)
     const [ activeMedia, setActiveMedia ] = useState(null)
 
     useEffect(() => {
@@ -20,6 +22,13 @@ const PlayerFeed = ({ player, playerId, teams }) => {
             .then(response => setFeed(response.data.stats[0].splits))
             .catch(console.error)
     }, [])
+
+    const noMore = loadedIndex === feed.length
+    const increaseLoadedIndex = () => {
+        const increaseAmount = 5
+        if(loadedIndex + increaseAmount <= feed.length) setLoadedIndex(loadedIndex + increaseAmount)
+        else setLoadedIndex(feed.length)
+    }
 
     const notLoaded = !player || String(player.id) !== String(playerId)
 
@@ -113,7 +122,7 @@ const PlayerFeed = ({ player, playerId, teams }) => {
                 </>
             )}
 
-            {feed.map(game => (
+            {feed.slice(0, loadedIndex).map(game => (
                 <div key={game.date} className="game">
                     <GameFeed
                         game={game}
@@ -124,6 +133,8 @@ const PlayerFeed = ({ player, playerId, teams }) => {
                     />
                 </div>
             ))}
+
+            <LoadMore loadMore={increaseLoadedIndex} noMore={noMore} />
         </div>
     )
 

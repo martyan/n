@@ -392,6 +392,14 @@
 
   .player-feed {
 
+    .load-more {
+      text-align: center;
+      padding: 30px 15px 45px;
+      text-transform: uppercase;
+      color: #aaa;
+      font-size: .85em;
+    }
+
     .cover {
 
       position: relative;
@@ -556,12 +564,24 @@
       position: relative;
       margin-bottom: 40px;
 
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 15px;
+        height: 100%;
+        background: linear-gradient(to left, rgba(white, 0), rgba(white, 1));
+        pointer-events: none;
+        z-index: 9;
+      }
+
       &:after {
         content: '';
         position: absolute;
         top: 0;
         right: 0;
-        width: 30px;
+        width: 25px;
         height: 100%;
         background: linear-gradient(to right, rgba(white, 0), rgba(white, 1));
         pointer-events: none;
