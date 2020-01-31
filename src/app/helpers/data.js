@@ -18,7 +18,10 @@ export const getDateText = (d) => {
 
     if(diff === 0) return 'Today'
     if(diff === 1) return 'Yesterday'
-    if(diff > 2 && diff < 7) return 'This week'
-    if(now.get('year') > d.get('year')) return d.format('DD MMM YYYY')
-    return d.format('DD MMM')
+    if(moment(d).isSame(today, 'week')) return `on ${d.format('dddd')}`
+    else {
+        if(diff < 4) return `${diff} days ago`
+        if(now.get('year') > d.get('year')) return d.format('DD MMM YYYY')
+        return d.format('DD MMM')
+    }
 }
