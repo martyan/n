@@ -14,7 +14,7 @@ import LoadMore from './LoadMore'
 const PlayerFeed = ({ player, playerId, teams }) => {
 
     const [ feed, setFeed ] = useState([])
-    const [ loadedIndex, setLoadedIndex ] = useState(5)
+    const [ loadedIndex, setLoadedIndex ] = useState(10)
     const [ activeMedia, setActiveMedia ] = useState(null)
 
     useEffect(() => {
@@ -119,22 +119,22 @@ const PlayerFeed = ({ player, playerId, teams }) => {
                             )
                         })}
                     </div>*/}
+
+                    {feed.slice(0, loadedIndex).map(game => (
+                        <div key={game.date} className="game">
+                            <GameFeed
+                                game={game}
+                                player={player}
+                                teams={teams}
+                                activeMedia={activeMedia}
+                                setActiveMedia={setActiveMedia}
+                            />
+                        </div>
+                    ))}
+
+                    {!noMore && <LoadMore loadMore={increaseLoadedIndex} />}
                 </>
             )}
-
-            {feed.slice(0, loadedIndex).map(game => (
-                <div key={game.date} className="game">
-                    <GameFeed
-                        game={game}
-                        player={player}
-                        teams={teams}
-                        activeMedia={activeMedia}
-                        setActiveMedia={setActiveMedia}
-                    />
-                </div>
-            ))}
-
-            <LoadMore loadMore={increaseLoadedIndex} noMore={noMore} />
         </div>
     )
 

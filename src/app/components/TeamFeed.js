@@ -10,12 +10,12 @@ export const getStats = (type, stats) => {
 const TeamFeed = ({ team, teamStats, teamSchedule }) => {
 
     const getNextGame = () => {
-        const game = [...teamSchedule].reverse().find(game => game.date > moment().format('YYYY-MM-DD'))
+        const game = [...teamSchedule].find(game => game.date >= moment.utc().format('YYYY-MM-DD'))
         return game ? game.games[0] : null
     }
 
     const getLastGame = () => {
-        const game = [...teamSchedule].reverse().find(game => game.date < moment().format('YYYY-MM-DD'))
+        const game = [...teamSchedule].reverse().find(game => game.date < moment.utc().format('YYYY-MM-DD'))
         return game ? game.games[0] : null
     }
 

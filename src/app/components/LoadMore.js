@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useInView } from 'react-intersection-observer'
 
-const LoadMore = ({ loadMore, noMore }) => {
+const LoadMore = ({ loadMore }) => {
 
     const [ ref, inView, entry ] = useInView({
         threshold: 1,
@@ -9,7 +9,7 @@ const LoadMore = ({ loadMore, noMore }) => {
     })
 
     useEffect(() => {
-        if(inView && !noMore) loadMore()
+        if(inView) loadMore()
     }, [inView])
 
     return (
@@ -18,7 +18,7 @@ const LoadMore = ({ loadMore, noMore }) => {
             ref={ref}
             className="load-more"
         >
-            {!noMore ? 'load more' : 'no more'}
+            load more
         </div>
     )
 

@@ -7,6 +7,8 @@ export const getPlayersFromTeams = (teams) => {
     }, [])
 }
 
+export const isGoalie = (player) => player.primaryPosition.code === 'G'
+
 export const getPlayersMedia = (player, media) => media.filter(m => m.description.indexOf(player.lastName) > -1)
 
 export const getDateWZero = (d) => (d < 10 ? '0' : '') + d
@@ -21,7 +23,7 @@ export const getDateText = (d) => {
     if(moment(d).isSame(today, 'week')) return `on ${d.format('dddd')}`
     else {
         if(diff < 4) return `${diff} days ago`
-        if(now.get('year') > d.get('year')) return d.format('DD MMM YYYY')
-        return d.format('DD MMM')
+        if(now.get('year') > d.get('year')) return d.format('D MMM YYYY')
+        return d.format('D MMM')
     }
 }

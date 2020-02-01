@@ -4,6 +4,8 @@ import { getStats } from './TeamFeed'
 const Stats = ({ player }) => {
     const seasonStats = getStats('statsSingleSeason', player.stats)
 
+    if(!seasonStats) return null
+
     switch(player.primaryPosition.type) {
         case 'Forward':
         case 'Defenseman':
