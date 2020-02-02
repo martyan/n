@@ -1,6 +1,5 @@
 import React from 'react'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import { useState } from 'react'
 import GameFeed from './GameFeed'
 import { Parallax, Background } from 'react-parallax'
 import { arrow } from './icons'
@@ -11,23 +10,16 @@ import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
 
-const PlayerFeed = ({ player, playerId, teams }) => {
+const PlayerFeed = ({ player, playerId, teams, playerSchedule }) => {
 
-    const [ feed, setFeed ] = useState([])
     const [ loadedIndex, setLoadedIndex ] = useState(10)
     const [ activeMedia, setActiveMedia ] = useState(null)
 
-    useEffect(() => {
-        axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
-            .then(response => setFeed(response.data.stats[0].splits))
-            .catch(console.error)
-    }, [])
-
-    const noMore = loadedIndex === feed.length
+    const noMore = loadedIndex === playerSchedule.length
     const increaseLoadedIndex = () => {
         const increaseAmount = 5
-        if(loadedIndex + increaseAmount <= feed.length) setLoadedIndex(loadedIndex + increaseAmount)
-        else setLoadedIndex(feed.length)
+        if(loadedIndex + increaseAmount <= playerSchedule.length) setLoadedIndex(loadedIndex + increaseAmount)
+        else setLoadedIndex(playerSchedule.length)
     }
 
     const notLoaded = !player || String(player.id) !== String(playerId)
@@ -120,7 +112,7 @@ const PlayerFeed = ({ player, playerId, teams }) => {
                         })}
                     </div>*/}
 
-                    {feed.slice(0, loadedIndex).map(game => (
+                    {playerSchedule.slice(0, loadedIndex).map(game => (
                         <div key={game.date} className="game">
                             <GameFeed
                                 game={game}

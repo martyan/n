@@ -7,32 +7,37 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer, getTeams, setPlayerSkeletonVisible } from '../lib/app/actions'
+import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible } from '../lib/app/actions'
 import './index.scss'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 
-const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams, playerSkeletonVisible, setPlayerSkeletonVisible }) => {
+const PlayerPage = ({
+    playerId,
+    player,
+    teams,
+    getPlayer,
+    getTeams,
+    getPlayerSchedule,
+    playerSchedule,
+    playerSkeletonVisible,
+    setPlayerSkeletonVisible
+}) => {
 
     useEffect(() => {
-        if(teams.length === 0) getTeams().catch(console.error)
+        getPlayerSchedule(playerId)
+            .catch(console.error)
 
-        // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
-        //     .then(response => setFeed(response.data.stats[0].splits))
-        //     .catch(console.error)
+        if(teams.length === 0) {
+            getTeams()
+                .catch(console.error)
+        }
     }, [])
 
     useEffect(() => {
         if(!player || player.id !== playerId) {
             getPlayer(playerId)
-                .then(() => {
-                    // setTimeout(() => setPlayerSkeletonVisible(false), 2000)
-                    setPlayerSkeletonVisible(false)
-                })
+                .then(() => setPlayerSkeletonVisible(false))
                 .catch(console.error)
-
-            // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
-            //     .then(response => setFeed(response.data.stats[0].splits))
-            //     .catch(console.error)
         }
     }, [playerId])
 
@@ -52,6 +57,7 @@ const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams, playerSkelet
                     playerId={playerId}
                     player={player}
                     teams={teams}
+                    playerSchedule={playerSchedule}
                 />
 
             </div>
@@ -68,20 +74,20 @@ PlayerPage.getInitialProps = async ({ store, query }) => {
 }
 
 PlayerPage.propTypes = {
-    teams: PropTypes.arrayOf(PropTypes.object).isRequired,
-    player: PropTypes.object
 }
 
 const mapStateToProps = (state) => ({
     player: state.app.player,
     teams: state.app.teams,
-    playerSkeletonVisible: state.app.playerSkeletonVisible
+    playerSkeletonVisible: state.app.playerSkeletonVisible,
+    playerSchedule: state.app.playerSchedule
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getPlayer,
         getTeams,
+        getPlayerSchedule,
         setPlayerSkeletonVisible
     }, dispatch)
 )

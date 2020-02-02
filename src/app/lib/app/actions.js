@@ -3,6 +3,8 @@ import moment from 'moment'
 
 const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
 
+const thisSeason = `${moment().subtract(1, 'year').get('year')}${moment().get('year')}`
+
 export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr })
 
 export const setTeam = (team) => ({ type: 'SET_TEAM', team })
@@ -13,6 +15,14 @@ export const getPlayer = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER',
         endpoint: `${NHL_API}/people/${playerId}?expand=person.stats&stats=statsSingleSeason,regularSeasonStatRankings&expand=stats.team`,
+        method: 'GET'
+    }
+})
+
+export const getPlayerSchedule = (playerId) => ({
+    [CALL_API]: {
+        type: 'GET_PLAYER_SCHEDULE',
+        endpoint: `${NHL_API}/people/${playerId}/stats?stats=gameLog&season=${thisSeason}`,
         method: 'GET'
     }
 })
@@ -36,7 +46,7 @@ export const getTeam = (teamId) => ({
 export const getTeamSchedule = (teamId) => ({
     [CALL_API]: {
         type: 'GET_TEAM_SCHEDULE',
-        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${moment().subtract(1, 'year').get('year')}${moment().get('year')}`, //&startDate=${moment().subtract(7, 'days').format('YYYY-MM-DD')}&endDate=${moment().add(1, 'month').format('YYYY-MM-DD')}`,
+        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${thisSeason}`, //&startDate=${moment().subtract(7, 'days').format('YYYY-MM-DD')}&endDate=${moment().add(1, 'month').format('YYYY-MM-DD')}`,
         method: 'GET'
     }
 })

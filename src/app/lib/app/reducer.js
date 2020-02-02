@@ -6,10 +6,11 @@ export const initialState = {
     teams: [],
     allPlayers: [],
     player: null,
+    playerSchedule: [],
+    playerSkeletonVisible: false,
     team: null,
     teamSchedule: [],
-    teamStats: [],
-    playerSkeletonVisible: false
+    teamStats: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -38,6 +39,9 @@ const reducer = (state = initialState, action) => {
 
         case 'SET_PLAYER_SKELETON_VISIBLE':
             return {...state, playerSkeletonVisible: action.playerSkeletonVisible}
+
+        case 'GET_PLAYER_SCHEDULE_SUCCESS':
+            return {...state, playerSchedule: action.payload.stats[0].splits}
 
         default:
             return state
