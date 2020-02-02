@@ -7,10 +7,11 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer, getTeams } from '../lib/app/actions'
+import { getPlayer, getTeams, setPlayerSkeletonVisible } from '../lib/app/actions'
 import './index.scss'
+import PlayerSkeleton from '../components/PlayerSkeleton'
 
-const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams }) => {
+const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams, playerSkeletonVisible, setPlayerSkeletonVisible }) => {
 
     useEffect(() => {
         if(teams.length === 0) getTeams().catch(console.error)
@@ -22,15 +23,18 @@ const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams }) => {
 
     useEffect(() => {
         if(!player || player.id !== playerId) {
-            getPlayer(playerId).catch(console.error)
+            getPlayer(playerId)
+                .then(() => {
+                    // setTimeout(() => setPlayerSkeletonVisible(false), 2000)
+                    setPlayerSkeletonVisible(false)
+                })
+                .catch(console.error)
 
             // axios.get(`https://statsapi.web.nhl.com/api/v1/people/${playerId}/stats?stats=gameLog&season=20192020`)
             //     .then(response => setFeed(response.data.stats[0].splits))
             //     .catch(console.error)
         }
     }, [playerId])
-
-
 
     return (
         <PageWrapper>
@@ -41,6 +45,8 @@ const PlayerPage = ({ playerId, player, teams, getPlayer, getTeams }) => {
             </Head>
 
             <div className="nhl">
+
+                <PlayerSkeleton playerSkeletonVisible={!player || playerSkeletonVisible} />
 
                 <PlayerFeed
                     playerId={playerId}
@@ -68,13 +74,15 @@ PlayerPage.propTypes = {
 
 const mapStateToProps = (state) => ({
     player: state.app.player,
-    teams: state.app.teams
+    teams: state.app.teams,
+    playerSkeletonVisible: state.app.playerSkeletonVisible
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getPlayer,
-        getTeams
+        getTeams,
+        setPlayerSkeletonVisible
     }, dispatch)
 )
 

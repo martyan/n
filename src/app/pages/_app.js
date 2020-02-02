@@ -4,6 +4,7 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import Router from 'next/dist/client/router'
 import withRedux from 'next-redux-wrapper'
+import { setPlayerSkeletonVisible } from '../lib/app/actions'
 import createStore from '../lib/store'
 
 let resizeTimeout = null
@@ -21,6 +22,10 @@ class MyApp extends App {
     componentDidMount() {
         calculateVH()
         window.addEventListener('resize', calculateVH)
+
+        Router.events.on('routeChangeStart', (route) => {
+            if(route.indexOf('/player/') > -1) this.props.store.dispatch(setPlayerSkeletonVisible(true))
+        })
 
         Router.events.on('routeChangeComplete', () => {
             //scroll to top on page change

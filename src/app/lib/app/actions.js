@@ -7,6 +7,8 @@ export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr 
 
 export const setTeam = (team) => ({ type: 'SET_TEAM', team })
 
+export const setPlayerSkeletonVisible = (playerSkeletonVisible) => ({ type: 'SET_PLAYER_SKELETON_VISIBLE', playerSkeletonVisible })
+
 export const getPlayer = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER',
