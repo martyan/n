@@ -19,6 +19,14 @@ export const getPlayer = (playerId) => ({
     }
 })
 
+export const getGameContent = (gameId) => ({
+    [CALL_API]: {
+        type: 'GET_GAME_CONTENT',
+        endpoint: `${NHL_API}/game/${gameId}/content`,
+        method: 'GET'
+    }
+})
+
 export const getPlayerSchedule = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER_SCHEDULE',

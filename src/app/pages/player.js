@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible } from '../lib/app/actions'
+import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGameContent, setGameContent } from '../lib/app/actions'
 import './index.scss'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 
@@ -20,7 +20,10 @@ const PlayerPage = ({
     getPlayerSchedule,
     playerSchedule,
     playerSkeletonVisible,
-    setPlayerSkeletonVisible
+    setPlayerSkeletonVisible,
+    gameContent,
+    getGameContent,
+    setGameContent
 }) => {
 
     useEffect(() => {
@@ -58,6 +61,9 @@ const PlayerPage = ({
                     player={player}
                     teams={teams}
                     playerSchedule={playerSchedule}
+                    gameContent={gameContent}
+                    getGameContent={getGameContent}
+                    setGameContent={setGameContent}
                 />
 
             </div>
@@ -80,7 +86,8 @@ const mapStateToProps = (state) => ({
     player: state.app.player,
     teams: state.app.teams,
     playerSkeletonVisible: state.app.playerSkeletonVisible,
-    playerSchedule: state.app.playerSchedule
+    playerSchedule: state.app.playerSchedule,
+    gameContent: state.app.gameContent
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -88,7 +95,9 @@ const mapDispatchToProps = (dispatch) => (
         getPlayer,
         getTeams,
         getPlayerSchedule,
-        setPlayerSkeletonVisible
+        setPlayerSkeletonVisible,
+        getGameContent,
+        setGameContent
     }, dispatch)
 )
 

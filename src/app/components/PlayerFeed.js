@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import GameFeed from './GameFeed'
 import { Parallax, Background } from 'react-parallax'
@@ -9,19 +9,41 @@ import { Router } from '../../functions/routes'
 import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
+import { getPlayersMedia } from '../helpers/data'
 
-const PlayerFeed = ({ player, playerId, teams, playerSchedule }) => {
+const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getGameContent }) => {
 
-    const [ loadedIndex, setLoadedIndex ] = useState(10)
+    const [ loadedIndex, setLoadedIndex ] = useState(0)
     const [ activeMedia, setActiveMedia ] = useState(null)
 
-    const noMore = loadedIndex === playerSchedule.length
-    const increaseLoadedIndex = () => {
-        const increaseAmount = 5
-        if(loadedIndex + increaseAmount <= playerSchedule.length) setLoadedIndex(loadedIndex + increaseAmount)
-        else setLoadedIndex(playerSchedule.length)
+    const increaseAmount = 5
+    const loadMore = () => {
+        const nextIndex = (loadedIndex + increaseAmount <= playerSchedule.length) ? loadedIndex + increaseAmount : playerSchedule.length
+
+        playerSchedule.slice(loadedIndex, nextIndex).map(game => getGameContent(game.game.gamePk))
+        setLoadedIndex(nextIndex)
     }
 
+    useEffect(() => {
+        if(playerSchedule.length > 0) loadMore()
+    }, [playerSchedule])
+
+    useEffect(() => {
+        if(gameContent.length === loadedIndex) {
+            //load more content if no relevant is loaded
+            const media = gameContent.map(content => getPlayersMedia(player, content.highlights.scoreboard.items))
+            const applicableMedia = media.filter(media => media.length > 0)
+
+            if(applicableMedia.length === 0) loadMore()
+        }
+    }, [gameContent])
+
+    const getGameIdFromLink = (link) => {
+        const [ string, gameId ] = /\/(\d+)\//g.exec(link)
+        return gameId
+    }
+
+    const noMore = loadedIndex === playerSchedule.length
     const notLoaded = !player || String(player.id) !== String(playerId)
 
     // const isGoalie = player.primaryPosition.code === 'G'
@@ -116,6 +138,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule }) => {
                         <div key={game.date} className="game">
                             <GameFeed
                                 game={game}
+                                gameContent={gameContent.find(content => getGameIdFromLink(content.link) === String(game.game.gamePk))}
                                 player={player}
                                 teams={teams}
                                 activeMedia={activeMedia}
@@ -124,7 +147,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule }) => {
                         </div>
                     ))}
 
-                    {!noMore && <LoadMore loadMore={increaseLoadedIndex} />}
+                    {!noMore && <LoadMore loadMore={loadMore} />}
                 </>
             )}
         </div>
