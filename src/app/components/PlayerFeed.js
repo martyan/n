@@ -18,6 +18,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getG
 
     const increaseAmount = 5
     const loadMore = () => {
+        console.log('load more')
         const nextIndex = (loadedIndex + increaseAmount <= playerSchedule.length) ? loadedIndex + increaseAmount : playerSchedule.length
 
         playerSchedule.slice(loadedIndex, nextIndex).map(game => getGameContent(game.game.gamePk))
@@ -25,11 +26,16 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getG
     }
 
     useEffect(() => {
+        setLoadedIndex(0)
+        setActiveMedia(0)
+    }, [playerId])
+
+    useEffect(() => {
         if(playerSchedule.length > 0) loadMore()
     }, [playerSchedule])
 
     useEffect(() => {
-        if(gameContent.length === loadedIndex) {
+        if(playerSchedule.length > 0 && gameContent.length === loadedIndex) {
             //load more content if no relevant is loaded
             const media = gameContent.map(content => getPlayersMedia(player, content.highlights.scoreboard.items))
             const applicableMedia = media.filter(media => media.length > 0)

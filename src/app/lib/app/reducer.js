@@ -41,6 +41,9 @@ const reducer = (state = initialState, action) => {
         case 'SET_PLAYER_SKELETON_VISIBLE':
             return {...state, playerSkeletonVisible: action.playerSkeletonVisible}
 
+        case 'GET_PLAYER_SCHEDULE_REQUEST':
+            return {...state, playerSchedule: [], gameContent: []}
+
         case 'GET_PLAYER_SCHEDULE_SUCCESS':
             return {...state, playerSchedule: action.payload.stats[0].splits}
 
