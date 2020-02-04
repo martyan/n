@@ -4,7 +4,7 @@ import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 
 const GameFeed = ({ game, gameContent, player, teams, activeMedia, setActiveMedia }) => {
 
-    if(!game || !gameContent) return null
+    if(!game || !gameContent || !player) return null
 
     const media = getPlayersMedia(player, gameContent.highlights.scoreboard.items)
 

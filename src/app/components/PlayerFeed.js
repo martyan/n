@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import GameFeed from './GameFeed'
 import { Parallax, Background } from 'react-parallax'
@@ -13,6 +13,7 @@ import { getPlayersMedia } from '../helpers/data'
 
 const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getGameContent }) => {
 
+    const scheduleRef = useRef([])
     const [ loadedIndex, setLoadedIndex ] = useState(0)
     const [ activeMedia, setActiveMedia ] = useState(null)
 
@@ -25,22 +26,28 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getG
         setLoadedIndex(nextIndex)
     }
 
-    useEffect(() => {
-        setLoadedIndex(0)
-        setActiveMedia(0)
-    }, [playerId])
+    const loadMoreIfNoContent = () => {
+        //load more content if no relevant is loaded
+        const media = gameContent.map(content => getPlayersMedia(player, content.highlights.scoreboard.items))
+        const applicableMedia = media.filter(media => media.length > 0)
+
+        if(applicableMedia.length === 0) loadMore()
+    }
 
     useEffect(() => {
-        if(playerSchedule.length > 0) loadMore()
-    }, [playerSchedule])
+        if(player && scheduleRef.current !== playerSchedule && playerSchedule.length > 0) {
+            setLoadedIndex(0)
+            setActiveMedia(0)
+
+            loadMore()
+
+            scheduleRef.current = playerSchedule
+        }
+    }, [player, playerSchedule])
 
     useEffect(() => {
-        if(playerSchedule.length > 0 && gameContent.length === loadedIndex) {
-            //load more content if no relevant is loaded
-            const media = gameContent.map(content => getPlayersMedia(player, content.highlights.scoreboard.items))
-            const applicableMedia = media.filter(media => media.length > 0)
-
-            if(applicableMedia.length === 0) loadMore()
+        if(gameContent.length > 0 && gameContent.length === loadedIndex) {
+            loadMoreIfNoContent()
         }
     }, [gameContent])
 

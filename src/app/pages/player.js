@@ -26,9 +26,6 @@ const PlayerPage = ({
 }) => {
 
     useEffect(() => {
-        getPlayerSchedule(playerId)
-            .catch(console.error)
-
         if(teams.length === 0) {
             getTeams()
                 .catch(console.error)
@@ -36,8 +33,12 @@ const PlayerPage = ({
     }, [])
 
     useEffect(() => {
-        if(!player || player.id !== playerId) {
-            getPlayer(playerId)
+        if(!player || playerId !== player.id) {
+            Promise
+                .all([
+                    getPlayer(playerId),
+                    getPlayerSchedule(playerId)
+                ])
                 .then(() => setPlayerSkeletonVisible(false))
                 .catch(console.error)
         }

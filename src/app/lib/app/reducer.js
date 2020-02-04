@@ -22,6 +22,9 @@ const reducer = (state = initialState, action) => {
         case 'SET_TEAM':
             return {...state, team: action.team}
 
+        case 'GET_PLAYER_REQUEST':
+            return {...state, player: null}
+
         case 'GET_PLAYER_SUCCESS':
             return {...state, player: action.payload.people[0]}
 
