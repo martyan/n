@@ -20,6 +20,15 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     if(!thumb) return null
 
     return (
+        <img
+            src={thumb.src}
+            // alt=""
+            className={activeMedia === media.id ? 'hidden' : ''}
+            onClick={() => setActiveMedia(media.id)}
+        />
+    )
+
+    return (
         <LazyLoadImage
             // alt={image.alt}
             width={'100vw'}
