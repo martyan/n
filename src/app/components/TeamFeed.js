@@ -7,25 +7,25 @@ export const getStats = (type, stats) => {
     return (selected && selected.splits[0]) ? selected.splits[0].stat : null
 }
 
+export const getNextGame = (teamSchedule) => {
+    const game = [...teamSchedule].find(game => game.date >= moment.utc().format('YYYY-MM-DD'))
+    return game ? game.games[0] : null
+}
+
+export const getLastGame = (teamSchedule) => {
+    const game = [...teamSchedule].reverse().find(game => game.date < moment.utc().format('YYYY-MM-DD'))
+    return game ? game.games[0] : null
+}
+
 const TeamFeed = ({ team, teamStats, teamSchedule }) => {
-
-    const getNextGame = () => {
-        const game = [...teamSchedule].find(game => game.date >= moment.utc().format('YYYY-MM-DD'))
-        return game ? game.games[0] : null
-    }
-
-    const getLastGame = () => {
-        const game = [...teamSchedule].reverse().find(game => game.date < moment.utc().format('YYYY-MM-DD'))
-        return game ? game.games[0] : null
-    }
 
     const seasonStats = getStats('statsSingleSeason', teamStats)
     const rankingStats = getStats('regularSeasonStatRankings', teamStats)
 
     console.log(team)
 
-    const lastGame = getLastGame()
-    const nextGame = getNextGame()
+    const lastGame = getLastGame(teamSchedule)
+    const nextGame = getNextGame(teamSchedule)
 
     if(!team || !teamStats.length) return null
 
