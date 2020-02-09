@@ -7,9 +7,10 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGameContent } from '../lib/app/actions'
-import './index.scss'
+import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGameContent, getTeamSchedule } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
+import moment from 'moment'
+import './index.scss'
 
 const PlayerPage = ({
     playerId,
@@ -18,7 +19,9 @@ const PlayerPage = ({
     getPlayer,
     getTeams,
     getPlayerSchedule,
+    getTeamSchedule,
     playerSchedule,
+    teamSchedule,
     playerSkeletonVisible,
     setPlayerSkeletonVisible,
     gameContent,
@@ -39,8 +42,10 @@ const PlayerPage = ({
                     getPlayer(playerId),
                     getPlayerSchedule(playerId)
                 ])
-                .then(() => setPlayerSkeletonVisible(false))
-                .catch(console.error)
+                .then((player) => {
+                    setPlayerSkeletonVisible(false)
+                    getTeamSchedule(player[0].people[0].currentTeam.id)
+                }).catch(console.error)
         }
     }, [playerId])
 
@@ -61,6 +66,7 @@ const PlayerPage = ({
                     player={player}
                     teams={teams}
                     playerSchedule={playerSchedule}
+                    teamSchedule={teamSchedule.filter(schedule => schedule.games[0].status.abstractGameState === 'Final' && schedule.date <= moment.utc().format('YYYY-MM-DD')).reverse()}
                     gameContent={gameContent}
                     getGameContent={getGameContent}
                 />
@@ -86,7 +92,8 @@ const mapStateToProps = (state) => ({
     teams: state.app.teams,
     playerSkeletonVisible: state.app.playerSkeletonVisible,
     playerSchedule: state.app.playerSchedule,
-    gameContent: state.app.gameContent
+    gameContent: state.app.gameContent,
+    teamSchedule: state.app.teamSchedule
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -95,7 +102,8 @@ const mapDispatchToProps = (dispatch) => (
         getTeams,
         getPlayerSchedule,
         setPlayerSkeletonVisible,
-        getGameContent
+        getGameContent,
+        getTeamSchedule
     }, dispatch)
 )
 

@@ -10,8 +10,9 @@ import PlayerStats from './PlayerStats'
 import { goToPlayerTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
 import { getPlayersMedia } from '../helpers/data'
+import Schedule from './Schedule'
 
-const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getGameContent }) => {
+const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gameContent, getGameContent }) => {
 
     const scheduleRef = useRef([])
     const [ loadedIndex, setLoadedIndex ] = useState(0)
@@ -146,6 +147,12 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, gameContent, getG
                             )
                         })}
                     </div>*/}
+
+                    <Schedule
+                        schedule={teamSchedule}
+                        playerSchedule={playerSchedule}
+                        teams={teams}
+                    />
 
                     {playerSchedule.slice(0, loadedIndex).map(game => (
                         <div key={game.date} className="game">

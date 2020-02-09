@@ -51,7 +51,7 @@ const Post = ({ game, media, players, activeMedia, setActiveMedia }) => {
     const gameDate = moment.utc(game.date)
 
     useEffect(() => {
-        if(inView) setActiveMedia(media.id)
+        // if(inView) setActiveMedia(media.id)
     }, [inView])
 
     let desc = media.description
@@ -90,7 +90,7 @@ const Post = ({ game, media, players, activeMedia, setActiveMedia }) => {
                     <span></span>
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />
                 </div>
-                <div>G{game.stat.goals} A{game.stat.assists}</div>
+                {/*<div>G{game.stat.goals} A{game.stat.assists}</div>*/}
                 <div className="date">{getDateText(gameDate)}</div>
             </div>
 
