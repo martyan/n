@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Post from './Post'
 import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 
-const GameFeed = ({ game, gameContent, player, teams, activeMedia, setActiveMedia }) => {
+const Game = ({ game, gameContent, player, teams, activeMedia, setActiveMedia }) => {
 
     if(!game || !gameContent || !player) return null
 
@@ -28,4 +28,4 @@ const GameFeed = ({ game, gameContent, player, teams, activeMedia, setActiveMedi
 
 }
 
-export default GameFeed
+export default Game
