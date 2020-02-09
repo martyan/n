@@ -34,20 +34,22 @@ const SearchResults = ({ searchStr, allPlayers, teams }) => {
 
     return (
         <>
-            {teamSearchResults.map(team => (
-                <div key={team.id} className="team" onClick={() => goToPlayerTeamFeed(team.id)}>
-                    <div className="avatar">
-                        <img className="photo" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${team.id}-dark.svg`} />
-                    </div>
-                    <div className="info">
-                        <div className="top">
-                            <span className="name">{team.name}</span>
-                            {/*<span className="number">#{player.jerseyNumber}</span>*/}
+            <ul>
+                {teamSearchResults.map(team => (
+                    <div key={team.id} className="team" onClick={() => goToPlayerTeamFeed(team.id)}>
+                        <div className="avatar">
+                            <img className="photo" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${team.id}-dark.svg`} />
                         </div>
-                        <div className="conference">{team.conference.name}/{team.division.name}</div>
+                        <div className="info">
+                            <div className="top">
+                                <span className="name">{team.name}</span>
+                                {/*<span className="number">#{player.jerseyNumber}</span>*/}
+                            </div>
+                            <div className="conference">{team.conference.name}/{team.division.name}</div>
+                        </div>
                     </div>
-                </div>
-            ))}
+                ))}
+            </ul>
 
             <ul>
                 {playerSearchResults.map(player => <Player key={player.person.id} player={player} onClick={goToPlayerFeed} />)}

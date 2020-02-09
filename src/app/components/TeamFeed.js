@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import Roster from './Roster'
+import Schedule from './Schedule'
 
 export const getStats = (type, stats) => {
     const selected = stats.find(stat => stat.type.displayName === type)
@@ -17,7 +18,7 @@ export const getLastGame = (teamSchedule) => {
     return game ? game.games[0] : null
 }
 
-const TeamFeed = ({ team, teamStats, teamSchedule }) => {
+const TeamFeed = ({ team, teams, teamStats, teamSchedule }) => {
 
     const seasonStats = getStats('statsSingleSeason', teamStats)
     const rankingStats = getStats('regularSeasonStatRankings', teamStats)
@@ -42,28 +43,7 @@ const TeamFeed = ({ team, teamStats, teamSchedule }) => {
                 </div>
             </div>
 
-            {(lastGame && nextGame) && (
-                <div className="schedule">
-                    <div className="game last">
-                        <div className="teams">
-                            <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${lastGame.teams.home.team.id}-dark.svg`} />
-                            <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${lastGame.teams.away.team.id}-dark.svg`} />
-                        </div>
-                        <div className="score">
-                            {lastGame.teams.home.score}:{lastGame.teams.away.score}
-                        </div>
-                    </div>
-                    <div className="game next">
-                        <div className="teams">
-                            <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${nextGame.teams.home.team.id}-dark.svg`} />
-                            <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${nextGame.teams.away.team.id}-dark.svg`} />
-                        </div>
-                        <div className="date">
-                            {moment(nextGame.gameDate).format('MMM DD')}
-                        </div>
-                    </div>
-                </div>
-            )}
+            <Schedule schedule={teamSchedule} teams={teams} />
 
             {seasonStats && (
                 <Roster

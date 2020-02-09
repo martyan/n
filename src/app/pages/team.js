@@ -7,16 +7,27 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import TeamFeed from '../components/TeamFeed'
-import { getTeam, setTeam, getTeamStats, getTeamSchedule } from '../lib/app/actions'
+import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams } from '../lib/app/actions'
+import { getPlayedGames } from '../helpers/data'
 import './index.scss'
 
-const TeamPage = ({ teamId, team, setTeam, teamStats, teamSchedule, getTeam, getTeamStats, getTeamSchedule }) => {
+const TeamPage = ({ teamId, team, teams, setTeam, teamStats, teamSchedule, getTeam, getTeams, getTeamStats, getTeamSchedule }) => {
 
     useEffect(() => {
+        if(teams.length === 0) {
+            getTeams()
+                .catch(console.error)
+        }
+
         if(!team) {
-            getTeam(teamId).catch(console.error)
-            getTeamStats(teamId).catch(console.error)
-            getTeamSchedule(teamId).catch(console.error)
+            getTeam(teamId)
+                .catch(console.error)
+
+            getTeamStats(teamId)
+                .catch(console.error)
+
+            getTeamSchedule(teamId)
+                .catch(console.error)
         }
 
         return () => {
@@ -40,8 +51,9 @@ const TeamPage = ({ teamId, team, setTeam, teamStats, teamSchedule, getTeam, get
 
                 <TeamFeed
                     team={team}
+                    teams={teams}
                     teamStats={teamStats}
-                    teamSchedule={teamSchedule}
+                    teamSchedule={getPlayedGames(teamSchedule)}
                 />
 
             </div>
@@ -71,6 +83,7 @@ const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         setTeam,
         getTeam,
+        getTeams,
         getTeamStats,
         getTeamSchedule
     }, dispatch)

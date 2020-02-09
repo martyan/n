@@ -1,0 +1,117 @@
+.schedule {
+
+  position: relative;
+  margin-bottom: 30px;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 15px;
+    height: 100%;
+    background: linear-gradient(to left, rgba(white, 0), rgba(white, 1));
+    pointer-events: none;
+    z-index: 9;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 25px;
+    height: 100%;
+    background: linear-gradient(to right, rgba(white, 0), rgba(white, 1));
+    pointer-events: none;
+  }
+
+  .wrapper {
+
+    display: flex;
+    width: 100%;
+    overflow-x: auto;
+    padding: 10px 15px 0;
+
+    &:after {
+      content: '';
+      flex: 1 0 15px;
+    }
+
+  }
+
+  .date {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: calc(100% - 2px);
+    font-size: .68em;
+    color: #bbb;
+    text-align: center;
+  }
+
+  .game {
+
+    position: relative;
+    flex: 1 0 100px;
+    padding: 3px 8px 3px 5px;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 5px;
+      bottom: 5px;
+      width: 1px;
+      background: #eee;
+      transition: .1s ease;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    .team {
+
+      display: flex;
+      align-items: center;
+      padding: 0 3px;
+
+      .logo {
+
+        flex: 0 0 21px;
+        display: flex;
+        align-items: center;
+        height: 21px;
+        margin-right: 7px;
+
+        img {
+          max-height: 16px;
+          max-width: 16px;
+        }
+
+      }
+
+      .abbrev {
+        flex: 1 0 30px;
+        font-weight: 600;
+        font-size: .72em;
+        color: #444;
+        margin-right: 7px;
+      }
+
+      .score {
+        flex: 1;
+        font-weight: 600;
+        font-size: .8em;
+        font-family: 'Roboto Slab', serif;
+        color: #444;
+        text-align: right;
+      }
+
+    }
+
+  }
+
+}

@@ -11,6 +11,7 @@ import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGa
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import moment from 'moment'
 import './index.scss'
+import { getPlayedGames } from '../helpers/data'
 
 const PlayerPage = ({
     playerId,
@@ -66,7 +67,7 @@ const PlayerPage = ({
                     player={player}
                     teams={teams}
                     playerSchedule={playerSchedule}
-                    teamSchedule={teamSchedule.filter(schedule => schedule.games[0].status.abstractGameState === 'Final' && schedule.date <= moment.utc().format('YYYY-MM-DD')).reverse()}
+                    teamSchedule={getPlayedGames(teamSchedule)}
                     gameContent={gameContent}
                     getGameContent={getGameContent}
                 />
