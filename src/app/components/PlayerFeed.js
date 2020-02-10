@@ -2,8 +2,6 @@ import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
 import Game from './Game'
 import { Parallax, Background } from 'react-parallax'
-import { arrow } from './icons'
-import { Router } from '../../functions/routes'
 // import { getStats } from './TeamFeed'
 // import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
@@ -11,6 +9,7 @@ import { goToTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
 import { getGameIdFromLink, getPlayersMedia } from '../helpers/data'
 import Schedule from './Schedule'
+import BackBtn from './BackBtn'
 
 const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gameContent, getGameContent }) => {
 
@@ -111,9 +110,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gam
                             <img src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`} />
                         </div>
 
-                        <button className="arrow" onClick={() => Router.pushRoute('/')}>
-                            {arrow}
-                        </button>
+                        <BackBtn />
                     </div>
 
 
