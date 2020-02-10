@@ -11,6 +11,36 @@
     margin: 0;
   }
 
+  .back-btn {
+
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 0;
+    margin: 0;
+    border: 0;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(white, .95);
+    z-index: 99;
+
+    svg {
+
+      width: 65%;
+      height: 65%;
+
+      path {
+        fill: #000;
+      }
+
+    }
+
+  }
+
   .search {
 
     position: relative;
@@ -437,7 +467,7 @@
 
       display: flex;
       align-items: center;
-      padding: 8px 15px;
+      padding: 12px 0 8px;
 
       .colon {
         font-family: 'Roboto Slab', serif;
@@ -458,8 +488,8 @@
           flex-direction: row-reverse;
 
           .logo {
-            left: auto;
-            right: 0;
+            right: auto;
+            left: 0;
           }
 
           .name {
@@ -470,14 +500,18 @@
 
         .logo {
 
+          display: flex;
+          align-items: center;
           position: absolute;
-          left: 0;
-          width: 32px;
+          bottom: 100%;
+          bottom: -36px;
+          right: 0;
+          width: 36px;
           z-index: -1;
 
           img {
-            max-width: 32px;
-            max-height: 32px;
+            max-width: 36px;
+            max-height: 36px;
           }
 
         }
@@ -485,12 +519,12 @@
         .name {
 
           flex: 1;
-          padding: 5px;
+          padding: 5px 10px;
           text-align: right;
           font-size: .9em;
           font-weight: 700;
           text-transform: uppercase;
-          line-height: 95%;
+          line-height: 90%;
 
           .first {
             font-size: .7em;
@@ -527,35 +561,6 @@
 
       position: relative;
       margin-bottom: 15px;
-
-      button.arrow {
-
-        position: absolute;
-        top: 15px;
-        left: 15px;
-        padding: 0;
-        margin: 0;
-        border: 0;
-        width: 30px;
-        height: 30px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        background: rgba(white, .95);
-
-        svg {
-
-          width: 65%;
-          height: 65%;
-
-          path {
-            fill: #000;
-          }
-
-        }
-
-      }
 
       .rookie {
         position: absolute;

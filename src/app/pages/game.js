@@ -10,6 +10,9 @@ import { getGameContent, getGame } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import './index.scss'
 import { getGameIdFromLink } from '../helpers/data'
+import { Router } from '../../functions/routes'
+import { arrow } from '../components/icons'
+import BackBtn from '../components/BackBtn'
 
 const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
 
@@ -57,27 +60,29 @@ const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
 
                 <div className="game-feed">
 
+                    <BackBtn />
+
                     <div className="caption">
                         <div className="team">
                             <div className="logo">
-                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.home.team.id}-dark.svg`} />
+                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
                             </div>
                             <div className="name">
-                                <div className="first">{getFirstLine(getWords(game.home))}</div>
-                                <div className="second">{getSecondLine(getWords(game.home))}</div>
+                                <div className="first">{getFirstLine(getWords(game.teams.home))}</div>
+                                <div className="second">{getSecondLine(getWords(game.teams.home))}</div>
                             </div>
-                            <div className="score">{game.home.teamStats.teamSkaterStats.goals}</div>
+                            <div className="score">{game.teams.home.goals}</div>
                         </div>
                         <div className="colon">:</div>
                         <div className="team away">
                             <div className="logo">
-                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.away.team.id}-dark.svg`} />
+                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.away.team.id}-dark.svg`} />
                             </div>
                             <div className="name">
-                                <div className="first">{getFirstLine(getWords(game.away))}</div>
-                                <div className="second">{getSecondLine(getWords(game.away))}</div>
+                                <div className="first">{getFirstLine(getWords(game.teams.away))}</div>
+                                <div className="second">{getSecondLine(getWords(game.teams.away))}</div>
                             </div>
-                            <div className="score">{game.away.teamStats.teamSkaterStats.goals}</div>
+                            <div className="score">{game.teams.away.goals}</div>
                         </div>
                     </div>
 

@@ -55,7 +55,7 @@ const reducer = (state = initialState, action) => {
             return {...state, game: null}
 
         case 'GET_GAME_SUCCESS':
-            return {...state, game: action.payload.teams}
+            return {...state, game: action.payload}
 
         case 'GET_GAME_CONTENT_SUCCESS':
             return {...state, gameContent: [...state.gameContent, action.payload]}

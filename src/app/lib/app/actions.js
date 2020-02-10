@@ -22,7 +22,7 @@ export const getPlayer = (playerId) => ({
 export const getGame = (gameId) => ({
     [CALL_API]: {
         type: 'GET_GAME',
-        endpoint: `${NHL_API}/game/${gameId}/boxscore`,
+        endpoint: `${NHL_API}/game/${gameId}/linescore`,
         method: 'GET'
     }
 })
