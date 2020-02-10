@@ -1,6 +1,6 @@
 import React from 'react'
 import { Player } from './Roster'
-import { goToPlayerFeed, goToPlayerTeamFeed } from '../helpers/navigation'
+import { goToPlayerFeed, goToTeamFeed } from '../helpers/navigation'
 
 const SearchResults = ({ searchStr, allPlayers, teams }) => {
 
@@ -36,7 +36,7 @@ const SearchResults = ({ searchStr, allPlayers, teams }) => {
         <>
             <ul>
                 {teamSearchResults.map(team => (
-                    <div key={team.id} className="team" onClick={() => goToPlayerTeamFeed(team.id)}>
+                    <div key={team.id} className="team" onClick={() => goToTeamFeed(team.id)}>
                         <div className="avatar">
                             <img className="photo" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${team.id}-dark.svg`} />
                         </div>

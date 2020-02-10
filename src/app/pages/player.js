@@ -9,7 +9,6 @@ import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
 import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGameContent, getTeamSchedule } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
-import moment from 'moment'
 import './index.scss'
 import { getPlayedGames } from '../helpers/data'
 

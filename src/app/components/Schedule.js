@@ -1,6 +1,7 @@
 import React from 'react'
 import moment from 'moment'
 import './Schedule.scss'
+import { goToGameFeed } from '../helpers/navigation'
 
 const Schedule = ({ schedule, playerSchedule, teams }) => {
 
@@ -19,7 +20,7 @@ const Schedule = ({ schedule, playerSchedule, teams }) => {
         <div className="schedule">
             <div className="wrapper">
                 {schedule.map(game => (
-                    <div key={game.date} className="game">
+                    <div key={game.date} className="game" onClick={() => goToGameFeed(game.games[0].gamePk)}>
                         <div className="date">{moment.utc(game.date).format(isSameYear(game.date) ? 'MMM D' : 'MMM D, YYYY')}</div>
                         <div className="team">
                             <div className="logo">

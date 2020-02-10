@@ -1,15 +1,15 @@
 import React, { useEffect, useRef } from 'react'
 import { useState } from 'react'
-import GameFeed from './GameFeed'
+import Game from './Game'
 import { Parallax, Background } from 'react-parallax'
 import { arrow } from './icons'
 import { Router } from '../../functions/routes'
 // import { getStats } from './TeamFeed'
 // import { getRankText, getStatName } from '../helpers/stats'
 import PlayerStats from './PlayerStats'
-import { goToPlayerTeamFeed } from '../helpers/navigation'
+import { goToTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
-import { getPlayersMedia } from '../helpers/data'
+import { getGameIdFromLink, getPlayersMedia } from '../helpers/data'
 import Schedule from './Schedule'
 
 const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gameContent, getGameContent }) => {
@@ -51,11 +51,6 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gam
             loadMoreIfNoContent()
         }
     }, [gameContent])
-
-    const getGameIdFromLink = (link) => {
-        const [ string, gameId ] = /\/(\d+)\//g.exec(link)
-        return gameId
-    }
 
     const noMore = loadedIndex === playerSchedule.length
     const notLoaded = !player || String(player.id) !== String(playerId)
@@ -108,7 +103,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gam
                             )}
                         </div>
 
-                        <div className="team-logo" onClick={() => goToPlayerTeamFeed(player.currentTeam.id)}>
+                        <div className="team-logo" onClick={() => goToTeamFeed(player.currentTeam.id)}>
                             <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
                         </div>
 
@@ -156,7 +151,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gam
 
                     {playerSchedule.slice(0, loadedIndex).map(game => (
                         <div key={game.date} className="game">
-                            <GameFeed
+                            <Game
                                 game={game}
                                 gameContent={gameContent.find(content => getGameIdFromLink(content.link) === String(game.game.gamePk))}
                                 player={player}

@@ -12,7 +12,7 @@ const Game = ({ game, gameContent, player, teams, activeMedia, setActiveMedia })
     const applicablePlayers = getPlayersFromTeams(applicableTeams)
 
     return (
-        <div className="game-feed">
+        <div className="game">
             {media.map(media => (
                 <Post
                     key={media.id}

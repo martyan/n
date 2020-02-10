@@ -32,3 +32,8 @@ export const getPlayedGames = (teamSchedule) => {
     const today = moment.utc()
     return teamSchedule.filter(schedule => schedule.games[0].status.abstractGameState === 'Final' && schedule.date <= today.format('YYYY-MM-DD')).reverse()
 }
+
+export const getGameIdFromLink = (link) => {
+    const [ string, gameId ] = /\/(\d+)\//g.exec(link)
+    return gameId
+}

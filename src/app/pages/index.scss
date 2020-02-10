@@ -431,7 +431,85 @@
   }
 
 
+  .game-feed {
 
+    .caption {
+
+      display: flex;
+      align-items: center;
+      padding: 8px 15px;
+
+      .colon {
+        font-family: 'Roboto Slab', serif;
+        font-size: 1.1em;
+        font-weight: 600;
+        padding: 0 3px;
+      }
+
+      .team {
+
+        flex: 1;
+        display: flex;
+        align-items: center;
+        position: relative;
+
+        &.away {
+
+          flex-direction: row-reverse;
+
+          .logo {
+            left: auto;
+            right: 0;
+          }
+
+          .name {
+            text-align: left;
+          }
+
+        }
+
+        .logo {
+
+          position: absolute;
+          left: 0;
+          width: 32px;
+          z-index: -1;
+
+          img {
+            max-width: 32px;
+            max-height: 32px;
+          }
+
+        }
+
+        .name {
+
+          flex: 1;
+          padding: 5px;
+          text-align: right;
+          font-size: .9em;
+          font-weight: 700;
+          text-transform: uppercase;
+          line-height: 95%;
+
+          .first {
+            font-size: .7em;
+          }
+
+        }
+
+        .score {
+          font-family: 'Roboto Slab', serif;
+          font-size: 1.3em;
+          font-weight: 600;
+          padding: 0 5px;
+        }
+
+      }
+
+    }
+
+  }
 
   .player-feed {
 
@@ -774,121 +852,117 @@
 
   }
 
-  .game-feed {
+  .post {
 
-    .post {
+    margin-bottom: 30px;
 
-      margin-bottom: 30px;
+    .media {
 
-      .media {
+      position: relative;
+      width: 100vw;
+      height: calc((100vw * 9) / 16);
 
-        position: relative;
+      .play {
+
+        position: absolute;
+        right: 15px;
+        top: 15px;
+        z-index: 99;
+        opacity: .5;
+        color: white;
+        text-shadow: 0 0 3px rgba(black, .5);
+
+        &.is-playing {
+          animation: fadeInOut 2s infinite;
+        }
+
+        @keyframes fadeInOut {
+
+          0% { opacity: .5; }
+          50% { opacity: 1; }
+          100% { opacity: .5; }
+
+        }
+
+      }
+
+      iframe {
+        display: block;
         width: 100vw;
-        height: calc((100vw * 9) / 16);
+        height: 100%;
+      }
 
-        .play {
+      img {
 
-          position: absolute;
-          right: 15px;
-          top: 15px;
-          z-index: 99;
-          opacity: .5;
-          color: white;
-          text-shadow: 0 0 3px rgba(black, .5);
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: .25s ease;
+        opacity: 1;
 
-          &.is-playing {
-            animation: fadeInOut 2s infinite;
-          }
-
-          @keyframes fadeInOut {
-
-            0% { opacity: .5; }
-            50% { opacity: 1; }
-            100% { opacity: .5; }
-
-          }
-
-        }
-
-        iframe {
-          display: block;
-          width: 100vw;
-          height: 100%;
-        }
-
-        img {
-
-          position: absolute;
-          left: 0;
-          top: 0;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-          transition: .25s ease;
-          opacity: 1;
-
-          &.hidden {
-            transition-delay: 1.25s;
-            pointer-events: none;
-            opacity: 0;
-          }
-
+        &.hidden {
+          transition-delay: 1.25s;
+          pointer-events: none;
+          opacity: 0;
         }
 
       }
 
-      .caption {
+    }
 
-        padding: 15px;
-        font-size: .9em;
-        line-height: 140%;
-        color: #444;
+    .caption {
 
-        a {
-          font-weight: 700;
-          //font-family: 'Roboto Slab', serif;
-        }
+      padding: 15px;
+      font-size: .9em;
+      line-height: 140%;
+      color: #444;
 
+      a {
+        font-weight: 700;
+        //font-family: 'Roboto Slab', serif;
       }
 
-      .foot {
+    }
+
+    .foot {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 15px;
+
+      .date {
+        font-size: .8em;
+        color: #999;
+        font-weight: 300;
+      }
+
+      .teams {
 
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        padding: 0 15px;
+        justify-content: space-between;
 
-        .date {
-          font-size: .8em;
-          color: #999;
+        img {
+          width: 20px;
+          max-height: 20px;
+          filter: grayscale(100%);
+          opacity: .4;
+        }
+
+        span {
+          display: inline-block;
+          margin: 0 2px;
+          font-size: .7em;
+          color: #aaa;
           font-weight: 300;
         }
 
-        .teams {
-
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-
-          img {
-            width: 20px;
-            max-height: 20px;
-            filter: grayscale(100%);
-            opacity: .4;
-          }
-
-          span {
-            display: inline-block;
-            margin: 0 2px;
-            font-size: .7em;
-            color: #aaa;
-            font-weight: 300;
-          }
-
-          &.away {
-            flex-direction: row-reverse;
-          }
-
+        &.away {
+          flex-direction: row-reverse;
         }
 
       }

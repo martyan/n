@@ -11,7 +11,8 @@ export const initialState = {
     team: null,
     teamSchedule: [],
     teamStats: [],
-    gameContent: []
+    gameContent: [],
+    game: null
 }
 
 const reducer = (state = initialState, action) => {
@@ -49,6 +50,12 @@ const reducer = (state = initialState, action) => {
 
         case 'GET_PLAYER_SCHEDULE_SUCCESS':
             return {...state, playerSchedule: action.payload.stats[0].splits}
+
+        case 'GET_GAME_REQUEST':
+            return {...state, game: null}
+
+        case 'GET_GAME_SUCCESS':
+            return {...state, game: action.payload.teams}
 
         case 'GET_GAME_CONTENT_SUCCESS':
             return {...state, gameContent: [...state.gameContent, action.payload]}
