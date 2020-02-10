@@ -5,6 +5,8 @@ const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
 
 const thisSeason = `${moment().subtract(1, 'year').get('year')}${moment().get('year')}`
 
+export const setActiveMedia = (activeMedia) => ({ type: 'SET_ACTIVE_MEDIA', activeMedia })
+
 export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr })
 
 export const setTeam = (team) => ({ type: 'SET_TEAM', team })

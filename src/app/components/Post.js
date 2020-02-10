@@ -40,7 +40,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     )
 }
 
-const Post = ({ game, media, players, activeMedia, setActiveMedia }) => {
+const Post = ({ playerOnly, game, media, players, activeMedia, setActiveMedia }) => {
 
     const [ debouncedActiveMedia ] = useDebounce(activeMedia, 1000)
     const [ ref, inView, entry ] = useInView({
@@ -85,10 +85,10 @@ const Post = ({ game, media, players, activeMedia, setActiveMedia }) => {
             </div>
             <div className="foot">
                 <div className={game.isHome ? 'teams' : 'teams away'}>
-                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />
+                    {playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />}
                     {/*<span>vs</span>*/}
                     <span></span>
-                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />
+                    {playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />}
                 </div>
                 {/*<div>G{game.stat.goals} A{game.stat.assists}</div>*/}
                 <div className="date">{getDateText(gameDate)}</div>

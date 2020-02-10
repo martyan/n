@@ -3,6 +3,7 @@ import { getPlayersFromTeams } from '../../helpers/data'
 
 export const initialState = {
     searchStr: 'cze',
+    activeMedia: null,
     teams: [],
     allPlayers: [],
     player: null,
@@ -17,6 +18,9 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_ACTIVE_MEDIA':
+            return {...state, activeMedia: action.activeMedia }
+
         case 'SET_SEARCH_STR':
             return {...state, searchStr: action.searchStr }
 

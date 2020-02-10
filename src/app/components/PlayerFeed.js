@@ -11,11 +11,20 @@ import { getGameIdFromLink, getPlayersMedia } from '../helpers/data'
 import Schedule from './Schedule'
 import BackBtn from './BackBtn'
 
-const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gameContent, getGameContent }) => {
+const PlayerFeed = ({
+    player,
+    playerId,
+    teams,
+    playerSchedule,
+    teamSchedule,
+    gameContent,
+    getGameContent,
+    activeMedia,
+    setActiveMedia
+}) => {
 
     const scheduleRef = useRef([])
     const [ loadedIndex, setLoadedIndex ] = useState(0)
-    const [ activeMedia, setActiveMedia ] = useState(null)
 
     const increaseAmount = 5
     const loadMore = () => {
@@ -155,6 +164,7 @@ const PlayerFeed = ({ player, playerId, teams, playerSchedule, teamSchedule, gam
                                 teams={teams}
                                 activeMedia={activeMedia}
                                 setActiveMedia={setActiveMedia}
+                                playerOnly
                             />
                         </div>
                     ))}

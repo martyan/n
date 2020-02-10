@@ -6,15 +6,14 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 // import PlayerFeed from '../components/PlayerFeed'
-import { getGameContent, getGame } from '../lib/app/actions'
+import { getGameContent, getGame, getTeams, setActiveMedia } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
-import './index.scss'
 import { getGameIdFromLink } from '../helpers/data'
-import { Router } from '../../functions/routes'
-import { arrow } from '../components/icons'
 import BackBtn from '../components/BackBtn'
+import Game from '../components/Game'
+import './index.scss'
 
-const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
+const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
 
     // useEffect(() => {
     //     if(!player || playerId !== player.id) {
@@ -35,6 +34,11 @@ const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
     useEffect(() => {
         getGame(gameId)
             .catch(console.error)
+
+        if(teams.length === 0) {
+            getTeams()
+                .catch(console.error)
+        }
 
         if(!content) {
             getGameContent(gameId)
@@ -62,7 +66,7 @@ const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
 
                     <BackBtn />
 
-                    <div className="caption">
+                    <div className="match">
                         <div className="team">
                             <div className="logo">
                                 <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
@@ -86,6 +90,14 @@ const GamePage = ({ gameId, game, gameContent, getGame, getGameContent }) => {
                         </div>
                     </div>
 
+                    <Game
+                        game={game}
+                        gameContent={gameContent.find(content => getGameIdFromLink(content.link) === gameId)}
+                        teams={teams}
+                        activeMedia={activeMedia}
+                        setActiveMedia={setActiveMedia}
+                    />
+
                 </div>
 
             </div>
@@ -106,13 +118,17 @@ GamePage.propTypes = {
 
 const mapStateToProps = (state) => ({
     game: state.app.game,
-    gameContent: state.app.gameContent
+    gameContent: state.app.gameContent,
+    teams: state.app.teams,
+    activeMedia: state.app.activeMedia
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getGame,
-        getGameContent
+        getGameContent,
+        getTeams,
+        setActiveMedia
     }, dispatch)
 )
 
