@@ -467,14 +467,8 @@
 
       display: flex;
       align-items: center;
-      padding: 12px 0 50px;
-
-      .colon {
-        font-family: 'Roboto Slab', serif;
-        font-size: 1.1em;
-        font-weight: 600;
-        padding: 0 3px;
-      }
+      padding: 12px 0 46px 30px;
+      position: relative;
 
       .team {
 
@@ -490,6 +484,7 @@
           .logo {
             right: auto;
             left: 0;
+            margin: 0 0 0 3px;
           }
 
           .name {
@@ -500,18 +495,18 @@
 
         .logo {
 
+          flex: 0 0 26px;
           display: flex;
-          align-items: center;
-          position: absolute;
-          bottom: 100%;
-          bottom: -36px;
-          right: 0;
-          width: 36px;
-          z-index: -1;
+          margin: 0 3px 0 0;
+          //position: absolute;
+          //top: 100%;
+          //right: 0;
+          //width: 26px;
+          //z-index: -1;
 
           img {
-            max-width: 36px;
-            max-height: 36px;
+            max-width: 26px;
+            max-height: 26px;
           }
 
         }
@@ -519,7 +514,7 @@
         .name {
 
           flex: 1;
-          padding: 5px 10px;
+          padding: 5px;
           text-align: right;
           font-size: .9em;
           font-weight: 700;
@@ -532,11 +527,36 @@
 
         }
 
-        .score {
-          font-family: 'Roboto Slab', serif;
-          font-size: 1.3em;
-          font-weight: 600;
-          padding: 0 5px;
+      }
+
+      .score {
+
+        position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        bottom: 10px;
+        width: calc(100% - 25px);
+
+        .inner {
+
+          background: black;
+          padding: 4px 12px;
+          color: white;
+
+          span {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.3em;
+            font-weight: 600;
+          }
+
+          .colon {
+            font-family: 'Roboto Slab', serif;
+            font-size: 1.1em;
+            font-weight: 600;
+            padding: 0 5px;
+          }
+
         }
 
       }
