@@ -48,7 +48,7 @@ const Post = ({ playerOnly, game, media, players, activeMedia, setActiveMedia })
         rootMargin: '-25% 0% -25%',
     })
 
-    const gameDate = moment.utc(game.date)
+    const gameDate = moment.utc(playerOnly ? game.date : game.periods[0].startTime)
 
     useEffect(() => {
         // if(inView) setActiveMedia(media.id)

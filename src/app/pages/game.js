@@ -51,6 +51,7 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
     const getWords = (game) => game.team.name.split(' ')
     const getFirstLine = (words) => words.slice(0, words.length === 3 ? 2 : 1).join(' ')
     const getSecondLine = (words) => words.slice(words.length === 3 ? 2 : 1).join(' ')
+    const isOT = game.currentPeriodOrdinal === 'OT' || game.currentPeriodOrdinal === 'SO'
 
     return (
         <PageWrapper>
@@ -68,28 +69,27 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
 
                     <div className="match">
                         <div className="team">
+                            <div className="logo">
+                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
+                            </div>
                             <div className="name">
                                 <div className="first">{getFirstLine(getWords(game.teams.home))}</div>
                                 <div className="second">{getSecondLine(getWords(game.teams.home))}</div>
                             </div>
-                            <div className="logo">
-                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
-                            </div>
                         </div>
+                        <div className="score">
+                            <span>{game.teams.home.goals}</span>
+                            <span className="colon">:</span>
+                            <span>{game.teams.away.goals}</span>
+                        </div>
+                        {isOT && <div className="ot">{game.currentPeriodOrdinal}</div>}
                         <div className="team away">
-                            <div className="name">
-                                <div className="first">{getFirstLine(getWords(game.teams.away))}</div>
-                                <div className="second">{getSecondLine(getWords(game.teams.away))}</div>
-                            </div>
                             <div className="logo">
                                 <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.away.team.id}-dark.svg`} />
                             </div>
-                        </div>
-                        <div className="score">
-                            <div className="inner">
-                                <span>{game.teams.home.goals}</span>
-                                <span className="colon">:</span>
-                                <span>{game.teams.away.goals}</span>
+                            <div className="name">
+                                <div className="first">{getFirstLine(getWords(game.teams.away))}</div>
+                                <div className="second">{getSecondLine(getWords(game.teams.away))}</div>
                             </div>
                         </div>
                     </div>
