@@ -46,7 +46,7 @@
     right: 0;
     bottom: calc(100% - 2px);
     font-size: .68em;
-    color: #bbb;
+    color: #999;
     text-align: center;
   }
 
@@ -69,7 +69,13 @@
     }
 
     &:last-child {
+
       margin-right: 0;
+
+      &:after {
+        content: none;
+      }
+      
     }
 
     .team {

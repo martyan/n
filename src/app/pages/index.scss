@@ -14,8 +14,8 @@
   .back-btn {
 
     position: absolute;
-    top: 15px;
-    left: 15px;
+    top: 0;
+    left: 0;
     padding: 0;
     margin: 0;
     border: 0;
@@ -24,17 +24,16 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%;
-    background: rgba(white, .95);
+    background: rgba(black, .5);
     z-index: 99;
 
     svg {
 
-      width: 65%;
-      height: 65%;
+      width: 55%;
+      height: 55%;
 
       path {
-        fill: #000;
+        fill: white;
       }
 
     }
@@ -467,7 +466,7 @@
 
       display: flex;
       align-items: center;
-      padding: 50px 15px 20px;
+      padding: 35px 10px 10px;
       position: relative;
 
       .team {
