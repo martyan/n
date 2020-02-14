@@ -11,6 +11,16 @@
     margin: 0;
   }
 
+  .title {
+    margin: 0;
+    padding: 7px 5px;
+    font-size: 1.2em;
+    font-family: 'Roboto Slab', serif;
+    text-align: center;
+    background: black;
+    color: white;
+  }
+
   .nav-bar {
 
     display: flex;
@@ -20,6 +30,11 @@
     width: 100%;
     background: rgba(black, .9);
     z-index: 99;
+    transition: .5s ease;
+
+    &.hidden {
+      bottom: -40px;
+    }
 
     button {
 
@@ -27,13 +42,13 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      padding: 10px;
+      padding: 11px;
       background: transparent;
       border: none;
 
       svg {
 
-        height: 20px;
+        height: 19px;
 
         path {
           fill: white;
@@ -62,6 +77,11 @@
     justify-content: center;
     background: rgba(black, .9);
     z-index: 99;
+    transition: .5s ease;
+
+    &.hidden {
+      top: -40px;
+    }
 
     svg {
 
@@ -617,6 +637,18 @@
       position: relative;
       margin-bottom: 15px;
 
+      .photo {
+
+        height: 120px;
+        overflow: hidden;
+
+        img {
+          height: 100%;
+          object-fit: cover;
+        }
+
+      }
+
       .rookie {
         position: absolute;
         top: 0;
@@ -690,26 +722,6 @@
           letter-spacing: .5px;
           color: #000;
           background: rgba(white, .95);
-        }
-
-      }
-
-      .photo {
-
-        display: none;
-        position: absolute;
-        width: 64px;
-        height: 64px;
-        bottom: -20px;
-        left: 15px;
-        border-radius: 5px;
-        overflow: hidden;
-
-        img {
-          display: block;
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
         }
 
       }
@@ -1010,8 +1022,8 @@
         img {
           width: 20px;
           max-height: 20px;
-          filter: grayscale(100%);
-          opacity: .4;
+          //filter: grayscale(100%);
+          opacity: .7;
         }
 
         span {

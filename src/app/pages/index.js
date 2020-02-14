@@ -5,25 +5,39 @@ import compose from 'recompose/compose'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { Router } from '../../functions/routes'
-import { setSearchStr, getTeams } from '../lib/app/actions'
 import withAuthentication from '../lib/withAuthentication'
+import scrollDirObservable from 'scrolldir-observable'
 import PageWrapper from '../components/PageWrapper'
-import { useDebounce } from 'use-debounce'
-import SearchInput from '../components/SearchInput'
-import SearchResults from '../components/SearchResults'
+import moment from 'moment'
+import axios from 'axios'
+import NavBar from '../components/NavBar'
+import Game from '../components/Game'
+import { setActiveMedia, getTeams } from '../lib/app/actions'
 import './index.scss'
 
-const NHLgram = ({ searchStr, setSearchStr, teams, getTeams, allPlayers }) => {
+const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
 
-    const [ debouncedSearchStr ] = useDebounce(searchStr, 250);
+    const [ UIVisible, setUIVisible ] = useState(true)
+    const [ feed, setFeed ] = useState([])
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
     useEffect(() => {
-        if(!teamsLoaded) getTeams(true).catch(console.error)
+        const scrollDir = scrollDirObservable(window.document)
+        scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
+
+        if(!teamsLoaded) {
+            getTeams(true).catch(console.error)
+        }
+
+        const today = moment.utc().format('YYYY-MM-DD')
+        const yesterday = moment.utc().subtract(1, 'day').format('YYYY-MM-DD')
+
+        axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${yesterday}&endDate=${today}&hydrate=team(leaders(categories=[points,goals,assists],gameTypes=[R])),game(content(media(epg),highlights(scoreboard)),seriesSummary),decisions,scoringplays,seriesSummary(series)`)
+            .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
     }, [])
 
-    const search = debouncedSearchStr.trim().toLowerCase()
+    console.log(feed)
 
     return (
         <PageWrapper>
@@ -34,38 +48,48 @@ const NHLgram = ({ searchStr, setSearchStr, teams, getTeams, allPlayers }) => {
             </Head>
 
             <div className="nhl">
-                <SearchInput searchStr={searchStr} setSearchStr={setSearchStr} />
 
-                <SearchResults
-                    searchStr={search}
-                    teams={teams}
-                    allPlayers={allPlayers}
-                />
+                <h1 className="title">NHLgram</h1>
+
+                {feed.map(game => (
+                    <div key={game.gamePk} className="game">
+                        <Game
+                            game={game}
+                            gameContent={game.content}
+                            teams={teams}
+                            activeMedia={activeMedia}
+                            setActiveMedia={setActiveMedia}
+                            date={game.gameDate}
+                        />
+                    </div>
+                ))}
+
+                <NavBar visible={UIVisible} />
+
             </div>
         </PageWrapper>
     )
 
 }
 
-NHLgram.getInitialProps = async ({ store }) => {
+HomePage.getInitialProps = async ({ store }) => {
     // await store.dispatch(getPhotos())
     return {}
 }
 
-NHLgram.propTypes = {
+HomePage.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    searchStr: state.app.searchStr,
     teams: state.app.teams,
-    allPlayers: state.app.allPlayers
+    activeMedia: state.app.activeMedia
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
-        setSearchStr,
-        getTeams
+        getTeams,
+        setActiveMedia
     }, dispatch)
 )
 
-export default compose(withAuthentication(false), connect(mapStateToProps, mapDispatchToProps))(NHLgram)
+export default compose(withAuthentication(false), connect(mapStateToProps, mapDispatchToProps))(HomePage)

@@ -93,13 +93,16 @@ const PlayerFeed = ({
             {!notLoaded && (
                 <>
                     <div className="cover">
-                        <Parallax
+                        {/*<Parallax
                             bgImage={`https://nhl.bamcontent.com/images/actionshots/${playerId}.jpg`}
                             bgImageAlt={player.fullName}
                             strength={40}
                         >
                             <div style={{ height: '120px' }} />
-                        </Parallax>
+                        </Parallax>*/}
+                        <div className="photo">
+                            <img src={`https://nhl.bamcontent.com/images/actionshots/${playerId}.jpg`} />
+                        </div>
 
                         {player.rookie && <div className="rookie">Rookie</div>}
 
@@ -114,12 +117,6 @@ const PlayerFeed = ({
                         <div className="team-logo" onClick={() => goToTeamFeed(player.currentTeam.id)}>
                             <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
                         </div>
-
-                        <div className="photo">
-                            <img src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${playerId}.jpg`} />
-                        </div>
-
-                        <BackBtn />
                     </div>
 
 
@@ -164,6 +161,7 @@ const PlayerFeed = ({
                                 teams={teams}
                                 activeMedia={activeMedia}
                                 setActiveMedia={setActiveMedia}
+                                date={game.date}
                                 playerOnly
                             />
                         </div>

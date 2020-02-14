@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Post from './Post'
 import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 
-const Game = ({ playerOnly, game, gameContent, player, teams, activeMedia, setActiveMedia }) => {
+const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia, setActiveMedia }) => {
 
     if(!game || !gameContent || (playerOnly && !player) || teams.length === 0) return null
 
@@ -26,6 +26,7 @@ const Game = ({ playerOnly, game, gameContent, player, teams, activeMedia, setAc
                     activeMedia={activeMedia}
                     setActiveMedia={setActiveMedia}
                     playerOnly={playerOnly}
+                    date={date}
                 />
             ))}
         </div>

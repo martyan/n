@@ -11,3 +11,11 @@ export const goToTeamFeed = (teamId) => {
 export const goToGameFeed = (gameId) => {
     Router.pushRoute(`/game/${gameId}`)
 }
+
+export const goToSearch = () => {
+    Router.pushRoute(`/search`)
+}
+
+export const goToHome = () => {
+    Router.pushRoute(`/`)
+}

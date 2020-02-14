@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import Head from 'next/head'
 import compose from 'recompose/compose'
 import { connect } from 'react-redux'
@@ -13,8 +13,12 @@ import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
 import './index.scss'
 import { goToTeamFeed } from '../helpers/navigation'
+import scrollDirObservable from 'scrolldir-observable'
+import NavBar from '../components/NavBar'
 
 const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
+
+    const [ UIVisible, setUIVisible ] = useState(true)
 
     // useEffect(() => {
     //     if(!player || playerId !== player.id) {
@@ -33,6 +37,9 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
     const content = gameContent.find(game => getGameIdFromLink(game.link) === gameId)
 
     useEffect(() => {
+        const scrollDir = scrollDirObservable(window.document)
+        scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
+
         getGame(gameId)
             .catch(console.error)
 
@@ -66,7 +73,7 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
 
                 <div className="game-feed">
 
-                    <BackBtn />
+                    <BackBtn visible={UIVisible} />
 
                     <div className="match">
                         <div className="team" onClick={() => goToTeamFeed(game.teams.home.team.id)}>
@@ -101,7 +108,10 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
                         teams={teams}
                         activeMedia={activeMedia}
                         setActiveMedia={setActiveMedia}
+                        date={game.periods[0].startTime}
                     />
+
+                    <NavBar visible={UIVisible} />
 
                 </div>
 

@@ -5,6 +5,8 @@ import { goToPlayerFeed, goToTeamFeed } from '../helpers/navigation'
 const SearchResults = ({ searchStr, allPlayers, teams }) => {
 
     const teamSearchCondition = (team) => {
+        if(searchStr === '*') return false
+
         const abbrev = team.abbreviation.toLowerCase()
         const name = team.name.toLowerCase()
 
@@ -16,6 +18,8 @@ const SearchResults = ({ searchStr, allPlayers, teams }) => {
     const teamSearchResults = teams.filter(teamSearchCondition)
 
     const playerSearchCondition = (player) => {
+        if(searchStr === '*') return true
+
         const name = player.person.fullName.toLowerCase()
         const position = player.position.abbreviation.toLowerCase()
         const nationality = player.person.hasOwnProperty('nationality') ? player.person.nationality.toLowerCase() : ''

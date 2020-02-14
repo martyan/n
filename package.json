@@ -55,6 +55,7 @@
         "redux": "^4.0.1",
         "redux-devtools-extension": "^2.13.8",
         "redux-thunk": "^2.3.0",
+        "scrolldir-observable": "^1.0.0",
         "styled-components": "^4.3.2",
         "use-debounce": "^3.3.0"
     },

@@ -40,7 +40,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     )
 }
 
-const Post = ({ playerOnly, game, media, players, activeMedia, setActiveMedia }) => {
+const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMedia }) => {
 
     const [ debouncedActiveMedia ] = useDebounce(activeMedia, 1000)
     const [ ref, inView, entry ] = useInView({
@@ -48,7 +48,7 @@ const Post = ({ playerOnly, game, media, players, activeMedia, setActiveMedia })
         rootMargin: '-25% 0% -25%',
     })
 
-    const gameDate = moment.utc(playerOnly ? game.date : game.periods[0].startTime)
+    const gameDate = moment.utc(date.substring(0, 10))
 
     useEffect(() => {
         // if(inView) setActiveMedia(media.id)

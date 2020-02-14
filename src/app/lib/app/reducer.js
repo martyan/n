@@ -2,7 +2,7 @@ import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
 import { getPlayersFromTeams } from '../../helpers/data'
 
 export const initialState = {
-    searchStr: 'cze',
+    searchStr: '*',
     activeMedia: null,
     teams: [],
     allPlayers: [],

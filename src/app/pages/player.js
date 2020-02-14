@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import compose from 'recompose/compose'
@@ -12,6 +12,8 @@ import PlayerSkeleton from '../components/PlayerSkeleton'
 import './index.scss'
 import { getPlayedGames } from '../helpers/data'
 import NavBar from '../components/NavBar'
+import scrollDirObservable from 'scrolldir-observable'
+import BackBtn from '../components/BackBtn'
 
 const PlayerPage = ({
     playerId,
@@ -31,7 +33,12 @@ const PlayerPage = ({
     setActiveMedia
 }) => {
 
+    const [ UIVisible, setUIVisible ] = useState(true)
+
     useEffect(() => {
+        const scrollDir = scrollDirObservable(window.document)
+        scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
+
         if(teams.length === 0) {
             getTeams()
                 .catch(console.error)
@@ -64,6 +71,8 @@ const PlayerPage = ({
 
                 <PlayerSkeleton playerSkeletonVisible={!player || playerSkeletonVisible} />
 
+                <BackBtn visible={UIVisible} />
+
                 <PlayerFeed
                     playerId={playerId}
                     player={player}
@@ -76,7 +85,7 @@ const PlayerPage = ({
                     setActiveMedia={setActiveMedia}
                 />
 
-                <NavBar />
+                <NavBar visible={UIVisible} />
 
             </div>
         </PageWrapper>

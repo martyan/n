@@ -5,9 +5,6 @@ import { goToGameFeed } from '../helpers/navigation'
 
 const Schedule = ({ schedule, playerSchedule, teams }) => {
 
-    console.log(schedule)
-    console.log(playerSchedule)
-
     const getTeamAbbrev = (teamId) => {
         const team = teams.find(team => team.id === teamId)
         return team ? team.abbreviation : ''
