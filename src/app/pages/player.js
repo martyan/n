@@ -11,6 +11,7 @@ import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGa
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import './index.scss'
 import { getPlayedGames } from '../helpers/data'
+import NavBar from '../components/NavBar'
 
 const PlayerPage = ({
     playerId,
@@ -74,6 +75,8 @@ const PlayerPage = ({
                     activeMedia={activeMedia}
                     setActiveMedia={setActiveMedia}
                 />
+
+                <NavBar />
 
             </div>
         </PageWrapper>

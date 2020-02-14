@@ -12,6 +12,7 @@ import { getGameIdFromLink } from '../helpers/data'
 import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
 import './index.scss'
+import { goToTeamFeed } from '../helpers/navigation'
 
 const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
 
@@ -68,7 +69,7 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
                     <BackBtn />
 
                     <div className="match">
-                        <div className="team">
+                        <div className="team" onClick={() => goToTeamFeed(game.teams.home.team.id)}>
                             <div className="logo">
                                 <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
                             </div>
@@ -83,7 +84,7 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
                             <span>{game.teams.away.goals}</span>
                         </div>
                         {isOT && <div className="ot">{game.currentPeriodOrdinal}</div>}
-                        <div className="team away">
+                        <div className="team away" onClick={() => goToTeamFeed(game.teams.away.team.id)}>
                             <div className="logo">
                                 <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.away.team.id}-dark.svg`} />
                             </div>
