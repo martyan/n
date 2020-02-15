@@ -55,10 +55,10 @@ const PlayerFeed = ({
     }, [player, playerSchedule])
 
     useEffect(() => {
-        if(gameContent.length > 0 && gameContent.length === loadedIndex) {
+        if(player && gameContent.length > 0 && gameContent.length === loadedIndex) {
             loadMoreIfNoContent()
         }
-    }, [gameContent])
+    }, [player, gameContent])
 
     const noMore = loadedIndex === playerSchedule.length
     const notLoaded = !player || String(player.id) !== String(playerId)

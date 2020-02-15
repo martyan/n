@@ -31,7 +31,7 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
         }
 
         const today = moment.utc().format('YYYY-MM-DD')
-        const yesterday = moment.utc().subtract(1, 'day').format('YYYY-MM-DD')
+        const yesterday = moment.utc().subtract(1.5, 'day').format('YYYY-MM-DD')
 
         axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${yesterday}&endDate=${today}&hydrate=team(leaders(categories=[points,goals,assists],gameTypes=[R])),game(content(media(epg),highlights(scoreboard)),seriesSummary),decisions,scoringplays,seriesSummary(series)`)
             .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
