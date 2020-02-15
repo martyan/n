@@ -5,6 +5,10 @@
 
   min-height: 100vh;
 
+  &.padded {
+    padding-top: 40px;
+  }
+
   ul {
     list-style-type: none;
     padding: 0;
@@ -12,13 +16,28 @@
   }
 
   .title {
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     margin: 0;
-    padding: 7px 5px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     font-size: 1.2em;
     font-family: 'Roboto Slab', serif;
     text-align: center;
-    background: black;
+    background: rgba(black, .9);
     color: white;
+    z-index: 99;
+    transition: .5s ease;
+
+    &.hidden {
+      top: -40px;
+    }
+
   }
 
   .nav-bar {
@@ -515,108 +534,9 @@
 
   }
 
-
   .game-feed {
 
-    .match {
 
-      display: flex;
-      align-items: center;
-      padding: 38px 5px 7px;
-      position: relative;
-
-      .team {
-
-        flex: 1;
-        display: flex;
-        align-items: center;
-        position: relative;
-
-        &.away {
-
-          flex-direction: row-reverse;
-
-          .logo {
-            right: auto;
-            left: 0;
-            margin: 0 0 0 3px;
-            justify-content: flex-start;
-          }
-
-          .name {
-            text-align: right;
-          }
-
-        }
-
-        .logo {
-
-          flex: 0 0 26px;
-          display: flex;
-          justify-content: flex-end;
-          margin: 0 3px 0 0;
-
-          img {
-            max-width: 26px;
-            max-height: 26px;
-          }
-
-        }
-
-        .name {
-
-          flex: 1;
-          padding: 5px;
-          text-align: left;
-          font-size: .85em;
-          font-weight: 700;
-          text-transform: uppercase;
-          line-height: 90%;
-
-          .first {
-            font-size: .7em;
-          }
-
-        }
-
-      }
-
-      .score {
-
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: black;
-        padding: 4px 5px;
-        color: white;
-
-        span {
-          font-family: 'Roboto Slab', serif;
-          font-size: 1em;
-          font-weight: 600;
-        }
-
-        .colon {
-          font-family: 'Roboto Slab', serif;
-          font-size: .9em;
-          font-weight: 600;
-          padding: 0 5px;
-        }
-
-      }
-
-      .ot {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: black;
-        font-family: 'Muli', sans-serif;
-        margin-left: 1px;
-        padding: 4px;
-        color: white;
-      }
-
-    }
 
   }
 
@@ -940,7 +860,7 @@
         position: absolute;
         right: 15px;
         top: 15px;
-        z-index: 99;
+        z-index: 9;
         opacity: .5;
         color: white;
         text-shadow: 0 0 3px rgba(black, .5);

@@ -15,6 +15,7 @@ import './index.scss'
 import { goToTeamFeed } from '../helpers/navigation'
 import scrollDirObservable from 'scrolldir-observable'
 import NavBar from '../components/NavBar'
+import GameTitle from '../components/GameTitle'
 
 const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
 
@@ -56,11 +57,6 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
 
     if(!game) return null
 
-    const getWords = (game) => game.team.name.split(' ')
-    const getFirstLine = (words) => words.slice(0, words.length === 3 ? 2 : 1).join(' ')
-    const getSecondLine = (words) => words.slice(words.length === 3 ? 2 : 1).join(' ')
-    const isOT = game.currentPeriodOrdinal === 'OT' || game.currentPeriodOrdinal === 'SO'
-
     return (
         <PageWrapper>
             <Head>
@@ -69,38 +65,11 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
                 <title>Todo list | Nextbase</title>
             </Head>
 
-            <div className="nhl">
+            <div className="nhl padded">
 
                 <div className="game-feed">
 
                     <BackBtn visible={UIVisible} />
-
-                    <div className="match">
-                        <div className="team" onClick={() => goToTeamFeed(game.teams.home.team.id)}>
-                            <div className="logo">
-                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.home.team.id}-dark.svg`} />
-                            </div>
-                            <div className="name">
-                                <div className="first">{getFirstLine(getWords(game.teams.home))}</div>
-                                <div className="second">{getSecondLine(getWords(game.teams.home))}</div>
-                            </div>
-                        </div>
-                        <div className="score">
-                            <span>{game.teams.home.goals}</span>
-                            <span className="colon">:</span>
-                            <span>{game.teams.away.goals}</span>
-                        </div>
-                        {isOT && <div className="ot">{game.currentPeriodOrdinal}</div>}
-                        <div className="team away" onClick={() => goToTeamFeed(game.teams.away.team.id)}>
-                            <div className="logo">
-                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.teams.away.team.id}-dark.svg`} />
-                            </div>
-                            <div className="name">
-                                <div className="first">{getFirstLine(getWords(game.teams.away))}</div>
-                                <div className="second">{getSecondLine(getWords(game.teams.away))}</div>
-                            </div>
-                        </div>
-                    </div>
 
                     <Game
                         game={game}

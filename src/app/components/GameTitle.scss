@@ -1,0 +1,100 @@
+.game-title {
+
+  display: flex;
+  align-items: center;
+  padding: 6px 5px 7px;
+  position: relative;
+  border-top: 1px solid #eee;
+
+  .team {
+
+    flex: 1;
+    display: flex;
+    align-items: center;
+    position: relative;
+
+    &.away {
+
+      flex-direction: row-reverse;
+
+      .logo {
+        right: auto;
+        left: 0;
+        margin: 0 0 0 3px;
+        justify-content: flex-start;
+      }
+
+      .name {
+        text-align: right;
+      }
+
+    }
+
+    .logo {
+
+      flex: 0 0 26px;
+      display: flex;
+      justify-content: flex-end;
+      margin: 0 3px 0 0;
+
+      img {
+        max-width: 26px;
+        max-height: 26px;
+      }
+
+    }
+
+    .name {
+
+      flex: 1;
+      padding: 5px;
+      text-align: left;
+      font-size: .85em;
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 90%;
+
+      .first {
+        font-size: .7em;
+      }
+
+    }
+
+  }
+
+  .score {
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    padding: 4px 5px;
+    color: white;
+
+    span {
+      font-family: 'Roboto Slab', serif;
+      font-size: 1em;
+      font-weight: 600;
+    }
+
+    .colon {
+      font-family: 'Roboto Slab', serif;
+      font-size: .9em;
+      font-weight: 600;
+      padding: 0 5px;
+    }
+
+  }
+
+  .ot {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: black;
+    font-family: 'Muli', sans-serif;
+    margin-left: 1px;
+    padding: 4px;
+    color: white;
+  }
+
+}

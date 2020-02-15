@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import Post from './Post'
+import GameTitle from './GameTitle'
 import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 
 const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia, setActiveMedia }) => {
@@ -17,6 +18,7 @@ const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia,
 
     return (
         <div className="game">
+            <GameTitle game={game} />
             {media.map(media => (
                 <Post
                     key={media.id}

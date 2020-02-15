@@ -13,11 +13,15 @@ import axios from 'axios'
 import NavBar from '../components/NavBar'
 import Game from '../components/Game'
 import { setActiveMedia, getTeams } from '../lib/app/actions'
+import Title from '../components/Title'
 import './index.scss'
+import { gameHasContent } from '../helpers/data'
+import GameTitle from '../components/GameTitle'
 
 const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
+    const [ scheduleVisible, setScheduleVisible ] = useState(false)
     const [ feed, setFeed ] = useState([])
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
@@ -27,7 +31,8 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
         scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
 
         if(!teamsLoaded) {
-            getTeams(true).catch(console.error)
+            getTeams(true)
+                .catch(console.error)
         }
 
         const today = moment.utc().format('YYYY-MM-DD')
@@ -37,8 +42,6 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
             .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
     }, [])
 
-    console.log(feed)
-
     return (
         <PageWrapper>
             <Head>
@@ -47,22 +50,31 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia }) => {
                 <title>Todo list | Nextbase</title>
             </Head>
 
-            <div className="nhl">
+            <div className="nhl padded">
 
-                <h1 className="title">NHLgram</h1>
+                <Title visible={UIVisible} onClick={() => setScheduleVisible(!scheduleVisible)} />
 
-                {feed.map(game => (
-                    <div key={game.gamePk} className="game">
-                        <Game
-                            game={game}
-                            gameContent={game.content}
-                            teams={teams}
-                            activeMedia={activeMedia}
-                            setActiveMedia={setActiveMedia}
-                            date={game.gameDate}
-                        />
+                {scheduleVisible ? (
+                    <div>
+                        {feed.filter(gameHasContent).map(game => (
+                            <GameTitle key={game.gamePk} game={game} />
+                        ))}
                     </div>
-                ))}
+                ) : (
+                    <div>
+                        {feed.filter(gameHasContent).map(game => (
+                            <Game
+                                key={game.gamePk}
+                                game={game}
+                                gameContent={game.content}
+                                teams={teams}
+                                activeMedia={activeMedia}
+                                setActiveMedia={setActiveMedia}
+                                date={game.gameDate}
+                            />
+                        ))}
+                    </div>
+                )}
 
                 <NavBar visible={UIVisible} />
 

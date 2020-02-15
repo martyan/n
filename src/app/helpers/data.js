@@ -7,6 +7,8 @@ export const getPlayersFromTeams = (teams) => {
     }, [])
 }
 
+export const gameHasContent = (game) => game.content.highlights.scoreboard.items.length > 0
+
 export const isGoalie = (player) => player.primaryPosition.code === 'G'
 
 export const getPlayersMedia = (player, media) => media.filter(m => m.description.indexOf(player.lastName) > -1)
