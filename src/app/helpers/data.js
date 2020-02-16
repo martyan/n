@@ -39,3 +39,23 @@ export const getGameIdFromLink = (link) => {
     const [ string, gameId ] = /\/(\d+)\//g.exec(link)
     return gameId
 }
+
+export const getThisSeason = () => {
+    const today = moment.utc()
+    if(today.get('month') + 1 <= 9) return `${moment.utc().subtract(1, 'year').get('year')}${moment.utc().get('year')}`
+    return `${moment.utc().get('year')}${moment().add(1, 'year').get('year')}`
+}
+
+export const getThisSeasonStart = () => {
+    const today = moment.utc()
+    const firstDayOfMonth = today.clone().set('date', 1)
+    if(today.get('month') + 1 <= 9) return `${firstDayOfMonth.subtract(1, 'year').set('month', 8).format('YYYY-MM-DD')}`
+    return `${firstDayOfMonth.format('YYYY-MM-DD')}`
+}
+
+export const getThisSeasonSecondMonth = () => {
+    const today = moment.utc()
+    const firstDayOfMonth = today.clone().set('date', 1)
+    if(today.get('month') + 1 <= 9) return `${firstDayOfMonth.subtract(1, 'year').set('month', 9).format('YYYY-MM-DD')}`
+    return `${firstDayOfMonth.add(1, 'month').format('YYYY-MM-DD')}`
+}
