@@ -8,15 +8,12 @@ import PlayerStats from './PlayerStats'
 import { goToTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
 import { getGameIdFromLink, getPlayersMedia } from '../helpers/data'
-import Schedule from './Schedule'
-import BackBtn from './BackBtn'
 
 const PlayerFeed = ({
     player,
     playerId,
     teams,
     playerSchedule,
-    teamSchedule,
     gameContent,
     getGameContent,
     activeMedia,
@@ -145,12 +142,6 @@ const PlayerFeed = ({
                             )
                         })}
                     </div>*/}
-
-                    <Schedule
-                        schedule={teamSchedule}
-                        playerSchedule={playerSchedule}
-                        teams={teams}
-                    />
 
                     {playerSchedule.slice(0, loadedIndex).map(game => (
                         <div key={game.date} className="game">

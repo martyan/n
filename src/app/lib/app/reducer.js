@@ -13,7 +13,8 @@ export const initialState = {
     teamSchedule: [],
     teamStats: [],
     gameContent: [],
-    game: null
+    game: null,
+    schedule: []
 }
 
 const reducer = (state = initialState, action) => {
@@ -63,6 +64,9 @@ const reducer = (state = initialState, action) => {
 
         case 'GET_GAME_CONTENT_SUCCESS':
             return {...state, gameContent: [...state.gameContent, action.payload]}
+
+        case 'GET_SCHEDULE_SUCCESS':
+            return {...state, schedule: [...state.schedule, [...action.payload.dates.reverse()]]}
 
         default:
             return state

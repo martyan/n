@@ -89,8 +89,8 @@
     padding: 0;
     margin: 0;
     border: 0;
-    width: 35px;
-    height: 35px;
+    width: 40px;
+    height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,6 +113,14 @@
 
     }
 
+  }
+
+  .load-more {
+    text-align: center;
+    padding: 30px 15px 45px;
+    text-transform: uppercase;
+    color: #aaa;
+    font-size: .85em;
   }
 
   .search {
@@ -543,14 +551,6 @@
   .player-feed {
 
     position: relative;
-
-    .load-more {
-      text-align: center;
-      padding: 30px 15px 45px;
-      text-transform: uppercase;
-      color: #aaa;
-      font-size: .85em;
-    }
 
     .cover {
 

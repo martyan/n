@@ -21,17 +21,24 @@ const getTeamName = (game, side) => {
     return side === 'home' ? game.team.name : game.opponent.name
 }
 
+const getOT = (game) => {
+    if(game.hasOwnProperty('linescore')) return game.linescore.currentPeriodOrdinal
+    return game.currentPeriodOrdinal
+}
+
 const GameTitle = ({ game }) => {
 
     const teamHomeId = getTeamId(game, 'home')
     const teamAwayId = getTeamId(game, 'away')
     const teamHomeName = getTeamName(game, 'home')
     const teamAwayName = getTeamName(game, 'away')
+    const OT = getOT(game)
 
     const getWords = (name) => name.split(' ')
     const getFirstLine = (words) => words.slice(0, words.length === 3 ? 2 : 1).join(' ')
     const getSecondLine = (words) => words.slice(words.length === 3 ? 2 : 1).join(' ')
-    const isOT = game.currentPeriodOrdinal === 'OT' || game.currentPeriodOrdinal === 'SO'
+    const isOT =  OT === 'OT' || OT === 'SO'
+
 
     return (
         <div className="game-title">
@@ -49,7 +56,7 @@ const GameTitle = ({ game }) => {
                 <span className="colon">:</span>
                 <span>{getScore(game, 'away')}</span>
             </div>
-            {isOT && <div className="ot">{game.currentPeriodOrdinal}</div>}
+            {isOT && <div className="ot">{OT}</div>}
             <div className="team away" onClick={() => goToTeamFeed(game.teams.away.team.id)}>
                 <div className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamAwayId}-dark.svg`} />

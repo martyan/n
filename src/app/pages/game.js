@@ -5,17 +5,14 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
-// import PlayerFeed from '../components/PlayerFeed'
 import { getGameContent, getGame, getTeams, setActiveMedia } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import { getGameIdFromLink } from '../helpers/data'
 import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
-import './index.scss'
-import { goToTeamFeed } from '../helpers/navigation'
 import scrollDirObservable from 'scrolldir-observable'
 import NavBar from '../components/NavBar'
-import GameTitle from '../components/GameTitle'
+import './index.scss'
 
 const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
 

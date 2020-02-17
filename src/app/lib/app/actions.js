@@ -1,9 +1,9 @@
 import { CALL_API } from '../apiMiddleware'
+import { getThisSeason, getThisSeasonSecondMonth, getThisSeasonStart } from '../../helpers/data'
 import moment from 'moment'
+import axios from 'axios'
 
 const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
-
-const thisSeason = `${moment().subtract(1, 'year').get('year')}${moment().get('year')}`
 
 export const setActiveMedia = (activeMedia) => ({ type: 'SET_ACTIVE_MEDIA', activeMedia })
 
@@ -16,7 +16,7 @@ export const setPlayerSkeletonVisible = (playerSkeletonVisible) => ({ type: 'SET
 export const getPlayer = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER',
-        endpoint: `${NHL_API}/people/${playerId}?expand=person.stats&stats=statsSingleSeason,regularSeasonStatRankings&expand=stats.team`,
+        endpoint: `${NHL_API}/people/${playerId}?expand=person.stats&stats=statsSingleSeason,regularSeasonStatRankings`,
         method: 'GET'
     }
 })
@@ -40,7 +40,7 @@ export const getGameContent = (gameId) => ({
 export const getPlayerSchedule = (playerId) => ({
     [CALL_API]: {
         type: 'GET_PLAYER_SCHEDULE',
-        endpoint: `${NHL_API}/people/${playerId}/stats?stats=gameLog&season=${thisSeason}`,
+        endpoint: `${NHL_API}/people/${playerId}/stats?stats=gameLog&season=${getThisSeason()}`,
         method: 'GET'
     }
 })
@@ -64,7 +64,15 @@ export const getTeam = (teamId) => ({
 export const getTeamSchedule = (teamId) => ({
     [CALL_API]: {
         type: 'GET_TEAM_SCHEDULE',
-        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${thisSeason}`, //&startDate=${moment().subtract(7, 'days').format('YYYY-MM-DD')}&endDate=${moment().add(1, 'month').format('YYYY-MM-DD')}`,
+        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${getThisSeason()}`,
+        method: 'GET'
+    }
+})
+
+export const getSeasonStartDate = () => ({
+    [CALL_API]: {
+        type: 'GET_SEASON_START_DATE',
+        endpoint: `${NHL_API}/schedule?season=${getThisSeason()}&startDate=${getThisSeasonStart()}&endDate=${getThisSeasonSecondMonth()}`,
         method: 'GET'
     }
 })
@@ -73,6 +81,14 @@ export const getTeamStats = (teamId) => ({
     [CALL_API]: {
         type: 'GET_TEAM_STATS',
         endpoint: `${NHL_API}/teams/${teamId}/stats`,
+        method: 'GET'
+    }
+})
+
+export const getSchedule = (startDate, endDate) => ({
+    [CALL_API]: {
+        type: 'GET_SCHEDULE',
+        endpoint: `${NHL_API}/schedule?startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore`,
         method: 'GET'
     }
 })
