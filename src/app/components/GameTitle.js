@@ -1,5 +1,5 @@
 import React from 'react'
-import { goToTeamFeed } from '../helpers/navigation'
+import { goToGameFeed, goToTeamFeed } from '../helpers/navigation'
 import './GameTitle.scss'
 
 const getScore = (game, side) => {
@@ -51,7 +51,7 @@ const GameTitle = ({ game }) => {
                     <div className="second">{getSecondLine(getWords(teamHomeName))}</div>
                 </div>
             </div>
-            <div className="score">
+            <div className="score" onClick={() => goToGameFeed(game.gamePk)}>
                 <span>{getScore(game, 'home')}</span>
                 <span className="colon">:</span>
                 <span>{getScore(game, 'away')}</span>

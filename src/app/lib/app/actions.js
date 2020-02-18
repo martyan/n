@@ -1,9 +1,11 @@
 import { CALL_API } from '../apiMiddleware'
 import { getThisSeason, getThisSeasonSecondMonth, getThisSeasonStart } from '../../helpers/data'
-import moment from 'moment'
-import axios from 'axios'
 
 const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
+
+export const setScheduleOffset = (scheduleOffset) => ({ type: 'SET_SCHEDULE_OFFSET', scheduleOffset })
+
+export const setLoadedContentIndex = (loadedContentIndex) => ({ type: 'SET_LOADED_CONTENT_INDEX', loadedContentIndex })
 
 export const setActiveMedia = (activeMedia) => ({ type: 'SET_ACTIVE_MEDIA', activeMedia })
 

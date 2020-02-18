@@ -11,7 +11,7 @@ import moment from 'moment'
 import axios from 'axios'
 import NavBar from '../components/NavBar'
 import Game from '../components/Game'
-import { setActiveMedia, getTeams, getSchedule, getGameContent } from '../lib/app/actions'
+import { setActiveMedia, getTeams, getSchedule, getGameContent, setScheduleOffset, setLoadedContentIndex } from '../lib/app/actions'
 import Title from '../components/Title'
 import './index.scss'
 import { getGameIdFromLink } from '../helpers/data'
@@ -19,23 +19,47 @@ import GameTitle from '../components/GameTitle'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
 
-const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia, schedule, getSchedule, gameContent, getGameContent }) => {
+const getGamesFromSchedule = (schedule) => {
+    const games = [].concat
+        .apply([], schedule)
+        .reduce((acc, curr) => [...acc, ...curr.games.reverse()], [])
+        .filter(game => game.status.abstractGameState === 'Final')
+        .sort((a, b) => {
+            if(a.gameDate > b.gameDate) return -1
+            if(a.gameDate < b.gameDate) return 1
+            return 0
+        })
 
-    const [ scheduleOffset, setScheduleOffset ] = useState(0)
-    const [ loadedIndex, setLoadedIndex ] = useState(0)
+    return games
+}
+
+const HomePage = ({
+    teams,
+    getTeams,
+    activeMedia,
+    setActiveMedia,
+    schedule,
+    getSchedule,
+    gameContent,
+    getGameContent,
+    scheduleOffset,
+    setScheduleOffset,
+    loadedContentIndex,
+    setLoadedContentIndex
+}) => {
+
     const [ UIVisible, setUIVisible ] = useState(true)
     const [ scheduleVisible, setScheduleVisible ] = useState(false)
-    const [ games, setGames ] = useState([])
 
     const teamsLoaded = teams.length > 0 //&& teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
     const loadMoreContent = (games) => {
         console.log('load more')
         const increaseAmount = 2
-        const nextIndex = (loadedIndex + increaseAmount <= games.length) ? loadedIndex + increaseAmount : games.length
+        const nextIndex = (loadedContentIndex + increaseAmount <= games.length) ? loadedContentIndex + increaseAmount : games.length
 
-        games.slice(loadedIndex, nextIndex).map(game => getGameContent(game.gamePk))
-        setLoadedIndex(nextIndex)
+        games.slice(loadedContentIndex, nextIndex).map(game => getGameContent(game.gamePk))
+        setLoadedContentIndex(nextIndex)
     }
 
     const loadMoreSchedule = () => {
@@ -54,7 +78,7 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia, schedule, getS
                 .catch(console.error)
         }
 
-        loadMoreSchedule(true)
+        if(schedule.length === 0) loadMoreSchedule(true)
 
         // axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${thisMonth}&endDate=${today}`)
         //     .then(r => console.log(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
@@ -69,18 +93,7 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia, schedule, getS
     useEffect(() => {
         if(schedule.length > 0 && schedule.length === scheduleOffset) {
             console.info('dotahaly se skedzly')
-
-            const games = [].concat
-                .apply([], schedule)
-                .reduce((acc, curr) => [...acc, ...curr.games.reverse()], [])
-                .filter(game => game.status.abstractGameState === 'Final')
-                .sort((a, b) => {
-                    if(a.gameDate > b.gameDate) return -1
-                    if(a.gameDate < b.gameDate) return 1
-                    return 0
-                })
-
-            setGames(games)
+            const games = getGamesFromSchedule(schedule)
             loadMoreContent(games)
         }
     }, [schedule])
@@ -91,7 +104,8 @@ const HomePage = ({ teams, getTeams, activeMedia, setActiveMedia, schedule, getS
         }
     }, [gameContent])
 
-    const feed = games.slice(0, loadedIndex).map(game => {
+    const games = getGamesFromSchedule(schedule)
+    const feed = games.slice(0, loadedContentIndex).map(game => {
         const content = gameContent.find(content => getGameIdFromLink(content.link) === String(game.gamePk))
         return ({...game, content})
     })
@@ -150,7 +164,9 @@ const mapStateToProps = (state) => ({
     teams: state.app.teams,
     activeMedia: state.app.activeMedia,
     schedule: state.app.schedule,
-    gameContent: state.app.gameContent
+    gameContent: state.app.gameContent,
+    scheduleOffset: state.app.scheduleOffset,
+    loadedContentIndex: state.app.loadedContentIndex
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -158,7 +174,9 @@ const mapDispatchToProps = (dispatch) => (
         getTeams,
         setActiveMedia,
         getSchedule,
-        getGameContent
+        getGameContent,
+        setScheduleOffset,
+        setLoadedContentIndex
     }, dispatch)
 )
 

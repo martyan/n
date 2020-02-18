@@ -3,6 +3,8 @@ import { getPlayersFromTeams } from '../../helpers/data'
 
 export const initialState = {
     searchStr: '*',
+    scheduleOffset: 0,
+    loadedContentIndex: 0,
     activeMedia: null,
     teams: [],
     allPlayers: [],
@@ -27,6 +29,12 @@ const reducer = (state = initialState, action) => {
 
         case 'SET_TEAM':
             return {...state, team: action.team}
+
+        case 'SET_SCHEDULE_OFFSET':
+            return {...state, scheduleOffset: action.scheduleOffset}
+
+        case 'SET_LOADED_CONTENT_INDEX':
+            return {...state, loadedContentIndex: action.loadedContentIndex}
 
         case 'GET_PLAYER_REQUEST':
             return {...state, player: null}
