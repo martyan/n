@@ -7,6 +7,9 @@ export const getPlayersFromTeams = (teams) => {
     }, [])
 }
 
+const getMonthStart = (date) => date.clone().set('date', 1).format('YYYY-MM-DD')
+const getMonthEnd = (date) => date.clone().set('date', 1).add(1, 'month').subtract(1, 'day').format('YYYY-MM-DD')
+
 export const gameHasContent = (game) => game.content.highlights.scoreboard.items.length > 0
 
 export const isGoalie = (player) => player.primaryPosition.code === 'G'
@@ -16,15 +19,21 @@ export const getPlayersMedia = (player, media) => media.filter(m => m.descriptio
 export const getDateWZero = (d) => (d < 10 ? '0' : '') + d
 
 export const getDateText = (d) => {
-    const now = moment()
-    const today = moment.utc(`${now.get('year')}-${getDateWZero(now.get('month') + 1)}-${getDateWZero(now.get('date'))}`)
-    const diff = today.diff(d, 'days')
+    const now = moment.utc()
+    const today = moment.utc(now.format('YYYY-MM-DD'))
+    const yesterday = moment.utc(now.format('YYYY-MM-DD')).subtract(1, 'day')
+    const daysDiff = today.diff(d, 'days')
+    const hoursDiff = now.diff(d, 'hours')
 
-    if(diff === 0) return 'Today'
-    if(diff === 1) return 'Yesterday'
-    if(moment(d).isSame(today, 'week')) return `on ${d.format('dddd')}`
+    if(d.isSame(today, 'day')) {
+        if(hoursDiff === 1) return 'hour ago'
+        return `${hoursDiff} hours ago`
+    }
+
+    if(d.isSame(yesterday, 'day')) return 'Yesterday'
+    if(d.isSame(today, 'week')) return `on ${d.format('dddd')}`
     else {
-        if(diff < 4) return `${diff} days ago`
+        if(daysDiff < 4) return `${daysDiff} days ago`
         if(now.get('year') > d.get('year')) return d.format('D MMM YYYY')
         return d.format('D MMM')
     }
@@ -49,6 +58,8 @@ export const getThisSeason = () => {
 export const getThisSeasonStart = () => {
     const today = moment.utc()
     const firstDayOfMonth = today.clone().set('date', 1)
+
+    //nhl season starts ~september
     if(today.get('month') + 1 <= 9) return `${firstDayOfMonth.subtract(1, 'year').set('month', 8).format('YYYY-MM-DD')}`
     return `${firstDayOfMonth.format('YYYY-MM-DD')}`
 }
