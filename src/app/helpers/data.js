@@ -16,27 +16,19 @@ export const isGoalie = (player) => player.primaryPosition.code === 'G'
 
 export const getPlayersMedia = (player, media) => media.filter(m => m.description.indexOf(player.lastName) > -1)
 
-export const getDateWZero = (d) => (d < 10 ? '0' : '') + d
-
 export const getDateText = (d) => {
+    const date = moment.utc(d.format('YYYY-MM-DD 00:00:00'))
     const now = moment.utc()
-    const today = moment.utc(now.format('YYYY-MM-DD'))
-    const yesterday = moment.utc(now.format('YYYY-MM-DD')).subtract(1, 'day')
-    const daysDiff = today.diff(d, 'days')
+    const today = moment.utc(now.format('YYYY-MM-DD 00:00:00'))
+    const yesterday = today.clone().subtract(1, 'day')
+    const daysDiff = today.diff(date, 'days')
     const hoursDiff = now.diff(d, 'hours')
 
-    if(d.isSame(today, 'day')) {
-        if(hoursDiff === 1) return 'hour ago'
-        return `${hoursDiff} hours ago`
-    }
-
-    if(d.isSame(yesterday, 'day')) return 'Yesterday'
-    if(d.isSame(today, 'week')) return `on ${d.format('dddd')}`
-    else {
-        if(daysDiff < 4) return `${daysDiff} days ago`
-        if(now.get('year') > d.get('year')) return d.format('D MMM YYYY')
-        return d.format('D MMM')
-    }
+    if(hoursDiff < 24) return `${hoursDiff} hours ago`
+    if(d.isSame(yesterday, 'day')) return '1 day ago'
+    if(daysDiff < 7) return `${daysDiff} days ago`
+    if(now.get('year') > d.get('year')) return d.format('D MMM YYYY')
+    return d.format('D MMM')
 }
 
 export const getPlayedGames = (teamSchedule) => {

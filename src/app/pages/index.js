@@ -15,7 +15,6 @@ import { setActiveMedia, getTeams, getSchedule, getGameContent, setScheduleOffse
 import Title from '../components/Title'
 import './index.scss'
 import { getGameIdFromLink } from '../helpers/data'
-import GameTitle from '../components/GameTitle'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
 
@@ -53,7 +52,6 @@ const HomePage = ({
 }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
-    const [ scheduleVisible, setScheduleVisible ] = useState(false)
 
     const teamsLoaded = teams.length > 0 //&& teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
@@ -124,29 +122,21 @@ const HomePage = ({
 
             <div className="nhl padded">
 
-                <Title visible={UIVisible} onClick={() => setScheduleVisible(!scheduleVisible)} />
+                <Title visible={true} />
 
-                {scheduleVisible ? (
-                    <div>
-                        {feed.map(game => <GameTitle key={game.gamePk} game={game} />)}
-                    </div>
-                ) : (
-                    <div>
-                        {feed.map(game => (
-                            <Game
-                                key={game.gamePk}
-                                game={game}
-                                gameContent={game.content}
-                                teams={teams}
-                                activeMedia={activeMedia}
-                                setActiveMedia={setActiveMedia}
-                                date={game.gameDate}
-                            />
-                        ))}
+                {feed.map(game => (
+                    <Game
+                        key={game.gamePk}
+                        game={game}
+                        gameContent={game.content}
+                        teams={teams}
+                        activeMedia={activeMedia}
+                        setActiveMedia={setActiveMedia}
+                        date={game.gameDate}
+                    />
+                ))}
 
-                        <LoadMore loadMore={() => loadMoreContent(games)} />
-                    </div>
-                )}
+                <LoadMore loadMore={() => loadMoreContent(games)} />
 
                 <NavBar visible={UIVisible} />
 

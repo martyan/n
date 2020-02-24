@@ -1,8 +1,8 @@
 import React from 'react'
 
-const Title = ({ visible, onClick }) => {
+const Title = ({ visible }) => {
     return (
-        <h1 className={visible ? 'title' : 'title hidden'} onClick={onClick}>NHLgram</h1>
+        <h1 className={visible ? 'title' : 'title hidden'}>NHLgram</h1>
     )
 }
 

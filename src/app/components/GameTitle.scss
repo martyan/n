@@ -1,8 +1,9 @@
 .game-title {
 
   display: flex;
+  height: 48px;
   align-items: center;
-  padding: 6px 5px 7px;
+  padding: 0 8px;
   position: relative;
   border-top: 1px solid #eee;
   background: white;
@@ -24,7 +25,6 @@
         right: auto;
         left: 0;
         margin: 0;
-        justify-content: flex-start;
       }
 
       .name {
@@ -37,7 +37,7 @@
 
       flex: 0 0 26px;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
 
       img {
         max-width: 26px;
@@ -49,7 +49,7 @@
     .name {
 
       flex: 1;
-      padding: 5px;
+      padding: 0 8px;
       text-align: left;
       font-size: .85em;
       font-weight: 700;
@@ -58,6 +58,7 @@
 
       .first {
         font-size: .7em;
+        line-height: 100%;
       }
 
     }
@@ -70,7 +71,7 @@
     align-items: center;
     justify-content: center;
     background: black;
-    padding: 4px 5px;
+    padding: 3px 5px;
     color: white;
 
     span {
@@ -95,7 +96,7 @@
     background: black;
     font-family: 'Muli', sans-serif;
     margin-left: 1px;
-    padding: 4px;
+    padding: 3px 4px;
     color: white;
   }
 
