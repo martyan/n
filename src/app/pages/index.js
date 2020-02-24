@@ -27,6 +27,10 @@ const getGamesFromSchedule = (schedule) => {
         .sort((a, b) => {
             if(a.gameDate > b.gameDate) return -1
             if(a.gameDate < b.gameDate) return 1
+            if(a.gameDate === b.gameDate) {
+                if(a.gamePk > b.gamePk) return 1
+                if(a.gamePk < b.gamePk) return -1
+            }
             return 0
         })
 
