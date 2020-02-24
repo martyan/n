@@ -49,6 +49,7 @@
         "react-parallax": "^2.2.4",
         "react-redux": "^7.0.3",
         "react-responsive-modal": "^4.0.1",
+        "react-sticky-el": "^1.1.0",
         "react-string-replace": "^0.4.4",
         "react-swipeable-views": "^0.13.3",
         "recompose": "^0.30.0",

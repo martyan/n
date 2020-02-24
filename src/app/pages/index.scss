@@ -6,7 +6,7 @@
   min-height: 100vh;
 
   &.padded {
-    padding-top: 40px;
+    //padding-top: 48px;
   }
 
   ul {
@@ -17,12 +17,12 @@
 
   .title {
 
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
+    //position: fixed;
+    //top: 0;
+    //left: 0;
+    //width: 100%;
     margin: 0;
-    height: 40px;
+    height: 48px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -35,7 +35,7 @@
     transition: .5s ease;
 
     &.hidden {
-      top: -40px;
+      top: -48px;
     }
 
   }
@@ -848,7 +848,9 @@
 
   .post {
 
-    margin-bottom: 30px;
+    //position: relative;
+    //z-index: -1;
+    padding-bottom: 30px;
 
     .media {
 

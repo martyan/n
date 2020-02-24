@@ -2,6 +2,7 @@ import React from 'react'
 import Post from './Post'
 import GameTitle from './GameTitle'
 import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
+import Sticky from 'react-sticky-el'
 
 const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia, setActiveMedia }) => {
 
@@ -18,7 +19,10 @@ const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia,
 
     return (
         <div className="game">
-            <GameTitle game={game} />
+            <Sticky style={{position: 'relative', zIndex: 99}}>
+                <GameTitle game={game} />
+            </Sticky>
+
             {media.map(media => (
                 <Post
                     key={media.id}
