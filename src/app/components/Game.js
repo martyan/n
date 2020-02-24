@@ -19,7 +19,7 @@ const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia,
 
     return (
         <div className="game">
-            <Sticky style={{position: 'relative', zIndex: 99}}>
+            <Sticky boundaryElement=".game" hideOnBoundaryHit={false} style={{position: 'relative', zIndex: 99}}>
                 <GameTitle game={game} />
             </Sticky>
 
