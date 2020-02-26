@@ -5,16 +5,16 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
-import { getGameContent, getGame, getTeams, setActiveMedia } from '../lib/app/actions'
+import { getGame, getTeams, setActiveMedia } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import { getGameIdFromLink } from '../helpers/data'
 import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
-import scrollDirObservable from 'scrolldir-observable'
 import NavBar from '../components/NavBar'
+import { setScrollDir } from '../helpers/UI'
 import './index.scss'
 
-const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, getTeams, activeMedia, setActiveMedia }) => {
+const GamePage = ({ gameId, games, teams, getGame, getTeams, activeMedia, setActiveMedia }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
 
@@ -32,27 +32,25 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
     //     }
     // }, [playerId])
 
-    const content = gameContent.find(game => getGameIdFromLink(game.link) === gameId)
+    const game = games.find(game => String(game.gamePk) === gameId)
+    const gameLoaded = !!game
+    const teamsLoaded = teams.length > 0
 
     useEffect(() => {
-        const scrollDir = scrollDirObservable(window.document)
-        scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
+        setScrollDir(setUIVisible)
 
-        getGame(gameId)
-            .catch(console.error)
-
-        if(teams.length === 0) {
-            getTeams()
+        if(!gameLoaded) {
+            getGame(gameId)
                 .catch(console.error)
         }
 
-        if(!content) {
-            getGameContent(gameId)
+        if(!teamsLoaded) {
+            getTeams()
                 .catch(console.error)
         }
     }, [])
 
-    if(!game) return null
+    if(!gameLoaded) return null
 
     return (
         <PageWrapper>
@@ -70,11 +68,11 @@ const GamePage = ({ gameId, game, teams, gameContent, getGame, getGameContent, g
 
                     <Game
                         game={game}
-                        gameContent={gameContent.find(content => getGameIdFromLink(content.link) === gameId)}
+                        gameContent={game.content}
                         teams={teams}
                         activeMedia={activeMedia}
                         setActiveMedia={setActiveMedia}
-                        date={game.periods[0].startTime}
+                        date={game.gameDate}
                     />
 
                     <NavBar visible={UIVisible} />
@@ -98,8 +96,7 @@ GamePage.propTypes = {
 }
 
 const mapStateToProps = (state) => ({
-    game: state.app.game,
-    gameContent: state.app.gameContent,
+    games: state.app.games,
     teams: state.app.teams,
     activeMedia: state.app.activeMedia
 })
@@ -107,7 +104,6 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getGame,
-        getGameContent,
         getTeams,
         setActiveMedia
     }, dispatch)
