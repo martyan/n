@@ -11,14 +11,13 @@ import moment from 'moment'
 import axios from 'axios'
 import NavBar from '../components/NavBar'
 import Game from '../components/Game'
-import { setActiveMedia, getTeams, getSchedule, getGameContent, setScheduleOffset, setLoadedContentIndex } from '../lib/app/actions'
+import { setActiveMedia, getTeams, getSchedule, setScheduleOffset, setLoadedContentIndex, getGame } from '../lib/app/actions'
 import Title from '../components/Title'
 import './index.scss'
-import { getGameIdFromLink } from '../helpers/data'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
 
-const getGamesFromSchedule = (schedule) => {
+const getGameSchedule = (schedule) => {
     const games = [].concat
         .apply([], schedule)
         .reduce((acc, curr) => [...acc, ...curr.games.reverse()], [])
@@ -42,6 +41,8 @@ const HomePage = ({
     activeMedia,
     setActiveMedia,
     schedule,
+    games,
+    getGame,
     getSchedule,
     gameContent,
     getGameContent,
@@ -52,15 +53,16 @@ const HomePage = ({
 }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
+    const [ gameSchedule, setGameSchedule ] = useState([])
 
+    const gamesToLoad = 2
     const teamsLoaded = teams.length > 0 //&& teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
-    const loadMoreContent = (games) => {
+    const loadMoreGames = (gameSchedule) => {
         console.log('load more')
-        const increaseAmount = 2
-        const nextIndex = (loadedContentIndex + increaseAmount <= games.length) ? loadedContentIndex + increaseAmount : games.length
+        const nextIndex = (loadedContentIndex + gamesToLoad <= gameSchedule.length) ? loadedContentIndex + gamesToLoad : gameSchedule.length
 
-        games.slice(loadedContentIndex, nextIndex).map(game => getGameContent(game.gamePk))
+        gameSchedule.slice(loadedContentIndex, nextIndex).map(game => getGame(game.gamePk))
         setLoadedContentIndex(nextIndex)
     }
 
@@ -80,14 +82,8 @@ const HomePage = ({
                 .catch(console.error)
         }
 
-        if(schedule.length === 0) loadMoreSchedule(true)
+        if(schedule.length === 0) loadMoreSchedule()
 
-        // axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${thisMonth}&endDate=${today}`)
-        //     .then(r => console.log(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
-
-        // const today = moment.utc().format('YYYY-MM-DD')
-        // const yesterday = moment.utc().subtract(1, 'day').format('YYYY-MM-DD')
-        //
         // axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${yesterday}&endDate=${today}&hydrate=linescore,game(content(media(epg),highlights(scoreboard)))`)
         //     .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
     }, [])
@@ -95,22 +91,21 @@ const HomePage = ({
     useEffect(() => {
         if(schedule.length > 0 && schedule.length === scheduleOffset) {
             console.info('dotahaly se skedzly')
-            const games = getGamesFromSchedule(schedule)
-            loadMoreContent(games)
+            const gameSchedule = getGameSchedule(schedule)
+            setGameSchedule(gameSchedule)
+            loadMoreGames(gameSchedule)
         }
     }, [schedule])
 
     useEffect(() => {
-        if(gameContent.length > 0 && gameContent.length === games.length) {
-            loadMoreSchedule()
-        }
-    }, [gameContent])
+        //load more schedule if all games from schedule are loaded
+        const gameIds = gameSchedule.map(game => game.gamePk)
+        const loadedGamesChecklist = gameIds.map(gameId => !!games.find(game => game.gamePk === gameId))
+        const allGamesLoaded = loadedGamesChecklist.every(gameLoaded => gameLoaded === true)
+        if(allGamesLoaded) console.log('all gejmz loudyd')
 
-    const games = getGamesFromSchedule(schedule)
-    const feed = games.slice(0, loadedContentIndex).map(game => {
-        const content = gameContent.find(content => getGameIdFromLink(content.link) === String(game.gamePk))
-        return ({...game, content})
-    })
+        if(games.length > 0 && allGamesLoaded) loadMoreSchedule()
+    }, [games])
 
     return (
         <PageWrapper>
@@ -124,7 +119,7 @@ const HomePage = ({
 
                 <Title visible={true} />
 
-                {feed.map(game => (
+                {games.map(game => (
                     <Game
                         key={game.gamePk}
                         game={game}
@@ -136,7 +131,7 @@ const HomePage = ({
                     />
                 ))}
 
-                <LoadMore loadMore={() => loadMoreContent(games)} />
+                <LoadMore loadMore={() => loadMoreGames(gameSchedule)} />
 
                 <NavBar visible={UIVisible} />
 
@@ -158,9 +153,9 @@ const mapStateToProps = (state) => ({
     teams: state.app.teams,
     activeMedia: state.app.activeMedia,
     schedule: state.app.schedule,
-    gameContent: state.app.gameContent,
     scheduleOffset: state.app.scheduleOffset,
-    loadedContentIndex: state.app.loadedContentIndex
+    loadedContentIndex: state.app.loadedContentIndex,
+    games: state.app.games
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -168,7 +163,7 @@ const mapDispatchToProps = (dispatch) => (
         getTeams,
         setActiveMedia,
         getSchedule,
-        getGameContent,
+        getGame,
         setScheduleOffset,
         setLoadedContentIndex
     }, dispatch)

@@ -26,7 +26,7 @@ export const getPlayer = (playerId) => ({
 export const getGame = (gameId) => ({
     [CALL_API]: {
         type: 'GET_GAME',
-        endpoint: `${NHL_API}/game/${gameId}/linescore`,
+        endpoint: `${NHL_API}/schedule?gamePk=${gameId}&expand=schedule.game.content.media.epg,schedule.game.content.highlights.scoreboard,schedule.linescore`,
         method: 'GET'
     }
 })
@@ -90,7 +90,7 @@ export const getTeamStats = (teamId) => ({
 export const getSchedule = (startDate, endDate) => ({
     [CALL_API]: {
         type: 'GET_SCHEDULE',
-        endpoint: `${NHL_API}/schedule?startDate=${startDate}&endDate=${endDate}&expand=schedule.linescore`,
+        endpoint: `${NHL_API}/schedule?startDate=${startDate}&endDate=${endDate}`,
         method: 'GET'
     }
 })
