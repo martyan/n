@@ -3,6 +3,8 @@ import { getThisSeason, getThisSeasonSecondMonth, getThisSeasonStart } from '../
 
 const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
 
+export const setHistory = (history) => ({ type: 'SET_HISTORY', history })
+
 export const setScheduleOffset = (scheduleOffset) => ({ type: 'SET_SCHEDULE_OFFSET', scheduleOffset })
 
 export const setLoadedContentIndex = (loadedContentIndex) => ({ type: 'SET_LOADED_CONTENT_INDEX', loadedContentIndex })

@@ -15,7 +15,7 @@ import NavBar from '../components/NavBar'
 import scrollDirObservable from 'scrolldir-observable'
 import './index.scss'
 
-const SearchPage = ({ searchStr, setSearchStr, teams, getTeams, allPlayers }) => {
+const SearchPage = ({ searchStr, setSearchStr, history, teams, getTeams, allPlayers }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
     const [ debouncedSearchStr ] = useDebounce(searchStr, 250)
@@ -50,7 +50,7 @@ const SearchPage = ({ searchStr, setSearchStr, teams, getTeams, allPlayers }) =>
                     allPlayers={allPlayers}
                 />
 
-                <NavBar visible={UIVisible} />
+                <NavBar visible={UIVisible} history={history} />
             </div>
         </PageWrapper>
     )
@@ -68,7 +68,8 @@ SearchPage.propTypes = {
 const mapStateToProps = (state) => ({
     searchStr: state.app.searchStr,
     teams: state.app.teams,
-    allPlayers: state.app.allPlayers
+    allPlayers: state.app.allPlayers,
+    history: state.app.history
 })
 
 const mapDispatchToProps = (dispatch) => (

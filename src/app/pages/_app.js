@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import Router from 'next/dist/client/router'
 import withRedux from 'next-redux-wrapper'
-import { setPlayerSkeletonVisible } from '../lib/app/actions'
+import { setHistory, setPlayerSkeletonVisible } from '../lib/app/actions'
 import createStore from '../lib/store'
 
 let resizeTimeout = null
@@ -20,11 +20,31 @@ const calculateVH = () => {
 class MyApp extends App {
 
     componentDidMount() {
+        const { dispatch, getState } = this.props.store
+
         calculateVH()
         window.addEventListener('resize', calculateVH)
 
+        dispatch(setHistory([Router.router.asPath]))
+
+        Router.beforePopState(({url, as, opts}) => {
+            const { history } = getState().app
+            if(history.length < 2) return true
+
+            const lastHistory = history[history.length - 2]
+            const isGoBack = as === lastHistory
+
+            if(isGoBack) dispatch(setHistory(history.slice(0, history.length - 1)))
+            return true
+        })
+
         Router.events.on('routeChangeStart', (route) => {
-            if(route.indexOf('/player/') > -1) this.props.store.dispatch(setPlayerSkeletonVisible(true))
+            if(route.indexOf('/player/') > -1) dispatch(setPlayerSkeletonVisible(true))
+
+            const { history } = getState().app
+            const currentPage = history[history.length - 1]
+            const nextRouteIsSame = currentPage === route
+            if(!nextRouteIsSame) dispatch(setHistory([...history, route]))
         })
 
         Router.events.on('routeChangeComplete', () => {

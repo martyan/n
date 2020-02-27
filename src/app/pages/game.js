@@ -14,7 +14,7 @@ import NavBar from '../components/NavBar'
 import { setScrollDir } from '../helpers/UI'
 import './index.scss'
 
-const GamePage = ({ gameId, games, teams, getGame, getTeams, activeMedia, setActiveMedia }) => {
+const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedia, setActiveMedia }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
 
@@ -64,8 +64,6 @@ const GamePage = ({ gameId, games, teams, getGame, getTeams, activeMedia, setAct
 
                 <div className="game-feed">
 
-                    <BackBtn visible={UIVisible} />
-
                     <Game
                         game={game}
                         gameContent={game.content}
@@ -75,7 +73,7 @@ const GamePage = ({ gameId, games, teams, getGame, getTeams, activeMedia, setAct
                         date={game.gameDate}
                     />
 
-                    <NavBar visible={UIVisible} />
+                    <NavBar visible={UIVisible} history={history} />
 
                 </div>
 
@@ -98,7 +96,8 @@ GamePage.propTypes = {
 const mapStateToProps = (state) => ({
     games: state.app.games,
     teams: state.app.teams,
-    activeMedia: state.app.activeMedia
+    activeMedia: state.app.activeMedia,
+    history: state.app.history
 })
 
 const mapDispatchToProps = (dispatch) => (

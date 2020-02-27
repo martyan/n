@@ -21,6 +21,7 @@ const PlayerPage = ({
     teams,
     getPlayer,
     getTeams,
+    history,
     getPlayerSchedule,
     getTeamSchedule,
     playerSchedule,
@@ -71,8 +72,6 @@ const PlayerPage = ({
 
                 <PlayerSkeleton playerSkeletonVisible={!player || playerSkeletonVisible} />
 
-                <BackBtn visible={UIVisible} />
-
                 <PlayerFeed
                     playerId={playerId}
                     player={player}
@@ -85,7 +84,7 @@ const PlayerPage = ({
                     setActiveMedia={setActiveMedia}
                 />
 
-                <NavBar visible={UIVisible} />
+                <NavBar visible={UIVisible} history={history} />
 
             </div>
         </PageWrapper>
@@ -110,7 +109,8 @@ const mapStateToProps = (state) => ({
     playerSchedule: state.app.playerSchedule,
     gameContent: state.app.gameContent,
     teamSchedule: state.app.teamSchedule,
-    activeMedia: state.app.activeMedia
+    activeMedia: state.app.activeMedia,
+    history: state.app.history,
 })
 
 const mapDispatchToProps = (dispatch) => (

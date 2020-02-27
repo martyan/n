@@ -41,6 +41,7 @@ const HomePage = ({
     activeMedia,
     setActiveMedia,
     schedule,
+    history,
     games,
     getGame,
     getSchedule,
@@ -133,7 +134,7 @@ const HomePage = ({
 
                 <LoadMore loadMore={() => loadMoreGames(gameSchedule)} />
 
-                <NavBar visible={UIVisible} />
+                <NavBar visible={UIVisible} history={history} />
 
             </div>
         </PageWrapper>
@@ -155,7 +156,8 @@ const mapStateToProps = (state) => ({
     schedule: state.app.schedule,
     scheduleOffset: state.app.scheduleOffset,
     loadedContentIndex: state.app.loadedContentIndex,
-    games: state.app.games
+    games: state.app.games,
+    history: state.app.history,
 })
 
 const mapDispatchToProps = (dispatch) => (

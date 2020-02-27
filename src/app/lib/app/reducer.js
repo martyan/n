@@ -17,11 +17,15 @@ export const initialState = {
     gameContent: [],
     game: null,
     schedule: [],
-    games: []
+    games: [],
+    history: [],
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_HISTORY':
+            return {...state, history: action.history}
+
         case 'SET_ACTIVE_MEDIA':
             return {...state, activeMedia: action.activeMedia }
 
