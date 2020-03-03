@@ -2,6 +2,7 @@ import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
 import { getPlayersFromTeams } from '../../helpers/data'
 
 export const initialState = {
+    indexInited: false,
     searchStr: '*',
     scheduleOffset: 0,
     loadedContentIndex: 0,
@@ -19,18 +20,25 @@ export const initialState = {
     schedule: [],
     games: [],
     history: [],
+    UIVisible: true
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_INDEX_INITED':
+            return {...state, indexInited: action.indexInited}
+
+        case 'SET_UI_VISIBLE':
+            return {...state, UIVisible: action.UIVisible}
+
         case 'SET_HISTORY':
             return {...state, history: action.history}
 
         case 'SET_ACTIVE_MEDIA':
-            return {...state, activeMedia: action.activeMedia }
+            return {...state, activeMedia: action.activeMedia}
 
         case 'SET_SEARCH_STR':
-            return {...state, searchStr: action.searchStr }
+            return {...state, searchStr: action.searchStr}
 
         case 'SET_TEAM':
             return {...state, team: action.team}

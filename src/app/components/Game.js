@@ -10,11 +10,7 @@ const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia,
 
     const media = playerOnly ? getPlayersMedia(player, gameContent.highlights.scoreboard.items) : gameContent.highlights.scoreboard.items
 
-    const teamsFilterFn = playerOnly
-        ? (team) => (team.id === game.team.id || team.id === game.opponent.id)
-        : (team) => (team.id === game.teams.home.team.id || team.id === game.teams.away.team.id)
-
-    const applicableTeams = teams.filter(teamsFilterFn)
+    const applicableTeams = teams.filter(team => team.id === game.teams.home.team.id || team.id === game.teams.away.team.id)
     const applicablePlayers = getPlayersFromTeams(applicableTeams)
 
     return (
