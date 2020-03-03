@@ -74,8 +74,8 @@ const HomePage = ({
     const teamsLoaded = teams.length > 0 //&& teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
     const loadMoreGames = (gameSchedule) => {
-        console.error('LOAD MORE GAMES')
         const nextIndex = (loadedContentIndex + gamesToLoad <= gameSchedule.length) ? loadedContentIndex + gamesToLoad : gameSchedule.length
+        console.error('LOAD MORE GAMES', nextIndex)
 
         //load only not loaded games
         const gamesBeingLoaded = gameSchedule
@@ -85,8 +85,7 @@ const HomePage = ({
             .map(gameId => getGame(gameId))
 
         if(gamesBeingLoaded.length === 0) console.error('BATCH IS ALREADY LOADED IN STORE')
-
-        setLoadedContentIndex(nextIndex)
+        else setLoadedContentIndex(nextIndex)
     }
 
     const loadMoreSchedule = () => {
@@ -106,6 +105,7 @@ const HomePage = ({
         }
 
         if(schedule.length === 0) loadMoreSchedule()
+        else setGameSchedule(getGameSchedule(schedule))
 
         // axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${yesterday}&endDate=${today}&hydrate=linescore,game(content(media(epg),highlights(scoreboard)))`)
         //     .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
