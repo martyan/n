@@ -6,8 +6,6 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import { getGame, getTeams, setActiveMedia } from '../lib/app/actions'
-import PlayerSkeleton from '../components/PlayerSkeleton'
-import { getGameIdFromLink } from '../helpers/data'
 import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
 import NavBar from '../components/NavBar'
@@ -17,20 +15,6 @@ import './index.scss'
 const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedia, setActiveMedia }) => {
 
     const [ UIVisible, setUIVisible ] = useState(true)
-
-    // useEffect(() => {
-    //     if(!player || playerId !== player.id) {
-    //         Promise
-    //             .all([
-    //                 getPlayer(playerId),
-    //                 getPlayerSchedule(playerId)
-    //             ])
-    //             .then((player) => {
-    //                 setPlayerSkeletonVisible(false)
-    //                 getTeamSchedule(player[0].people[0].currentTeam.id)
-    //             }).catch(console.error)
-    //     }
-    // }, [playerId])
 
     const game = games.find(game => String(game.gamePk) === gameId)
     const gameLoaded = !!game

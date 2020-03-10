@@ -7,13 +7,19 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import PlayerFeed from '../components/PlayerFeed'
-import { getPlayer, getPlayerSchedule, getTeams, setPlayerSkeletonVisible, getGameContent, getTeamSchedule, setActiveMedia } from '../lib/app/actions'
+import {
+    getPlayer,
+    getPlayerSchedule,
+    getTeams,
+    setPlayerSkeletonVisible,
+    getGame,
+    setActiveMedia,
+    setUIVisible
+} from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
-import './index.scss'
-import { getPlayedGames } from '../helpers/data'
 import NavBar from '../components/NavBar'
-import scrollDirObservable from 'scrolldir-observable'
-import BackBtn from '../components/BackBtn'
+import { setScrollDir } from '../helpers/UI'
+import './index.scss'
 
 const PlayerPage = ({
     playerId,
@@ -21,24 +27,21 @@ const PlayerPage = ({
     teams,
     getPlayer,
     getTeams,
+    games,
     history,
+    UIVisible,
+    setUIVisible,
     getPlayerSchedule,
-    getTeamSchedule,
     playerSchedule,
-    teamSchedule,
     playerSkeletonVisible,
     setPlayerSkeletonVisible,
-    gameContent,
-    getGameContent,
+    getGame,
     activeMedia,
     setActiveMedia
 }) => {
 
-    const [ UIVisible, setUIVisible ] = useState(true)
-
     useEffect(() => {
-        const scrollDir = scrollDirObservable(window.document)
-        scrollDir.subscribe(dir => setUIVisible(dir === 'up'))
+        setScrollDir(setUIVisible)
 
         if(teams.length === 0) {
             getTeams()
@@ -53,10 +56,10 @@ const PlayerPage = ({
                     getPlayer(playerId),
                     getPlayerSchedule(playerId)
                 ])
-                .then((player) => {
+                .then(() => {
                     setPlayerSkeletonVisible(false)
-                    getTeamSchedule(player[0].people[0].currentTeam.id)
-                }).catch(console.error)
+                })
+                .catch(console.error)
         }
     }, [playerId])
 
@@ -77,9 +80,8 @@ const PlayerPage = ({
                     player={player}
                     teams={teams}
                     playerSchedule={playerSchedule}
-                    teamSchedule={getPlayedGames(teamSchedule)}
-                    gameContent={gameContent}
-                    getGameContent={getGameContent}
+                    games={games}
+                    getGame={getGame}
                     activeMedia={activeMedia}
                     setActiveMedia={setActiveMedia}
                 />
@@ -107,10 +109,10 @@ const mapStateToProps = (state) => ({
     teams: state.app.teams,
     playerSkeletonVisible: state.app.playerSkeletonVisible,
     playerSchedule: state.app.playerSchedule,
-    gameContent: state.app.gameContent,
-    teamSchedule: state.app.teamSchedule,
+    games: state.app.games,
     activeMedia: state.app.activeMedia,
     history: state.app.history,
+    UIVisible: state.app.UIVisible
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -119,9 +121,9 @@ const mapDispatchToProps = (dispatch) => (
         getTeams,
         getPlayerSchedule,
         setPlayerSkeletonVisible,
-        getGameContent,
-        getTeamSchedule,
-        setActiveMedia
+        getGame,
+        setActiveMedia,
+        setUIVisible
     }, dispatch)
 )
 

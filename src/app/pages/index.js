@@ -200,7 +200,7 @@ const HomePage = ({
 
                 {games.map(game => (
                     <Game
-                        key={game.gamePk}
+                        key={`NHLF_${game.gamePk}`}
                         game={game}
                         gameContent={game.content}
                         teams={teams}
