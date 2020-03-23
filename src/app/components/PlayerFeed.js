@@ -101,7 +101,7 @@ const PlayerFeed = ({
                     <Rankings player={player} />
 
                     {gameSchedule.map(game => (
-                        <div key={`PF_${game.gamePk}`} className="game">
+                        <div key={`PF_${playerId}_${game.gamePk}`} className="game">
                             <Game
                                 game={game}
                                 gameContent={game.content}

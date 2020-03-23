@@ -26,20 +26,22 @@ import './index.scss'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
 
+const sortGamesFn = (a, b) => {
+    if(a.gameDate > b.gameDate) return -1
+    if(a.gameDate < b.gameDate) return 1
+    if(a.gameDate === b.gameDate) {
+        if(a.gamePk > b.gamePk) return 1
+        if(a.gamePk < b.gamePk) return -1
+    }
+    return 0
+}
+
 const getGameSchedule = (schedule) => {
     const games = [].concat
         .apply([], schedule)
         .reduce((acc, curr) => [...acc, ...curr.games.reverse()], [])
         .filter(game => game.status.abstractGameState === 'Final')
-        .sort((a, b) => {
-            if(a.gameDate > b.gameDate) return -1
-            if(a.gameDate < b.gameDate) return 1
-            if(a.gameDate === b.gameDate) {
-                if(a.gamePk > b.gamePk) return 1
-                if(a.gamePk < b.gamePk) return -1
-            }
-            return 0
-        })
+        .sort(sortGamesFn)
 
     return games
 }
@@ -186,6 +188,11 @@ const HomePage = ({
 
     }, [games])
 
+    const loadedGames = gameSchedule
+        .map(scheduledGame => games.find(game => String(game.gamePk) === String(scheduledGame.gamePk)))
+        .filter(game => !!game)
+        .sort(sortGamesFn)
+
     return (
         <PageWrapper>
             <Head>
@@ -198,7 +205,7 @@ const HomePage = ({
 
                 <Title visible={true} />
 
-                {games.map(game => (
+                {loadedGames.map(game => (
                     <Game
                         key={`NHLF_${game.gamePk}`}
                         game={game}
