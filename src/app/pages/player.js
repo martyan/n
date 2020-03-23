@@ -124,11 +124,11 @@ const PlayerPage = ({
     }, [playerId])
 
     useEffect(() => {
-        if(playerSchedule.length > 0) {
+        if(playerSchedule.length > 0 && player !== null) {
             console.error('LOAD MORE triggered when PLAYER SCHEDULE LOADED')
             loadMore(playerSchedule)
         }
-    }, [playerSchedule])
+    }, [player, playerSchedule])
 
     useEffect(() => {
 
