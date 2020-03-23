@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types'
 import Head from 'next/head'
 import compose from 'recompose/compose'
@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
-import PlayerFeed from '../components/PlayerFeed'
 import {
     getPlayer,
     getPlayerSchedule,
@@ -45,29 +44,54 @@ const PlayerPage = ({
     setActiveMedia
 }) => {
 
-    const scheduleRef = useRef([])
     const [ loadedContentIndex, setLoadedContentIndex ] = useState(0)
     const [ gameSchedule, setGameSchedule ] = useState([])
 
-    const gamesToLoad = 5
+    const gamesToLoadAmount = 5
+
+    const getGameIDsToLoad = (start, end) =>
+        playerSchedule
+            .slice(start, end)
+            .map(game => game.game.gamePk)
+
+    const getNotLoadedGameIds = (gameIDsToLoad) =>
+        gameIDsToLoad
+            .filter(gameId => !games.find(game => String(game.gamePk) === String(gameId)))
+
+    const getGamesBatch = (gameIDsToLoad) =>
+        gameIDsToLoad
+            .map(gameId => games.find(game => String(game.gamePk) === String(gameId)))
+
+    const getGamesWithRelatedContent = (gamesBatch, player) =>
+        gamesBatch
+            .filter(game => getPlayersMedia(player, game.content.highlights.scoreboard.items).length > 0)
 
     const loadMore = () => {
-        console.log('load more')
-        const nextIndex = (loadedContentIndex + gamesToLoad <= playerSchedule.length) ? loadedContentIndex + gamesToLoad : playerSchedule.length
+        const nextIndex = (loadedContentIndex + gamesToLoadAmount <= playerSchedule.length) ? loadedContentIndex + gamesToLoadAmount : playerSchedule.length
+
+        const gameIDsToLoad = getGameIDsToLoad(loadedContentIndex, nextIndex)
+        const notLoadedGameIDs = getNotLoadedGameIds(gameIDsToLoad)
 
         //load only not loaded games
-        const gamesLoading = playerSchedule
-            .slice(loadedContentIndex, nextIndex)
-            .map(game => game.game.gamePk)
-            .filter(gameId => !games.find(game => String(game.gamePk) === String(gameId)))
-            .map(gameId => getGame(gameId))
+        notLoadedGameIDs.map(gameId => getGame(gameId))
 
-        if(gamesLoading.length === 0) {
+        if(notLoadedGameIDs.length === 0) {
             console.error('BATCH IS ALREADY LOADED IN STORE')
-            // setGameSchedule()
+
+            const gamesBatch = getGamesBatch(gameIDsToLoad)
+            const gamesWithRelatedContent = getGamesWithRelatedContent(gamesBatch, player)
+
+            setGameSchedule([...gameSchedule, ...gamesWithRelatedContent])
         }
 
         setLoadedContentIndex(nextIndex)
+    }
+
+    const gamesBatchLoaded = (gamesBatch) => {
+        const batchChecklist = gamesBatch.map(game => !!game)
+        const batchLoaded = batchChecklist.every(gameLoaded => gameLoaded === true)
+
+        return batchLoaded
     }
 
     useEffect(() => {
@@ -80,8 +104,13 @@ const PlayerPage = ({
     }, [])
 
     useEffect(() => {
-        //get player if not loaded or if changed
         if(!player || playerId !== player.id) {
+            //reset indexes on player change
+            setLoadedContentIndex(0)
+            setActiveMedia(0)
+            setGameSchedule([])
+
+            //load dependencies
             Promise
                 .all([
                     getPlayer(playerId),
@@ -95,36 +124,24 @@ const PlayerPage = ({
     }, [playerId])
 
     useEffect(() => {
-        //reset indexes on player change
-        setLoadedContentIndex(0)
-        setActiveMedia(0)
-    }, [player])
-
-    useEffect(() => {
-
         if(playerSchedule.length > 0) {
-            console.error('SCHEDULE LOADED ale load more nekdy jeste triggeruje INTERSECTION OBSERVER')
-            loadMore()
+            console.error('LOAD MORE triggered when PLAYER SCHEDULE LOADED')
+            loadMore(playerSchedule)
         }
-
     }, [playerSchedule])
 
     useEffect(() => {
 
         if(player && games.length > 0) {
 
-            const gameIds = playerSchedule.slice(loadedContentIndex - gamesToLoad, loadedContentIndex).map(game => game.game.gamePk)
+            const gameIDsToLoad = getGameIDsToLoad(loadedContentIndex - gamesToLoadAmount, loadedContentIndex)
+            const gamesBatch = getGamesBatch(gameIDsToLoad)
 
-            const batchGames = gameIds.map(gameId => games.find(game => game.gamePk === gameId))
-            const batchChecklist = batchGames.map(game => !!game)
-            const batchLoaded = batchChecklist.every(gameLoaded => gameLoaded === true)
+            if(gamesBatch.length > 0 && gamesBatchLoaded(gamesBatch)) {
+                const gamesWithRelatedContent = getGamesWithRelatedContent(gamesBatch, player)
 
-            if(batchLoaded) {
-                console.error('BATCH OF GAMES LOADED')
-                const scheduleWithRelatedContent = batchGames.filter(game => getPlayersMedia(player, game.content.highlights.scoreboard.items).length > 0)
-
-                if(scheduleWithRelatedContent.length === 0) loadMore()
-                else setGameSchedule([...gameSchedule, ...scheduleWithRelatedContent])
+                if(gamesWithRelatedContent.length === 0) loadMore(playerSchedule)
+                else setGameSchedule([...gameSchedule, ...gamesWithRelatedContent])
             }
 
         }
@@ -157,8 +174,8 @@ const PlayerPage = ({
 
                             {/*<Rankings player={player} />*/}
 
-                            {gameSchedule.map(game => (
-                                <div key={`PF_${game.gamePk}`} className="game">
+                            {gameSchedule.map((game, i) => (
+                                <div key={`PF_${game.gamePk}_${i}`} className="game">
                                     <Game
                                         game={game}
                                         gameContent={game.content}
@@ -172,7 +189,7 @@ const PlayerPage = ({
                                 </div>
                             ))}
 
-                            {!noMore && <LoadMore loadMore={loadMore} />}
+                            {!noMore && <LoadMore loadMore={() => loadMore(playerSchedule)} />}
                         </>
                     )}
                 </div>

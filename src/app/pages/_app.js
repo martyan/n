@@ -39,6 +39,8 @@ class MyApp extends App {
         })
 
         Router.events.on('routeChangeStart', (route) => {
+            if(route === Router.asPath) return
+
             if(route.indexOf('/player/') > -1) dispatch(setPlayerSkeletonVisible(true))
 
             const { history } = getState().app

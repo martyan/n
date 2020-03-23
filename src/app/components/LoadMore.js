@@ -9,7 +9,10 @@ const LoadMore = ({ loadMore }) => {
     })
 
     useEffect(() => {
-        if(inView) loadMore()
+        if(inView) {
+            console.error('LOAD MORE triggered by INTERSECTION OBSERVER')
+            loadMore()
+        }
     }, [inView])
 
     return (
