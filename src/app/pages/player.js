@@ -13,13 +13,14 @@ import {
     setPlayerSkeletonVisible,
     getGame,
     setActiveMedia,
-    setUIVisible
+    setUIVisible,
+    getPlayerHistory
 } from '../lib/app/actions'
 import PlayerSkeleton from '../components/PlayerSkeleton'
 import NavBar from '../components/NavBar'
 import { setScrollDir } from '../helpers/UI'
 import './index.scss'
-import { PlayerHeader, PlayerInfo, Rankings } from '../components/PlayerComponents'
+import { PlayerHeader, PlayerHistory, PlayerInfo, Rankings } from '../components/PlayerComponents'
 import PlayerStats from '../components/PlayerStats'
 import Game from '../components/Game'
 import LoadMore from '../components/LoadMore'
@@ -41,7 +42,9 @@ const PlayerPage = ({
     setPlayerSkeletonVisible,
     getGame,
     activeMedia,
-    setActiveMedia
+    setActiveMedia,
+    getPlayerHistory,
+    playerHistory
 }) => {
 
     const [ loadedContentIndex, setLoadedContentIndex ] = useState(0)
@@ -131,6 +134,12 @@ const PlayerPage = ({
     }, [player, playerSchedule])
 
     useEffect(() => {
+        if(player !== null && !player.isActive) {
+            getPlayerHistory(playerId)
+        }
+    }, [player])
+
+    useEffect(() => {
 
         if(player && games.length > 0) {
 
@@ -171,6 +180,8 @@ const PlayerPage = ({
                             <PlayerInfo player={player} />
 
                             <PlayerStats player={player} />
+
+                            <PlayerHistory history={playerHistory} getPlayerSchedule={season => getPlayerSchedule(playerId, season)} />
 
                             {/*<Rankings player={player} />*/}
 
@@ -220,7 +231,8 @@ const mapStateToProps = (state) => ({
     games: state.app.games,
     activeMedia: state.app.activeMedia,
     history: state.app.history,
-    UIVisible: state.app.UIVisible
+    UIVisible: state.app.UIVisible,
+    playerHistory: state.app.playerHistory
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -231,7 +243,8 @@ const mapDispatchToProps = (dispatch) => (
         setPlayerSkeletonVisible,
         getGame,
         setActiveMedia,
-        setUIVisible
+        setUIVisible,
+        getPlayerHistory
     }, dispatch)
 )
 
