@@ -29,6 +29,14 @@ export const getPlayer = (playerId) => ({
     }
 })
 
+export const getPlayerHistory = (playerId) => ({
+    [CALL_API]: {
+        type: 'GET_PLAYER_HISTORY',
+        endpoint: `${NHL_API}/people/${playerId}?expand=person.stats&stats=yearByYear`,
+        method: 'GET'
+    }
+})
+
 export const getGame = (gameId) => ({
     [CALL_API]: {
         type: 'GET_GAME',
@@ -45,10 +53,10 @@ export const getGameContent = (gameId) => ({
     }
 })
 
-export const getPlayerSchedule = (playerId) => ({
+export const getPlayerSchedule = (playerId, season) => ({
     [CALL_API]: {
         type: 'GET_PLAYER_SCHEDULE',
-        endpoint: `${NHL_API}/people/${playerId}/stats?stats=gameLog&season=${getThisSeason()}`,
+        endpoint: `${NHL_API}/people/${playerId}/stats?stats=gameLog&season=${season || getThisSeason()}`,
         method: 'GET'
     }
 })

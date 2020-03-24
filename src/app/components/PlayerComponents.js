@@ -3,6 +3,7 @@ import { Parallax, Background } from 'react-parallax'
 import { getStats } from './TeamFeed'
 import { getRankText, getStatName } from '../helpers/stats'
 import { goToTeamFeed } from '../helpers/navigation'
+import moment from 'moment'
 
 export const PlayerHeader = ({ player }) => {
 
@@ -31,9 +32,11 @@ export const PlayerHeader = ({ player }) => {
                 )}
             </div>
 
-            <div className="team-logo" onClick={() => goToTeamFeed(player.currentTeam.id)}>
-                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
-            </div>
+            {player.hasOwnProperty('currentTeam') && (
+                <div className="team-logo" onClick={() => goToTeamFeed(player.currentTeam.id)}>
+                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
+                </div>
+            )}
         </div>
     )
 
@@ -43,11 +46,13 @@ export const PlayerInfo = ({ player }) => {
 
     if(!player) return null
 
+    const getAge = (player) => player.currentAge || moment.utc().diff(moment.utc(player.birthDate), 'years')
+
     return (
         <div className="info">
             <div className="position">{player.primaryPosition.name}</div>
             <div className="nationality">{player.nationality}</div>
-            <div className="age">{player.currentAge}y</div>
+            <div className="age">{getAge(player)}y</div>
             <div className="height">{player.height}</div>
             <div className="weight">{player.weight} lb</div>
         </div>
@@ -99,6 +104,20 @@ export const Rankings = ({ player }) => {
                     </div>
                 )
             })}
+        </div>
+    )
+
+}
+
+export const PlayerHistory = ({ history, getPlayerSchedule }) => {
+
+    if(!history) return null
+
+    return (
+        <div className="player-history">
+            {history.filter(season => season.league.id === 133).map(season => (
+                <div key={`${season.season}_${season.team.id}`} onClick={() => getPlayerSchedule(season.season)}>{season.season} {season.team.name}</div>
+            ))}
         </div>
     )
 
