@@ -1,5 +1,6 @@
 import React from 'react'
 import { getStats } from './TeamFeed'
+import './PlayerStats.scss'
 
 const Stats = ({ player }) => {
     const seasonStats = getStats('statsSingleSeason', player.stats)

@@ -16,15 +16,14 @@ import {
     setUIVisible,
     getPlayerHistory
 } from '../lib/app/actions'
-import PlayerSkeleton from '../components/PlayerSkeleton'
 import NavBar from '../components/NavBar'
 import { setScrollDir } from '../helpers/UI'
-import './index.scss'
-import { PlayerHeader, PlayerHistory, PlayerInfo, Rankings } from '../components/PlayerComponents'
+import { PlayerHeader, PlayerHistory, PlayerInfo, PlayerRankings, PlayerSkeleton } from '../components/PlayerComponents'
 import PlayerStats from '../components/PlayerStats'
 import Game from '../components/Game'
 import LoadMore from '../components/LoadMore'
 import { getPlayersMedia} from '../helpers/data'
+import './index.scss'
 
 const PlayerPage = ({
     playerId,

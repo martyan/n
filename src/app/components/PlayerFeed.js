@@ -5,7 +5,7 @@ import PlayerStats from './PlayerStats'
 import { goToTeamFeed } from '../helpers/navigation'
 import LoadMore from './LoadMore'
 import { getGameIdFromLink, getPlayersMedia } from '../helpers/data'
-import { PlayerHeader, PlayerInfo, Rankings } from './PlayerComponents'
+import { PlayerHeader, PlayerInfo, PlayerRankings } from './PlayerComponents'
 
 const PlayerFeed = ({
     player,
@@ -98,7 +98,7 @@ const PlayerFeed = ({
 
                     <PlayerStats player={player} />
 
-                    <Rankings player={player} />
+                    <PlayerRankings player={player} />
 
                     {gameSchedule.map(game => (
                         <div key={`PF_${playerId}_${game.gamePk}`} className="game">

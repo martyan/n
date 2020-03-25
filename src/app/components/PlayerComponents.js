@@ -4,13 +4,15 @@ import { getStats } from './TeamFeed'
 import { getRankText, getStatName } from '../helpers/stats'
 import { goToTeamFeed } from '../helpers/navigation'
 import moment from 'moment'
+import './PlayerComponents.scss'
+import useDebounce from 'use-debounce/lib/useDebounce'
 
 export const PlayerHeader = ({ player }) => {
 
     if(!player) return null
 
     return (
-        <div className="cover">
+        <div className="player-header">
             {/*<Parallax
                 bgImage={`https://nhl.bamcontent.com/images/actionshots/${playerId}.jpg`}
                 bgImageAlt={player.fullName}
@@ -49,7 +51,7 @@ export const PlayerInfo = ({ player }) => {
     const getAge = (player) => player.currentAge || moment.utc().diff(moment.utc(player.birthDate), 'years')
 
     return (
-        <div className="info">
+        <div className="player-info">
             <div className="position">{player.primaryPosition.name}</div>
             <div className="nationality">{player.nationality}</div>
             <div className="age">{getAge(player)}y</div>
@@ -60,7 +62,7 @@ export const PlayerInfo = ({ player }) => {
 
 }
 
-export const Rankings = ({ player }) => {
+export const PlayerRankings = ({ player }) => {
 
     if(!player) return null
 
@@ -90,7 +92,7 @@ export const Rankings = ({ player }) => {
     })
 
     return (
-        <div className="ranks">
+        <div className="player-rankings">
             {goodRanks.map(rank => {
                 const value = seasonStats[getStatName(rank.key)]
                 return (
@@ -118,6 +120,30 @@ export const PlayerHistory = ({ history, getPlayerSchedule }) => {
             {history.filter(season => season.league.id === 133).map(season => (
                 <div key={`${season.season}_${season.team.id}`} onClick={() => getPlayerSchedule(season.season)}>{season.season} {season.team.name}</div>
             ))}
+        </div>
+    )
+
+}
+
+export const PlayerSkeleton = ({ playerSkeletonVisible }) => {
+
+    const [ debouncedPlayerSkeletonVisible ] = useDebounce(playerSkeletonVisible, 1500)
+
+    // if(!playerSkeletonVisible && !debouncedPlayerSkeletonVisible) return null
+
+    return (
+        <div className={playerSkeletonVisible ? 'player-skeleton' : 'player-skeleton hidden'}>
+
+            <div className="picture gradient"></div>
+            <div className="number gradient"></div>
+            <div className="name gradient"></div>
+            <div className="team-logo gradient"></div>
+            <div className="position gradient"></div>
+            <div className="stats gradient"></div>
+            <div className="video gradient"></div>
+            <div className="row-1 gradient"></div>
+            <div className="row-2 gradient"></div>
+
         </div>
     )
 

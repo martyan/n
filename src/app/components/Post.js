@@ -6,6 +6,7 @@ import moment from 'moment'
 import { getDateText } from '../helpers/data'
 import { goToPlayerFeed } from '../helpers/navigation'
 import stringReplace from 'react-string-replace'
+import './Post.scss'
 
 const Video = ({ media }) => {
     const LQ = media.playbacks.find(pb => pb.name.indexOf('FLASH_450K') > -1)
