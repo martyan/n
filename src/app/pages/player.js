@@ -134,7 +134,7 @@ const PlayerPage = ({
     }, [player, playerSchedule])
 
     useEffect(() => {
-        if(player !== null && !player.isActive) {
+        if(player !== null && (player.hasOwnProperty('isActive') && !player.isActive)) {
             getPlayerHistory(playerId)
         }
     }, [player])
