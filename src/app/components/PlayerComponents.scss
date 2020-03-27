@@ -74,7 +74,8 @@
 
   .photo {
 
-    height: 120px;
+    width: 100vw;
+    height: calc(100vw / 3);
     overflow: hidden;
 
     img {

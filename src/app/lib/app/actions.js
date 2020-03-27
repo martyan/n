@@ -3,6 +3,8 @@ import { getThisSeason, getThisSeasonSecondMonth, getThisSeasonStart } from '../
 
 const NHL_API = 'https://statsapi.web.nhl.com/api/v1'
 
+export const setFilter = (key, value) => ({ type: 'SET_FILTER', key, value})
+
 export const setIndexInited = (indexInited) => ({ type: 'SET_INDEX_INITED', indexInited })
 
 export const setUIVisible = (UIVisible) => ({ type: 'SET_UI_VISIBLE', UIVisible })

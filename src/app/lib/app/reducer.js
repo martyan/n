@@ -21,11 +21,20 @@ export const initialState = {
     schedule: [],
     games: [],
     history: [],
-    UIVisible: true
+    nationalities: [],
+    UIVisible: true,
+    filters: {
+        teamId: null,
+        position: null,
+        nationality: null
+    }
 }
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case 'SET_FILTER':
+            return {...state, filters: {...state.filters, [action.key]: action.value}}
+
         case 'SET_INDEX_INITED':
             return {...state, indexInited: action.indexInited}
 
@@ -73,7 +82,22 @@ const reducer = (state = initialState, action) => {
 
         case 'GET_TEAMS_SUCCESS':
             const allPlayers = getPlayersFromTeams(action.payload.teams)
-            return {...state, teams: sortTeamsByName(action.payload.teams), allPlayers: sortPlayersByPoints(allPlayers)}
+            const nationalities = allPlayers.map(player => player.person.nationality)
+
+            const nationalitiesCount = {}
+            nationalities.map(nationality => {
+                nationalitiesCount[nationality] = nationalitiesCount.hasOwnProperty(nationality) ? nationalitiesCount[nationality] + 1 : 1
+            })
+
+            const uniqueNationalities = nationalities
+                .filter((value, index, self) => self.indexOf(value) === index)
+                .sort((a, b) => {
+                    if(nationalitiesCount[a] > nationalitiesCount[b]) return -1
+                    if(nationalitiesCount[a] < nationalitiesCount[b]) return 1
+                    return 0
+                })
+
+            return {...state, teams: sortTeamsByName(action.payload.teams), allPlayers: sortPlayersByPoints(allPlayers), nationalities: uniqueNationalities}
 
         case 'SET_PLAYER_SKELETON_VISIBLE':
             return {...state, playerSkeletonVisible: action.playerSkeletonVisible}
