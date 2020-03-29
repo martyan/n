@@ -11,7 +11,8 @@ import NavBar from '../components/NavBar'
 import {
     getTeams,
     setUIVisible,
-    setFilter
+    setFilter,
+    getGame
 } from '../lib/app/actions'
 import Title from '../components/Title'
 import { setScrollDir } from '../helpers/UI'
@@ -36,9 +37,7 @@ import flagAUT from '../static/img/flags/aut.svg'
 import flagLAT from '../static/img/flags/lat.svg'
 import flagFRA from '../static/img/flags/fra.svg'
 import flagDEN from '../static/img/flags/den.svg'
-
-
-
+import TopPicks from '../components/TopPicks'
 
 const flags = {
     CAN: flagCAN,
@@ -60,15 +59,11 @@ const flags = {
     DNK: flagDEN
 }
 
-
-const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlayers, nationalities, filters, setFilter }) => {
-
-    const topPicks = ['5326423', '4895296', '4976671', '5243549', '5305753', '5282720', '69786903', '5288803', '5290549', '5305160', '5264794', '70467203', '70075103', '69360103', '70007803', '70047003', '4632529', '5264499', '4900444', '5243036', '4648354', '5339703']
-    console.log(topPicks)
+const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlayers, nationalities, filters, setFilter, getGame, games }) => {
 
     // const [ selectedPosition, setSelectedPosition ] = useState(null)
     // const [ selectedNationality, setSelectedNationality ] = useState(null)
-    const [ trending, setTrending ] = useState([])
+    const [ topPicksVisible, setTopPicksVisible ] = useState(false)
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
@@ -131,12 +126,6 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
         }
     }, [])
 
-    useEffect(() => {
-        if(allPlayers.length > 0) {
-            setTrending(shuffle(getTrending(filters.position)))
-        }
-    }, [allPlayers])
-
     const selectedTeam = teams.find(team => team.id === filters.teamId)
 
     const playerCounts = {
@@ -196,6 +185,9 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
 
                 <Title visible={true} />
 
+                <p className="caption" onClick={() => setTopPicksVisible(!topPicksVisible)}>Top picks</p>
+                {topPicksVisible && <TopPicks games={games} getGame={getGame} teams={teams} />}
+
                 <p className="caption">Team</p>
                 <div className="filter2 filter-team">
                     <div className="wrapper">
@@ -244,28 +236,10 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
                     </div>
                 </div>
 
-                {true && <p className="caption">Trending players</p>}
+                <p className="caption">Trending players</p>
                 <ul className="roster">
                     {searchResults.map(player => <PlayerListItem key={player.person.id} player={player} />)}
                 </ul>
-
-                {/*<div className="team">*/}
-                    {/*<div className="logo">*/}
-                        {/*<img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${selectedTeam.id}-dark.svg`} />*/}
-                    {/*</div>*/}
-                    {/*<div className="info">*/}
-                        {/*<div className="top">*/}
-                            {/*<span className="name">{selectedTeam.name}</span>*/}
-                        {/*</div>*/}
-                        {/*<div className="conference">{selectedTeam.conference.name}/{selectedTeam.division.name}</div>*/}
-                    {/*</div>*/}
-                    {/*<button>Subscribe</button>*/}
-                {/*</div>*/}
-
-
-                {/*<ul className="roster">*/}
-                    {/*{allPlayers.filter(player => player.teamId === filters.teamId).map(player => <PlayerListItem key={player.person.id} player={player} />)}*/}
-                {/*</ul>*/}
 
                 <NavBar visible={UIVisible} history={history} />
 
@@ -289,14 +263,16 @@ const mapStateToProps = (state) => ({
     UIVisible: state.app.UIVisible,
     allPlayers: state.app.allPlayers,
     nationalities: state.app.nationalities,
-    filters: state.app.filters
+    filters: state.app.filters,
+    games: state.app.games
 })
 
 const mapDispatchToProps = (dispatch) => (
     bindActionCreators({
         getTeams,
         setUIVisible,
-        setFilter
+        setFilter,
+        getGame
     }, dispatch)
 )
 
