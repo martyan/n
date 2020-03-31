@@ -148,3 +148,12 @@ export const PlayerSkeleton = ({ playerSkeletonVisible }) => {
     )
 
 }
+
+export const SubscribeBtn = () => {
+    return (
+        <div className="subscribe-btn">
+            <button>Subscribe</button>
+            <div className="desc">To see his gameplay in your feed</div>
+        </div>
+    )
+}

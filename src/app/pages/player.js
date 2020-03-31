@@ -18,7 +18,14 @@ import {
 } from '../lib/app/actions'
 import NavBar from '../components/NavBar'
 import { setScrollDir } from '../helpers/UI'
-import { PlayerHeader, PlayerHistory, PlayerInfo, PlayerRankings, PlayerSkeleton } from '../components/PlayerComponents'
+import {
+    PlayerHeader,
+    PlayerHistory,
+    PlayerInfo,
+    PlayerRankings,
+    PlayerSkeleton,
+    SubscribeBtn
+} from '../components/PlayerComponents'
 import PlayerStats from '../components/PlayerStats'
 import Game from '../components/Game'
 import LoadMore from '../components/LoadMore'
@@ -177,6 +184,8 @@ const PlayerPage = ({
                             <PlayerHeader player={player} />
 
                             <PlayerInfo player={player} />
+
+                            <SubscribeBtn />
 
                             <PlayerStats player={player} />
 
