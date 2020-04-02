@@ -22,9 +22,10 @@ import {
     setIndexInited
 } from '../lib/app/actions'
 import Title from '../components/Title'
-import './index.scss'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
+import ParallaxCover from '../components/ParallaxCover'
+import './index.scss'
 
 const sortGamesFn = (a, b) => {
     if(a.gameDate > b.gameDate) return -1
@@ -204,6 +205,10 @@ const HomePage = ({
             <div className="nhl padded">
 
                 <Title visible={true} />
+                <div className="welcome">
+                    {/*Welcome to NHLgram - unofficial browser of the NHL*/}
+                    <ParallaxCover />
+                </div>
 
                 {loadedGames.map(game => (
                     <Game

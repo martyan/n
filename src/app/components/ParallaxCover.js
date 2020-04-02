@@ -28,23 +28,65 @@ const ParallaxCover = () => {
 
     const [ cover, setCover ] = useState(false)
     const [ scrollY, setScrollY ] = useState(0)
+    const [ prlxHeight, setPrlxHeight ] = useState(0)
+
+
+    useEffect(() => {
+        setPrlxHeight(window.innerHeight)
+    }, [])
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY)
-        window.addEventListener("scroll", debounce(handleScroll))
+        // window.addEventListener("scroll", debounce(handleScroll))
+        window.addEventListener("scroll", handleScroll)
 
-        return () => window.removeEventListener("scroll", debounce(handleScroll))
+        // return () => window.removeEventListener("scroll", debounce(handleScroll))
+        return () => window.removeEventListener("scroll", handleScroll)
     }, [debounce])
 
     const [ { springscrollY }, springsetScrollY ] = useSpring(() => ({
-        springscrollY: 0
+        springscrollY: 0,
+        config: {
+            mass: 5,
+            tension: 0,
+            friction: 1,
+        }
     }))
 
-    const parallaxLevel = 20
-    springsetScrollY({ springscrollY: scrollY })
+    const parallaxActiveHeight = prlxHeight / 1.7
+    if(scrollY < parallaxActiveHeight) springsetScrollY({ springscrollY: scrollY })
+    const spring = springscrollY.interpolate({range: [0, parallaxActiveHeight], output: [0, 100]})
 
-    const interpHeader = springscrollY.interpolate(
-        o => `translateX(${o / parallaxLevel}px) translateY(-${o / parallaxLevel}px)`
+    const iMantinel = spring.interpolate(
+        o => `translateX(-${o * 0.05}%) translateY(${o * 2.4}%) scale(${1 + (0.1 / 100 * o)})`
+    )
+
+    const iNet = spring.interpolate(
+        o => `translateX(-${o / 5}%) translateY(${o * 2.6}%) scale(${1 + (0.1 / 100 * o)})`
+    )
+
+    const iLines = spring.interpolate(
+        o => `translateX(-${o / 11}%) translateY(${o * 5.45}%) scaleY(${1 + (0.5 / 100 * o)})`
+    )
+
+    const iTuukka = spring.interpolate(
+        o => `translateX(-${o * 0.20}%) translateY(${o * 1.72}%) scale(${1 + (0.09 / 100 * o)})`
+    )
+
+    const iPanarin = spring.interpolate(
+        o => `translateX(${o * 0.25}%) translateY(${o / 1.5}%) scale(${1 + (0.17 / 100 * o)})`
+    )
+
+    const iOtherBlur = spring.interpolate(
+        o => `blur(${1 - (1 / 100 * o)}px)`
+    )
+
+    const iPanarinBlur = spring.interpolate(
+        o => `blur(${0 + (1 / 100 * o)}px)`
+    )
+
+    const iPuck = spring.interpolate(
+        o => `translateX(-${o * 8.9}%) translateY(${o * 12}%) scale(${1 - (0.3 / 100 * o)}) rotate(-10deg)`
     )
 
     // const [{ st, xy }, set] = useSpring(() => ({ st: 0, xy: [0, 0] }))
@@ -53,12 +95,12 @@ const ParallaxCover = () => {
     return (
         <div className={cover ? 'cover active' : 'cover'} onClick={() => setCover(!cover)}>
             <div className="inner">
-                <img className="mantinel" src={mantinel} alt="" />
-                <img className="lines" src={lines} alt="" />
-                <img className="net" src={net} alt="" />
-                <img className="tuukka" src={tuukka} alt="" />
-                <img className="puck" src={puck} alt="" />
-                <animated.img style={{ transform: interpHeader }} className="panarin" src={panarin} />
+                <animated.img style={{ transform: iMantinel, filter: iOtherBlur }} className="mantinel" src={mantinel} />
+                <animated.img style={{ transform: iLines, filter: iOtherBlur }} className="lines" src={lines} />
+                <animated.img style={{ transform: iNet, filter: iOtherBlur }} className="net" src={net} />
+                <animated.img style={{ transform: iTuukka, filter: iOtherBlur }} className="tuukka" src={tuukka} />
+                <animated.img style={{ transform: iPuck }} className="puck" src={puck} />
+                <animated.img style={{ transform: iPanarin, filter: iPanarinBlur }} className="panarin" src={panarin} />
             </div>
         </div>
     )

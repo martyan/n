@@ -432,7 +432,82 @@
 
   }
 
-  &.welcome {
+  .welcome {
+
+    padding-top: 150vh;
+
+    .cover {
+
+      overflow: hidden;
+      position: absolute;
+      background: #e7e7e8;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 150vh;
+
+      .inner {
+
+        position: relative;
+        height: 100%;
+
+        //& > *{
+        //  transition: 2.2s ease;
+        //}
+
+      }
+
+      .lines {
+        width: 220%;
+        position: absolute;
+        top: 16.2%;
+        right: -77%;
+        height: 9%;
+        //filter: blur(1px);
+      }
+
+      .mantinel {
+        width: 150%;
+        position: absolute;
+        top: 0.5%;
+        right: -5%;
+      }
+
+      .net {
+        width: 80%;
+        position: absolute;
+        top: 1.5%;
+        right: -5%;
+        //filter: blur(2px);
+      }
+
+      .tuukka {
+        width: 90%;
+        position: absolute;
+        top: -1%;
+        right: -16%;
+        //filter: blur(1px);
+      }
+
+      .puck {
+        width: 20px;
+        position: absolute;
+        top: 33%;
+        right: 17%;
+      }
+
+      .panarin {
+        width: 118%;
+        position: absolute;
+        bottom: 30%;
+        left: -27%;
+      }
+
+    }
+
+  }
+
+  &.zearch {
 
     background: #f5f5f5;
 
