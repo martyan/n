@@ -9,6 +9,8 @@ import tuukka from '../static/img/tuukka.png'
 import puck from '../static/img/puck.png'
 import panarin from '../static/img/panarin.png'
 
+const back = <svg viewBox="0 0 19 10"><g><polygon fill="#FFFFFF" points="19,1 9.5,10 0,1 1.1,0 9.5,8 17.9,0"/></g></svg>
+
 const debounce = (func, wait = 5, immediate = true) => {
     let timeout
     return function() {
@@ -30,6 +32,7 @@ const Intro = () => {
     const [ scrollY, setScrollY ] = useState(0)
     const [ prlxHeight, setPrlxHeight ] = useState(0)
     const [ introFixed, setIntroFixed ] = useState(true)
+    const [ arrowVisible, setArrowVisible ] = useState(true)
 
     const parallaxActiveHeight = prlxHeight
 
@@ -39,6 +42,7 @@ const Intro = () => {
 
     useEffect(() => {
         const handleScroll = () => {
+            if(window.scrollY > 1) setArrowVisible(false)
             if(window.scrollY > window.innerHeight) setIntroFixed(false)
             else if(window.scrollY <= window.innerHeight) setIntroFixed(true)
             setScrollY(window.scrollY)
@@ -76,7 +80,7 @@ const Intro = () => {
     )
 
     const iPanarin = spring.interpolate(
-        o => `translateX(${o * 0.17}%) translateY(-${o * 0.4}%) scale(${1 + (0.3 / 100 * o)})`
+        o => `translateX(${o * 0.15}%) translateY(-${o * 0.3}%) scale(${1 + (0.3 / 100 * o)})`
     )
 
     const iOtherBlur = springBlur.interpolate(
@@ -115,6 +119,7 @@ const Intro = () => {
                             <span>play</span>
                         </div>
                     </h1>
+                    <div className={arrowVisible ? 'scroll' : 'scroll hidden'}>{back}</div>
                 </animated.div>
                 <animated.img style={{ transform: iMantinel }} className="mantinel" src={mantinel} />
                 <animated.img style={{ transform: iLines, filter: iOtherBlur }} className="lines" src={lines} />

@@ -8,6 +8,18 @@
   height: calc(100vw / 0.563380282);
   background: #e7e7e8;
 
+  &:not(.fixed) {
+
+    .overlay {
+      opacity: 1 !important;
+    }
+
+    img {
+      display: none;
+    }
+
+  }
+
   &.fixed {
     position: fixed;
   }
@@ -73,6 +85,41 @@
         .videos {
           font-size: 6vw;
           line-height: 6vw;
+        }
+
+      }
+
+      .scroll {
+
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        top: 85vh;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        transition: .5s ease;
+        animation: fadeIn 3s ease 1.5s infinite;
+
+        @keyframes fadeIn {
+          0% { opacity: .1 }
+          50% { opacity: 1 }
+          100% { opacity: .1 }
+        }
+
+        &.hidden svg polygon {
+          fill: transparent;
+        }
+
+        svg {
+
+          display: block;
+          width: 9vw;
+
+          path {
+            transition: .5s ease;
+          }
+
         }
 
       }
