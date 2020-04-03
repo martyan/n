@@ -22,7 +22,7 @@ export const initialState = {
     games: [],
     history: [],
     nationalities: [],
-    UIVisible: true,
+    UIVisible: false,
     filters: {
         teamId: null,
         position: null,

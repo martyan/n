@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useSpring, animated, interpolate } from 'react-spring'
+import './Intro.scss'
 
 import mantinel from '../static/img/mantinel.png'
 import lines from '../static/img/lines.png'
@@ -24,7 +25,7 @@ const debounce = (func, wait = 5, immediate = true) => {
     }
 }
 
-const ParallaxCover = () => {
+const Intro = () => {
 
     const [ scrollY, setScrollY ] = useState(0)
     const [ prlxHeight, setPrlxHeight ] = useState(0)
@@ -104,7 +105,8 @@ const ParallaxCover = () => {
                         <div className="feed">
                             <span>unofficial</span>
                             <span>NHL</span>
-                            <span>feed</span></div>
+                            <span>feed</span>
+                        </div>
                         <div className="videos">
                             <span>with</span>
                             <span>latest</span>
@@ -126,4 +128,4 @@ const ParallaxCover = () => {
 
 }
 
-export default ParallaxCover
+export default Intro

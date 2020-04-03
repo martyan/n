@@ -1,0 +1,128 @@
+.intro {
+
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: calc(100vw / 0.563380282);
+  background: #e7e7e8;
+
+  &.fixed {
+    position: fixed;
+  }
+
+  .inner {
+
+    overflow: hidden;
+    position: relative;
+    height: 100%;
+
+    //& > *{
+    //  transition: .1s ease;
+    //}
+
+    .overlay {
+
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: black;
+      z-index: 999;
+      opacity: 1;
+
+      h1 {
+
+        padding: 20vh 30px 30px;
+        margin: 0;
+        color: white;
+        font-weight: 400;
+        font-size: 1.6em;
+        font-family: 'Roboto Slab', serif;
+
+        div {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .wlcm {
+          font-size: 14vw;
+          line-height: 14vw;
+        }
+
+        .dash {
+          font-size: 14vw;
+          line-height: 14vw;
+          text-align: center;
+        }
+
+        .gram {
+          font-size: 17.4vw;
+          line-height: 17.4vw;
+          font-weight: 600;
+        }
+
+        .feed {
+          font-size: 8vw;
+          line-height: 8vw;
+          margin-bottom: 10px;
+        }
+
+        .videos {
+          font-size: 6vw;
+          line-height: 6vw;
+        }
+
+      }
+
+    }
+
+  }
+
+  .lines {
+    width: 220%;
+    position: absolute;
+    top: 26.5%;
+    right: -77%;
+    height: 9%;
+  }
+
+  .mantinel {
+    width: 150%;
+    position: absolute;
+    top: -0.2%;
+    right: -5%;
+    filter: blur(1px);
+  }
+
+  .net {
+    width: 80%;
+    position: absolute;
+    top: 2.5%;
+    right: -6%;
+  }
+
+  .tuukka {
+    width: 86%;
+    position: absolute;
+    top: -1%;
+    right: -13%;
+  }
+
+  .puck {
+    width: 5.5%;
+    position: absolute;
+    top: 48%;
+    right: 17%;
+  }
+
+  .panarin {
+    width: 118%;
+    position: absolute;
+    top: 40%;
+    left: -27%;
+  }
+
+}

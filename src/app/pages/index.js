@@ -24,7 +24,7 @@ import {
 import Title from '../components/Title'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
-import ParallaxCover from '../components/ParallaxCover'
+import Intro from '../components/Intro'
 import './index.scss'
 
 const sortGamesFn = (a, b) => {
@@ -133,40 +133,9 @@ const HomePage = ({
             scheduleRef.current = schedule
         }
 
-        if(scheduleRef.current !== schedule && schedule.length > 0) {
-            // setLoadedContentIndex(0)
-            // setActiveMedia(0)
-            //
-            // const gameSchedule = getGameSchedule(schedule)
-            // setGameSchedule(gameSchedule)
-            // loadMoreGames(gameSchedule)
-            //
-            // scheduleRef.current = schedule
-        }
-
-        // if(schedule.length > 0 && scheduleRef.current !== schedule && schedule.length === scheduleOffset) {
-        //     if(indexInited && scheduleRef.current.length === 0) return
-        //     if(!indexInited) setIndexInited(true)
-        //     console.error('SCHEDULE SUBSCRIBER', schedule, scheduleRef.current)
-        //
-        //     const gameSchedule = getGameSchedule(schedule)
-        //     setGameSchedule(gameSchedule)
-        //     loadMoreGames(gameSchedule)
-        //     scheduleRef.current = schedule
-        // }
-
-        // if(scheduleRef.current !== playerSchedule && playerSchedule.length > 0) {
-        //     setLoadedContentIndex(0)
-        //     setActiveMedia(0)
-        //
-        //     loadMore()
-        //
-        //     scheduleRef.current = playerSchedule
-        // }
     }, [schedule])
 
     useEffect(() => {
-
 
         if(games.length > 0 && gamesRef.current !== games && gamesRef.current.length !== 0) {
 
@@ -174,7 +143,7 @@ const HomePage = ({
             const gameIds = gameSchedule.map(game => game.gamePk)
             const loadedGamesChecklist = gameIds.map(gameId => !!games.find(game => game.gamePk === gameId))
 
-            console.log(gameSchedule, gameIds, loadedGamesChecklist)
+            // console.log(gameSchedule, gameIds, loadedGamesChecklist)
 
             const allGamesLoaded = loadedGamesChecklist.every(gameLoaded => gameLoaded === true)
 
@@ -202,13 +171,11 @@ const HomePage = ({
                 <title>Todo list | Nextbase</title>
             </Head>
 
-            <div className="nhl padded">
+            <div className="nhl with-intro padded">
 
-                <Title visible={true} />
-                <div className="welcome">
-                    {/*Welcome to NHLgram - unofficial browser of the NHL*/}
-                    <ParallaxCover />
-                </div>
+                {/*<Title visible={true} />*/}
+
+                <Intro />
 
                 {loadedGames.map(game => (
                     <Game
