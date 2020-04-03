@@ -26,7 +26,6 @@ const debounce = (func, wait = 5, immediate = true) => {
 
 const ParallaxCover = () => {
 
-    const [ cover, setCover ] = useState(false)
     const [ scrollY, setScrollY ] = useState(0)
     const [ prlxHeight, setPrlxHeight ] = useState(0)
 
@@ -37,45 +36,41 @@ const ParallaxCover = () => {
 
     useEffect(() => {
         const handleScroll = () => setScrollY(window.scrollY)
-        window.addEventListener("scroll", debounce(handleScroll))
-        // window.addEventListener("scroll", handleScroll)
+        // window.addEventListener("scroll", debounce(handleScroll))
+        window.addEventListener("scroll", handleScroll)
 
-        return () => window.removeEventListener("scroll", debounce(handleScroll))
-        // return () => window.removeEventListener("scroll", handleScroll)
+        // return () => window.removeEventListener("scroll", debounce(handleScroll))
+        return () => window.removeEventListener("scroll", handleScroll)
     }, [debounce])
 
     const [ { springscrollY }, springsetScrollY ] = useSpring(() => ({
         springscrollY: 0,
-        config: {
-            mass: 100,
-            tension: 0,
-            friction: 1
-        }
+        config: {tension: 0, friction: 2, precision: 0.1}
     }))
 
-    const parallaxActiveHeight = prlxHeight / 1.5
+    const parallaxActiveHeight = prlxHeight * 0.6
     if(scrollY < parallaxActiveHeight) springsetScrollY({ springscrollY: scrollY })
     const spring = springscrollY.interpolate({range: [0, parallaxActiveHeight], output: [0, 100]})
     const springBlur = springscrollY.interpolate({range: [0, parallaxActiveHeight / 2 - 100, parallaxActiveHeight / 2, parallaxActiveHeight], output: [0, 0, 100, 100]})
 
     const iMantinel = spring.interpolate(
-        o => `translateX(-${o * 0.05}%) translateY(${o * 2.4}%) scale(${1 + (0.1 / 100 * o)})`
+        o => `translateX(-${o * 0.05}%) translateY(${o * 0.05}%) scale(${1 + (0.1 / 100 * o)})`
     )
 
     const iNet = spring.interpolate(
-        o => `translateX(-${o / 6}%) translateY(${o * 2.6}%) scale(${1 + (0.1 / 100 * o)})`
+        o => `translateX(-${o * 0.25}%) translateY(${o * 0.1}%) scale(${1 + (0.15 / 100 * o)})`
     )
 
     const iLines = spring.interpolate(
-        o => `translateX(-${o / 12}%) translateY(${o * 5.45}%) scaleY(${1 + (0.5 / 100 * o)})`
+        o => `translateX(-${o * 0.11}%) translateY(${o * 0.5}%) scaleX(${1 + (0.1 / 100 * o)}) scaleY(${1 + (0.9 / 100 * o)})`
     )
 
     const iTuukka = spring.interpolate(
-        o => `translateX(-${o * 0.19}%) translateY(${o * 1.72}%) scale(${1 + (0.07 / 100 * o)})`
+        o => `translateX(-${o * 0.25}%) translateY(${o * 0.15}%) scale(${1 + (0.2 / 100 * o)})`
     )
 
     const iPanarin = spring.interpolate(
-        o => `translateX(${o * 0.25}%) translateY(${o / 1.5}%) scale(${1 + (0.1 / 100 * o)})`
+        o => `translateX(${o * 0.15}%) translateY(-${o * 0.3}%) scale(${1 + (0.3 / 100 * o)})`
     )
 
     const iOtherBlur = springBlur.interpolate(
@@ -87,15 +82,33 @@ const ParallaxCover = () => {
     )
 
     const iPuck = spring.interpolate(
-        o => `translateX(-${o * 8.9}%) translateY(${o * 12}%) scale(${1 - (0.3 / 100 * o)}) rotate(-10deg)`
+        o => `translateX(-${o * 11}%) translateY(-${o * 19}%) scale(${1 - (0.2 / 100 * o)}) rotate(-10deg)`
     )
 
-    // const [{ st, xy }, set] = useSpring(() => ({ st: 0, xy: [0, 0] }))
-    // const interpPanarin = interpolate([st, xy], (o, xy) => `translate(${xy[0] / 25},${xy[1] / 25 + -10 + o / 8})`)
+    const iWelcome = springscrollY.interpolate({range: [0, 60], output: [0, 100]}).interpolate(
+        o => `${1 - (1 / 100 * o)}`
+    )
 
     return (
-        <div className={cover ? 'cover active' : 'cover'} onClick={() => setCover(!cover)}>
+        <div className="intro">
             <div className="inner">
+                <animated.div style={{ opacity: iWelcome }} className="overlay">
+                    <h1>
+                        <div className="gram">NHLgram</div>
+                        <div className="dash">-</div>
+                        <div className="feed">
+                            <span>unofficial</span>
+                            <span>NHL</span>
+                            <span>feed</span></div>
+                        <div className="videos">
+                            <span>with</span>
+                            <span>latest</span>
+                            <span>videos</span>
+                            <span>of</span>
+                            <span>play</span>
+                        </div>
+                    </h1>
+                </animated.div>
                 <animated.img style={{ transform: iMantinel }} className="mantinel" src={mantinel} />
                 <animated.img style={{ transform: iLines, filter: iOtherBlur }} className="lines" src={lines} />
                 <animated.img style={{ transform: iNet, filter: iOtherBlur }} className="net" src={net} />
