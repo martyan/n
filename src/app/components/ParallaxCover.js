@@ -28,14 +28,20 @@ const ParallaxCover = () => {
 
     const [ scrollY, setScrollY ] = useState(0)
     const [ prlxHeight, setPrlxHeight ] = useState(0)
+    const [ introFixed, setIntroFixed ] = useState(true)
 
+    const parallaxActiveHeight = prlxHeight
 
     useEffect(() => {
         setPrlxHeight(window.innerHeight)
     }, [])
 
     useEffect(() => {
-        const handleScroll = () => setScrollY(window.scrollY)
+        const handleScroll = () => {
+            if(window.scrollY > window.innerHeight) setIntroFixed(false)
+            else if(window.scrollY <= window.innerHeight) setIntroFixed(true)
+            setScrollY(window.scrollY)
+        }
         // window.addEventListener("scroll", debounce(handleScroll))
         window.addEventListener("scroll", handleScroll)
 
@@ -48,7 +54,6 @@ const ParallaxCover = () => {
         config: {tension: 0, friction: 2, precision: 0.1}
     }))
 
-    const parallaxActiveHeight = prlxHeight * 0.6
     if(scrollY < parallaxActiveHeight) springsetScrollY({ springscrollY: scrollY })
     const spring = springscrollY.interpolate({range: [0, parallaxActiveHeight], output: [0, 100]})
     const springBlur = springscrollY.interpolate({range: [0, parallaxActiveHeight / 2 - 100, parallaxActiveHeight / 2, parallaxActiveHeight], output: [0, 0, 100, 100]})
@@ -66,11 +71,11 @@ const ParallaxCover = () => {
     )
 
     const iTuukka = spring.interpolate(
-        o => `translateX(-${o * 0.25}%) translateY(${o * 0.15}%) scale(${1 + (0.2 / 100 * o)})`
+        o => `translateX(-${o * 0.30}%) translateY(${o * 0.15}%) scale(${1 + (0.18   / 100 * o)})`
     )
 
     const iPanarin = spring.interpolate(
-        o => `translateX(${o * 0.15}%) translateY(-${o * 0.3}%) scale(${1 + (0.3 / 100 * o)})`
+        o => `translateX(${o * 0.17}%) translateY(-${o * 0.4}%) scale(${1 + (0.3 / 100 * o)})`
     )
 
     const iOtherBlur = springBlur.interpolate(
@@ -82,7 +87,7 @@ const ParallaxCover = () => {
     )
 
     const iPuck = spring.interpolate(
-        o => `translateX(-${o * 11}%) translateY(-${o * 19}%) scale(${1 - (0.2 / 100 * o)}) rotate(-10deg)`
+        o => `translateX(-${o * 11}%) translateY(-${o * 21}%) scale(${1 - (0.2 / 100 * o)}) rotate(-10deg)`
     )
 
     const iWelcome = springscrollY.interpolate({range: [0, 60], output: [0, 100]}).interpolate(
@@ -90,7 +95,7 @@ const ParallaxCover = () => {
     )
 
     return (
-        <div className="intro">
+        <div className={introFixed ? 'intro fixed' : 'intro'}>
             <div className="inner">
                 <animated.div style={{ opacity: iWelcome }} className="overlay">
                     <h1>

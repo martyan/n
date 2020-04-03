@@ -439,12 +439,16 @@
     .intro {
 
       z-index: -1;
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
       width: 100vw;
       height: calc(100vw / 0.563380282);
       background: #e7e7e8;
+
+      &.fixed {
+        position: fixed;
+      }
 
       .inner {
 
@@ -544,7 +548,7 @@
         width: 86%;
         position: absolute;
         top: -1%;
-        right: -15%;
+        right: -13%;
         //filter: blur(1px);
       }
 
