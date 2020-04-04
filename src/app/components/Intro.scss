@@ -1,11 +1,18 @@
+@import './common/variables';
+
 .intro {
 
-  z-index: -1;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: calc(100vw / 0.563380282);
+  //z-index: -1;
+  position: relative;
+  height: 420px;
+  //position: absolute;
+  //top: 0;
+  //left: 0;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  //height: calc(100vw / 0.563380282);
+
   background: #e7e7e8;
 
   &:not(.fixed) {
@@ -21,7 +28,7 @@
   }
 
   &.fixed {
-    position: fixed;
+    //position: fixed;
   }
 
   .inner {
@@ -36,55 +43,105 @@
 
     .overlay {
 
-      position: fixed;
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100vw;
-      height: 100vh;
+      width: 100%;
+      height: 100%;
       background: black;
       z-index: 999;
       opacity: 1;
 
       h1 {
 
-        padding: 20vh 30px 30px;
+        max-width: 420px;
+        padding: 10%;
         margin: 0;
         color: white;
         font-weight: 400;
         font-size: 1.6em;
         font-family: 'Roboto Slab', serif;
 
-        div {
-          display: flex;
-          justify-content: space-between;
+        @media (min-width: 420px) {
+          padding: 32px;
         }
 
-        .wlcm {
-          font-size: 14vw;
-          line-height: 14vw;
+        div {
+
+          display: flex;
+          justify-content: space-between;
+
+          @media (min-width: 420px) {
+            justify-content: flex-start;
+          }
+
         }
 
         .dash {
+
           font-size: 14vw;
           line-height: 14vw;
           text-align: center;
+
+          @media (min-width: 420px) {
+            font-size: 2.1em;
+            line-height: 100%;
+          }
+
         }
 
         .gram {
+
           font-size: 17.4vw;
           line-height: 17.4vw;
           font-weight: 600;
+
+          @media (min-width: 420px) {
+            font-size: 2.15em;
+            line-height: 100%;
+          }
+
         }
 
         .feed {
+
           font-size: 8vw;
           line-height: 8vw;
           margin-bottom: 10px;
+
+          @media (min-width: 420px) {
+            font-size: 1em;
+            line-height: 100%;
+          }
+
+          span {
+
+            @media (min-width: 420px) {
+              margin-right: 8px;
+            }
+
+          }
+
         }
 
         .videos {
+
           font-size: 6vw;
           line-height: 6vw;
+
+          @media (min-width: 420px) {
+            font-size: .75em;
+            line-height: 100%;
+          }
+
+          span {
+
+            @media (min-width: 420px) {
+              margin-right: 8px;
+            }
+
+          }
+
         }
 
       }
@@ -94,7 +151,7 @@
         position: absolute;
         display: flex;
         justify-content: center;
-        top: 85vh;
+        top: 85%;
         left: 50%;
         transform: translateX(-50%);
         opacity: 0;
@@ -114,7 +171,7 @@
         svg {
 
           display: block;
-          width: 9vw;
+          width: 11%;
 
           path {
             transition: .5s ease;
@@ -128,12 +185,19 @@
 
   }
 
+  .fans {
+    width: 115%;
+    position: absolute;
+    top: -31.2%;
+    left: 0;
+    filter: blur(4px);
+  }
+
   .lines {
     width: 220%;
     position: absolute;
-    top: 26.5%;
+    top: 30%;
     right: -77%;
-    height: 9%;
   }
 
   .mantinel {
@@ -168,7 +232,7 @@
   .panarin {
     width: 118%;
     position: absolute;
-    top: 40%;
+    top: 30%;
     left: -27%;
   }
 

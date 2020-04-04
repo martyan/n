@@ -32,7 +32,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     return (
         <LazyLoadImage
             // alt={image.alt}
-            width={'100vw'}
+            // width={'100vw'}
             // height={360}
             src={thumb.src} // use normal <img> attributes as props
             onClick={() => setActiveMedia(media.id)}

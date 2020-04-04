@@ -185,7 +185,7 @@ const PlayerPage = ({
 
                             <PlayerInfo player={player} />
 
-                            <SubscribeBtn />
+                            {/*<SubscribeBtn />*/}
 
                             <PlayerStats player={player} />
 

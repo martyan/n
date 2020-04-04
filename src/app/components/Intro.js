@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { useSpring, animated, interpolate } from 'react-spring'
 import './Intro.scss'
 
+import fans from '../static/img/fans.png'
 import mantinel from '../static/img/mantinel.png'
 import lines from '../static/img/lines.png'
 import net from '../static/img/net.png'
@@ -29,6 +30,7 @@ const debounce = (func, wait = 5, immediate = true) => {
 
 const Intro = () => {
 
+    const ref = useRef(null)
     const [ scrollY, setScrollY ] = useState(0)
     const [ prlxHeight, setPrlxHeight ] = useState(0)
     const [ introFixed, setIntroFixed ] = useState(true)
@@ -37,7 +39,7 @@ const Intro = () => {
     const parallaxActiveHeight = prlxHeight
 
     useEffect(() => {
-        setPrlxHeight(window.innerHeight)
+        setPrlxHeight(ref.current.offsetHeight)
     }, [])
 
     useEffect(() => {
@@ -63,24 +65,28 @@ const Intro = () => {
     const spring = springscrollY.interpolate({range: [0, parallaxActiveHeight], output: [0, 100]})
     const springBlur = springscrollY.interpolate({range: [0, parallaxActiveHeight / 2 - 100, parallaxActiveHeight / 2, parallaxActiveHeight], output: [0, 0, 100, 100]})
 
+    const iFans = spring.interpolate(
+        o => `translateX(-${o * 0.15}%) translateY(${o * 2.9}%) scale(${1 + (0.1 / 100 * o)})`
+    )
+
     const iMantinel = spring.interpolate(
-        o => `translateX(-${o * 0.05}%) translateY(${o * 0.05}%) scale(${1 + (0.1 / 100 * o)})`
+        o => `translateX(-${o * 0.05}%) translateY(${o * 2.4}%) scale(${1 + (0.1 / 100 * o)})`
     )
 
     const iNet = spring.interpolate(
-        o => `translateX(-${o * 0.25}%) translateY(${o * 0.1}%) scale(${1 + (0.15 / 100 * o)})`
+        o => `translateX(-${o * 0.28}%) translateY(${o * 2.8}%) scale(${1 + (0.15 / 100 * o)})`
     )
 
     const iLines = spring.interpolate(
-        o => `translateX(-${o * 0.11}%) translateY(${o * 0.5}%) scaleX(${1 + (0.1 / 100 * o)}) scaleY(${1 + (0.9 / 100 * o)})`
+        o => `translateX(-${o * 0.11}%) translateY(${o * 4.7}%) scaleX(${1 + (0.1 / 100 * o)}) scaleY(${1 + (0.5 / 100 * o)})`
     )
 
     const iTuukka = spring.interpolate(
-        o => `translateX(-${o * 0.30}%) translateY(${o * 0.15}%) scale(${1 + (0.18   / 100 * o)})`
+        o => `translateX(-${o * 0.30}%) translateY(${o * 1.94}%) scale(${1 + (0.18   / 100 * o)})`
     )
 
     const iPanarin = spring.interpolate(
-        o => `translateX(${o * 0.15}%) translateY(-${o * 0.3}%) scale(${1 + (0.3 / 100 * o)})`
+        o => `translateX(${o * 0.15}%) translateY(${o * 1.1}%) scale(${1 + (0.3 / 100 * o)})`
     )
 
     const iOtherBlur = springBlur.interpolate(
@@ -92,7 +98,7 @@ const Intro = () => {
     )
 
     const iPuck = spring.interpolate(
-        o => `translateX(-${o * 11}%) translateY(-${o * 21}%) scale(${1 - (0.2 / 100 * o)}) rotate(-10deg)`
+        o => `translateX(-${o * 11}%) translateY(${o * 20}%) scale(${1 - (0.2 / 100 * o)}) rotate(-10deg)`
     )
 
     const iWelcome = springscrollY.interpolate({range: [0, 60], output: [0, 100]}).interpolate(
@@ -100,33 +106,47 @@ const Intro = () => {
     )
 
     return (
-        <div className={introFixed ? 'intro fixed' : 'intro'}>
+        <div className={introFixed ? 'intro fixed' : 'intro'} ref={ref}>
             <div className="inner">
                 <animated.div style={{ opacity: iWelcome }} className="overlay">
                     <h1>
                         <div className="gram">NHLgram</div>
                         <div className="dash">-</div>
                         <div className="feed">
+                            {/*<span>unofficial</span>*/}
+                            {/*<span>NHL</span>*/}
+                            {/*<span>feed</span>*/}
                             <span>unofficial</span>
-                            <span>NHL</span>
+                            <span>video</span>
                             <span>feed</span>
                         </div>
                         <div className="videos">
-                            <span>with</span>
-                            <span>latest</span>
-                            <span>videos</span>
+                            {/*<span>with</span>*/}
+                            {/*<span>latest</span>*/}
+                            {/*<span>videos</span>*/}
+                            {/*<span>of</span>*/}
+                            {/*<span>play</span>*/}
                             <span>of</span>
-                            <span>play</span>
+                            <span>current</span>
+                            <span>NHL</span>
+                            <span>season</span>
+                            {/*<span>of</span>*/}
+                            {/*<span>current</span>*/}
+                            {/*<span>NHL</span>*/}
+                            {/*<span>season</span>*/}
                         </div>
                     </h1>
                     <div className={arrowVisible ? 'scroll' : 'scroll hidden'}>{back}</div>
                 </animated.div>
-                <animated.img style={{ transform: iMantinel }} className="mantinel" src={mantinel} />
-                <animated.img style={{ transform: iLines, filter: iOtherBlur }} className="lines" src={lines} />
-                <animated.img style={{ transform: iNet, filter: iOtherBlur }} className="net" src={net} />
-                <animated.img style={{ transform: iTuukka, filter: iOtherBlur }} className="tuukka" src={tuukka} />
-                <animated.img style={{ transform: iPuck }} className="puck" src={puck} />
-                <animated.img style={{ transform: iPanarin, filter: iPanarinBlur }} className="panarin" src={panarin} />
+                <div className="parallax">
+                    <animated.img style={{ transform: iFans }} className="fans" src={fans} />
+                    <animated.img style={{ transform: iMantinel }} className="mantinel" src={mantinel} />
+                    <animated.img style={{ transform: iLines, filter: iOtherBlur }} className="lines" src={lines} />
+                    <animated.img style={{ transform: iNet, filter: iOtherBlur }} className="net" src={net} />
+                    <animated.img style={{ transform: iTuukka, filter: iOtherBlur }} className="tuukka" src={tuukka} />
+                    <animated.img style={{ transform: iPuck }} className="puck" src={puck} />
+                    <animated.img style={{ transform: iPanarin, filter: iPanarinBlur }} className="panarin" src={panarin} />
+                </div>
             </div>
         </div>
     )

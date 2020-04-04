@@ -3,7 +3,11 @@
 
 .nhl {
 
+  width: 100%;
+  max-width: 480px;
   min-height: 100vh;
+  margin: 0 auto;
+  background: white;
 
   &.padded {
     padding-bottom: 48px;
@@ -42,17 +46,24 @@
 
   .nav-bar {
 
-    display: flex;
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    background: rgba(black, .9);
     z-index: 99;
     transition: .5s ease;
 
     &.hidden {
       bottom: -40px;
+    }
+
+    .inner {
+      display: flex;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      background: rgba(black, .9);
+      overflow: hidden;
     }
 
     button {
@@ -130,7 +141,8 @@
     text-align: center;
     padding: 30px 15px 45px;
     text-transform: uppercase;
-    color: #aaa;
+    color: #555;
+    background: white;
     font-size: .85em;
   }
 
@@ -433,7 +445,8 @@
   }
 
   &.with-intro {
-    padding-top: calc(100vw / 0.563380282);
+    position: relative;
+    //padding-top: calc(100vw / 0.563380282);
   }
 
   &.zearch {
