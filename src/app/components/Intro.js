@@ -78,7 +78,7 @@ const Intro = () => {
     )
 
     const iLines = spring.interpolate(
-        o => `translateX(-${o * 0.11}%) translateY(${o * 4.7}%) scaleX(${1 + (0.1 / 100 * o)}) scaleY(${1 + (0.5 / 100 * o)})`
+        o => `translateX(-${o * 0.11}%) translateY(${o * 4.7}%) scaleX(${1 + (0.1 / 100 * o)}) scaleY(${1 + (0.3 / 100 * o)})`
     )
 
     const iTuukka = spring.interpolate(

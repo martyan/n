@@ -9,6 +9,10 @@
   margin: 0 auto;
   background: white;
 
+  @media (min-width: 480px) {
+    box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
+  }
+
   &.padded {
     padding-bottom: 48px;
   }
@@ -50,7 +54,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    z-index: 99;
+    z-index: 999;
     transition: .5s ease;
 
     &.hidden {

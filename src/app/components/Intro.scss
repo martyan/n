@@ -15,6 +15,10 @@
 
   background: #e7e7e8;
 
+  @media (min-width: 480px) {
+    height: 568px;
+  }
+
   &:not(.fixed) {
 
     .overlay {
@@ -171,7 +175,7 @@
         svg {
 
           display: block;
-          width: 11%;
+          width: 13%;
 
           path {
             transition: .5s ease;
@@ -194,10 +198,16 @@
   }
 
   .lines {
+
     width: 220%;
     position: absolute;
-    top: 30%;
-    right: -77%;
+    top: 39vw;
+    right: -78%;
+
+    @media (min-width: 480px) {
+      top: 185px;
+    }
+
   }
 
   .mantinel {
