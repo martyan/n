@@ -42,30 +42,30 @@ const GameTitle = ({ game }) => {
 
     return (
         <div className="game-title">
-            <div className="team" onClick={() => goToTeamFeed(teamHomeId)}>
-                <div className="logo">
+            <a href={`/team/${teamHomeId}`} className="team" onClick={e => goToTeamFeed(teamHomeId, e)}>
+                <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamHomeId}-dark.svg`} />
-                </div>
-                <div className="name">
-                    <div className="first">{getFirstLine(getWords(teamHomeName))}</div>
-                    <div className="second">{getSecondLine(getWords(teamHomeName))}</div>
-                </div>
-            </div>
-            <div className="score" onClick={() => goToGameFeed(game.gamePk)}>
+                </span>
+                <span className="name">
+                    <span className="first">{getFirstLine(getWords(teamHomeName))}</span>
+                    <span className="second">{getSecondLine(getWords(teamHomeName))}</span>
+                </span>
+            </a>
+            <a href={`/game/${game.gamePk}`} className="score" onClick={e => goToGameFeed(game.gamePk, e)}>
                 <span>{getScore(game, 'home')}</span>
                 <span className="colon">:</span>
                 <span>{getScore(game, 'away')}</span>
-            </div>
+            </a>
             {isOT && <div className="ot">{OT}</div>}
-            <div className="team away" onClick={() => goToTeamFeed(game.teams.away.team.id)}>
-                <div className="logo">
+            <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
+                <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamAwayId}-dark.svg`} />
-                </div>
-                <div className="name">
-                    <div className="first">{getFirstLine(getWords(teamAwayName))}</div>
-                    <div className="second">{getSecondLine(getWords(teamAwayName))}</div>
-                </div>
-            </div>
+                </span>
+                <span className="name">
+                    <span className="first">{getFirstLine(getWords(teamAwayName))}</span>
+                    <span className="second">{getSecondLine(getWords(teamAwayName))}</span>
+                </span>
+            </a>
         </div>
     )
 

@@ -13,7 +13,7 @@ const Video = ({ media }) => {
     const HQ = media.playbacks.find(pb => pb.name.indexOf('FLASH_1800K') > -1)
     if(!LQ || !HQ) return null
 
-    return <iframe key={LQ.url} src={LQ.url} frameBorder="0"></iframe>
+    return <iframe key={HQ.url} src={HQ.url} frameBorder="0"></iframe>
 }
 
 const Thumb = ({ media, activeMedia, setActiveMedia }) => {
@@ -23,7 +23,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     return (
         <img
             src={thumb.src}
-            // alt=""
+            alt=""
             className={activeMedia === media.id ? 'hidden' : ''}
             onClick={() => setActiveMedia(media.id)}
         />
@@ -43,7 +43,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
 
 const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMedia }) => {
 
-    const [ debouncedActiveMedia ] = useDebounce(activeMedia, 1000)
+    const [ debouncedActiveMedia ] = useDebounce(activeMedia, 500)
     const [ ref, inView, entry ] = useInView({
         threshold: 1,
         rootMargin: '-25% 0% -25%',
@@ -52,7 +52,7 @@ const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMe
     const gameDate = moment(date)
 
     useEffect(() => {
-        // if(inView) setActiveMedia(media.id)
+        if(inView) setActiveMedia(media.id)
     }, [inView])
 
     let desc = media.description
@@ -63,7 +63,7 @@ const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMe
     const enhancedDesc = stringReplace(desc, /(\d{7})/g, (match, i) => {
         const player = players.find(player => player.person.id === parseInt(match))
 
-        return <a key={i} onClick={() => goToPlayerFeed(match)}>{player.person.fullName}</a>
+        return <a key={i} href={`/player/${match}`} onClick={e => goToPlayerFeed(match, e)}>{player.person.fullName}</a>
     })
 
     return (
@@ -85,11 +85,11 @@ const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMe
                 {enhancedDesc}
             </div>
             <div className="foot">
-                <div className={game.isHome ? 'teams' : 'teams away'}>
-                    {playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />}
-                    <span></span>
-                    {playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />}
-                </div>
+                {/*<div className={game.isHome ? 'teams' : 'teams away'}>*/}
+                    {/*{playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.team.id}-dark.svg`} alt={game.team.name} />}*/}
+                    {/*<span></span>*/}
+                    {/*{playerOnly && <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${game.opponent.id}-dark.svg`} alt={game.opponent.name} />}*/}
+                {/*</div>*/}
                 <div className="date">{getDateText(gameDate)}</div>
             </div>
 
