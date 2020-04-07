@@ -129,21 +129,18 @@ export const PlayerSkeleton = ({ playerSkeletonVisible }) => {
 
     const [ debouncedPlayerSkeletonVisible ] = useDebounce(playerSkeletonVisible, 1500)
 
-    // if(!playerSkeletonVisible && !debouncedPlayerSkeletonVisible) return null
-
     return (
         <div className={playerSkeletonVisible ? 'player-skeleton' : 'player-skeleton hidden'}>
-
-            <div className="picture gradient"></div>
-            <div className="number gradient"></div>
-            <div className="name gradient"></div>
-            <div className="team-logo gradient"></div>
-            <div className="position gradient"></div>
-            <div className="stats gradient"></div>
-            <div className="video gradient"></div>
-            <div className="row-1 gradient"></div>
-            <div className="row-2 gradient"></div>
-
+            <div className="inner">
+                <div className="picture gradient"></div>
+                <div className="number gradient"></div>
+                <div className="name gradient"></div>
+                <div className="team-logo gradient"></div>
+                <div className="stats gradient"></div>
+                <div className="video gradient"></div>
+                <div className="row-1 gradient"></div>
+                <div className="row-2 gradient"></div>
+            </div>
         </div>
     )
 

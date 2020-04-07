@@ -74,11 +74,14 @@
 
   .photo {
 
-    width: 100vw;
-    height: calc(100vw / 3);
+    width: 100%;
+    padding-top: calc(100% / 3);
     overflow: hidden;
 
     img {
+      position: absolute;
+      left: 0;
+      top: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -198,9 +201,7 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
-  z-index: 99;
-  background: white;
+  z-index: 999;
   opacity: 1;
   transition: opacity 1.1s ease;
 
@@ -209,9 +210,18 @@
     z-index: -1;
   }
 
+  .inner {
+    position: relative;
+    background: white;
+    width: 100%;
+    height: 100vh;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
   @keyframes placeHolderShimmer{
     0% { background-position: -468px 0 }
-    100%{ background-position: 468px 0 }
+    100% { background-position: 468px 0 }
   }
 
   .gradient {
@@ -229,12 +239,11 @@
   }
 
   .picture {
-    height: 120px;
+    padding-top: calc(100% / 3);
   }
 
   .number {
     position: absolute;
-    top: 120px;
     left: 0;
     height: 29px;
     width: 29px;
@@ -243,7 +252,6 @@
 
   .name {
     position: absolute;
-    top: 120px;
     left: 33px;
     height: 29px;
     width: 140px;
@@ -252,10 +260,9 @@
 
   .team-logo {
     position: absolute;
-    top: 120px;
-    right: 16px;
-    width: 60px;
-    height: 60px;
+    right: 15px;
+    width: 64px;
+    height: 64px;
     transform: translate(0, -50%);
     border-radius: 50%;
   }
@@ -271,32 +278,31 @@
   .weight {}
 
   .stats {
-    position: absolute;
-    top: 200px;
+    position: relative;
+    top: 70px;
     left: 15px;
     width: calc(100% - 15px);
     height: 42px;
   }
 
   .video {
-    position: absolute;
-    left: 0;
-    top: 283px;
-    width: 100vw;
-    height: calc((100vw * 9) / 16);
+    position: relative;
+    width: 100%;
+    top: 103px;
+    padding-top: calc(100% * 9 / 16 + 47px);
   }
 
   .row-1 {
-    position: absolute;
-    top: calc(283px + (100vw * 9) / 16 + 15px);
+    position: relative;
+    top: 119px;
     left: 15px;
     width: calc(100% - 30px);
     height: 18px;
   }
 
   .row-2 {
-    position: absolute;
-    top: calc(283px + (100vw * 9) / 16 + 15px + 18px + 3px);
+    position: relative;
+    top: 122px;
     left: 15px;
     width: 180px;
     height: 18px;
