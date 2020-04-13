@@ -17,8 +17,6 @@ export const setLoadedContentIndex = (loadedContentIndex) => ({ type: 'SET_LOADE
 
 export const setActiveMedia = (activeMedia) => ({ type: 'SET_ACTIVE_MEDIA', activeMedia })
 
-export const setSearchStr = (searchStr) => ({ type: 'SET_SEARCH_STR', searchStr })
-
 export const setTeam = (team) => ({ type: 'SET_TEAM', team })
 
 export const setPlayerSkeletonVisible = (playerSkeletonVisible) => ({ type: 'SET_PLAYER_SKELETON_VISIBLE', playerSkeletonVisible })
