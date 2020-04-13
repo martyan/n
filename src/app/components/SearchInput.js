@@ -19,8 +19,9 @@ const SearchInput = ({ searchStr, setSearchStr }) => {
                 onChange={e => setSearchStr(e.target.value)}
                 onFocus={e => setSearchFocused(true)}
                 onBlur={e => setSearchFocused(false)}
-                placeholder="Search for team or player"
+                placeholder="Search"
             />
+
             {searchStr.length > 0 && (
                 <button className="clear" type="button" onClick={() => setSearchStr('')}>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">

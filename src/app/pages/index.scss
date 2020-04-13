@@ -154,7 +154,7 @@
 
     position: relative;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 15px;
 
     input {
 
@@ -164,7 +164,7 @@
       background: white;
       padding: 15px;
       border: 0;
-      font-size: 1.1em;
+      font-size: 1.05em;
       font-weight: 400;
 
       &::placeholder {
@@ -178,24 +178,43 @@
       position: absolute;
       right: 10px;
       top: 14px;
-      width: 26px;
-      height: 26px;
+      width: 25px;
+      height: 25px;
       padding: 0;
       background: transparent;
       border: none;
 
-      svg {
+    }
 
-        display: block;
-        width: 100%;
+  }
 
-        path {
-          fill: #222;
-        }
+  .filters {
 
+    padding: 0 15px;
+
+    .toggle {
+
+      display: block;
+      width: 100%;
+      padding: 7px 5px;
+      text-align: center;
+      background: #111;
+      color: white;
+      border: 1px solid black;
+      font-size: .85em;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      transition: .2s ease;
+      cursor: pointer;
+
+      &.active {
+        margin-top: 10px;
+        background: transparent;
+        color: black;
       }
 
     }
+
 
   }
 

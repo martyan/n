@@ -24,6 +24,7 @@ import './index.scss'
 const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlayers, nationalities, filters, setFilter, getGame, games }) => {
 
     const [ topPicksVisible, setTopPicksVisible ] = useState(false)
+    const [ filtersVisible, setFiltersVisible ] = useState(false)
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
@@ -98,13 +99,13 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
 
         let noFilters = true
         for(let key in filters) {
-            if(filters[key] !== null) noFilters = false
+            if(typeof filters[key] === 'string' ? (filters[key].length !== 0) : (filters[key] !== null)) noFilters = false
         }
 
         if(noFilters) {
 
             if(player.position.abbreviation === 'G') {
-                if(playerCounts.goalie >= 15) return false
+                if(playerCounts.goalie >= 5) return false
                 playerCounts.goalie = playerCounts.goalie + 1
                 return true
             }
@@ -125,11 +126,15 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
 
         }
 
+        const matchesName = player.person.fullName.toLowerCase().indexOf(filters.searchStr) > -1
         const matchesNationality = player.person.nationality === filters.nationality
         const matchesTeam = player.person.currentTeam.id === filters.teamId
         const matchesPosition = filters.position === getPosition(player.position)
 
-        return (filters.nationality === null || matchesNationality) && (filters.teamId === null || matchesTeam) && (filters.position === null || matchesPosition)
+        return (filters.searchStr.length === 0 || matchesName) &&
+            (filters.nationality === null || matchesNationality) &&
+            (filters.teamId === null || matchesTeam) &&
+            (filters.position === null || matchesPosition)
 
     })
 
@@ -148,55 +153,62 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
                 {/*<p className="caption" onClick={() => setTopPicksVisible(!topPicksVisible)}>Top picks</p>*/}
                 {/*{topPicksVisible && <TopPicks games={games} getGame={getGame} teams={teams} />}*/}
 
-                <p className="caption">Team</p>
-                <div className="filter2 filter-team">
-                    <div className="wrapper">
-                        <ul>
-                            <li className={filters.teamId === null ? 'active' : ''} onClick={() => setTeamId(null)}>
-                                <div className="logo">
-                                    <img src="https://www-league.nhlstatic.com/images/logos/league-dark/133-flat.svg" alt="NHL logo"/>
-                                </div>
-                                <div className="abbrev">All</div>
-                            </li>
-                            {teams.map(team => (
-                                <li key={team.id} className={team.id === filters.teamId ? 'active' : ''} onClick={() => setTeamId(team.id)}>
-                                    <div className="logo">
-                                        <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${team.id}-dark.svg`} />
-                                    </div>
-                                    <div className="abbrev">{team.abbreviation}</div>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
+                {filtersVisible && (
+                    <>
+                        <p className="caption">Team</p>
+                        <div className="filter2 filter-team">
+                            <div className="wrapper">
+                                <ul>
+                                    <li className={filters.teamId === null ? 'active' : ''} onClick={() => setTeamId(null)}>
+                                        <div className="logo">
+                                            <img src="https://www-league.nhlstatic.com/images/logos/league-dark/133-flat.svg" alt="NHL logo"/>
+                                        </div>
+                                        <div className="abbrev">All</div>
+                                    </li>
+                                    {teams.map(team => (
+                                        <li key={team.id} className={team.id === filters.teamId ? 'active' : ''} onClick={() => setTeamId(team.id)}>
+                                            <div className="logo">
+                                                <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${team.id}-dark.svg`} />
+                                            </div>
+                                            <div className="abbrev">{team.abbreviation}</div>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p className="caption">Nationality</p>
+                        <div className="filter2 filter-default">
+                            <div className="wrapper">
+                                <ul className="nationality">
+                                    <li className={filters.nationality === null ? 'active' : ''} onClick={() => setNationality(null)}>All</li>
+                                    {nationalities.map(n => (
+                                        <li key={n} className={filters.nationality === n ? 'active' : ''} onClick={() => setNationality(n)}>
+                                            {flags.hasOwnProperty(n.toUpperCase()) && <img src={flags[n.toUpperCase()]} alt={n} />}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
+
+                        <p className="caption">Position</p>
+                        <div className="filter2 filter-default">
+                            <div className="wrapper">
+                                <ul>
+                                    <li className={filters.position === null ? 'active' : ''} onClick={() => setPosition(null)}>All</li>
+                                    <li className={filters.position === 'G' ? 'active' : ''} onClick={() => setPosition('G')}>Goalie</li>
+                                    <li className={filters.position === 'D' ? 'active' : ''} onClick={() => setPosition('D')}>Defense</li>
+                                    <li className={filters.position === 'F' ? 'active' : ''} onClick={() => setPosition('F')}>Forward</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                <div className="filters">
+                    <button className={filtersVisible ? 'toggle active' : 'toggle'} onClick={() => setFiltersVisible(!filtersVisible)}>Filters</button>
                 </div>
 
-                <p className="caption">Nationality</p>
-                <div className="filter2 filter-default">
-                    <div className="wrapper">
-                        <ul className="nationality">
-                            <li className={filters.nationality === null ? 'active' : ''} onClick={() => setNationality(null)}>All</li>
-                            {nationalities.map(n => (
-                                <li key={n} className={filters.nationality === n ? 'active' : ''} onClick={() => setNationality(n)}>
-                                    {flags.hasOwnProperty(n.toUpperCase()) && <img src={flags[n.toUpperCase()]} alt={n} />}
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                </div>
-
-                <p className="caption">Position</p>
-                <div className="filter2 filter-default">
-                    <div className="wrapper">
-                        <ul>
-                            <li className={filters.position === null ? 'active' : ''} onClick={() => setPosition(null)}>All</li>
-                            <li className={filters.position === 'G' ? 'active' : ''} onClick={() => setPosition('G')}>Goalie</li>
-                            <li className={filters.position === 'D' ? 'active' : ''} onClick={() => setPosition('D')}>Defense</li>
-                            <li className={filters.position === 'F' ? 'active' : ''} onClick={() => setPosition('F')}>Forward</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <p className="caption">Trending players</p>
                 <ul className="roster">
                     {searchResults.map(player => <PlayerListItem key={player.person.id} player={player} />)}
                 </ul>
