@@ -24,6 +24,7 @@ export const initialState = {
     nationalities: [],
     UIVisible: false,
     filters: {
+        searchStr: '',
         teamId: null,
         position: null,
         nationality: null

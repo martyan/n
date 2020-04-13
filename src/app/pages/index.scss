@@ -154,16 +154,23 @@
 
     position: relative;
     display: block;
+    margin-bottom: 20px;
 
     input {
+
       display: block;
       width: 100%;
       height: 50px;
-      background: #eee;
+      background: white;
       padding: 15px;
       border: 0;
       font-size: 1.1em;
-      font-weight: 300;
+      font-weight: 400;
+
+      &::placeholder {
+        color: #666;
+      }
+
     }
 
     .clear {
@@ -183,7 +190,7 @@
         width: 100%;
 
         path {
-          fill: #aaa;
+          fill: #222;
         }
 
       }

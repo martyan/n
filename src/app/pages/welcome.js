@@ -14,96 +14,56 @@ import {
     setFilter,
     getGame
 } from '../lib/app/actions'
-import Title from '../components/Title'
-import { setScrollDir } from '../helpers/UI'
-import { shuffle } from '../helpers/sort'
 import PlayerListItem from '../components/PlayerListItem'
-import './index.scss'
-
-import flagCAN from '../static/img/flags/can.svg'
-import flagUSA from '../static/img/flags/usa.svg'
-import flagCZE from '../static/img/flags/cze.svg'
-import flagFIN from '../static/img/flags/fin.svg'
-import flagSWE from '../static/img/flags/swe.svg'
-import flagSVK from '../static/img/flags/svk.svg'
-import flagNOR from '../static/img/flags/nor.svg'
-import flagGBR from '../static/img/flags/gbr.svg'
-import flagGER from '../static/img/flags/ger.svg'
-import flagRUS from '../static/img/flags/rus.svg'
-import flagSWI from '../static/img/flags/swi.svg'
-import flagSLO from '../static/img/flags/slo.svg'
-import flagUKR from '../static/img/flags/ukr.svg'
-import flagAUT from '../static/img/flags/aut.svg'
-import flagLAT from '../static/img/flags/lat.svg'
-import flagFRA from '../static/img/flags/fra.svg'
-import flagDEN from '../static/img/flags/den.svg'
+import SearchInput from '../components/SearchInput'
+import flags from '../components/flags'
 import TopPicks from '../components/TopPicks'
-
-const flags = {
-    CAN: flagCAN,
-    USA: flagUSA,
-    CZE: flagCZE,
-    FIN: flagFIN,
-    SWE: flagSWE,
-    SVK: flagSVK,
-    NOR: flagNOR,
-    GBR: flagGBR,
-    DEU: flagGER,
-    RUS: flagRUS,
-    CHE: flagSWI,
-    SVN: flagSLO,
-    UKR: flagUKR,
-    AUT: flagAUT,
-    LVA: flagLAT,
-    FRA: flagFRA,
-    DNK: flagDEN
-}
+import { shuffle } from '../helpers/sort'
+import './index.scss'
 
 const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlayers, nationalities, filters, setFilter, getGame, games }) => {
 
-    // const [ selectedPosition, setSelectedPosition ] = useState(null)
-    // const [ selectedNationality, setSelectedNationality ] = useState(null)
     const [ topPicksVisible, setTopPicksVisible ] = useState(false)
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
-    const getTrending = (selectedPosition) => {
-        const trendingCounts = {
-            goalie: 0,
-            defense: 0,
-            forward: 0
-        }
-
-        return allPlayers
-            .filter((player, i) => {
-                if((!selectedPosition || selectedPosition === 'G') && player.position.abbreviation === 'G') {
-                    if(trendingCounts.goalie >= 15) return false
-                    trendingCounts.goalie = trendingCounts.goalie + 1
-                    return true
-                }
-
-                if((!selectedPosition || selectedPosition === 'D') && player.position.abbreviation === 'D') {
-                    if(trendingCounts.defense >= 15) return false
-                    trendingCounts.defense = trendingCounts.defense + 1
-                    return true
-                }
-
-                if((!selectedPosition || selectedPosition === 'F') && (player.position.abbreviation === 'C' || player.position.abbreviation === 'RW' || player.position.abbreviation === 'LW')) {
-                    if(trendingCounts.forward >= 15) return false
-                    trendingCounts.forward = trendingCounts.forward + 1
-                    return true
-                }
-
-                return false
-            })
-    }
+    // const getTrending = (selectedPosition) => {
+    //     const trendingCounts = {
+    //         goalie: 0,
+    //         defense: 0,
+    //         forward: 0
+    //     }
+    //
+    //     return allPlayers
+    //         .filter((player, i) => {
+    //             if((!selectedPosition || selectedPosition === 'G') && player.position.abbreviation === 'G') {
+    //                 if(trendingCounts.goalie >= 15) return false
+    //                 trendingCounts.goalie = trendingCounts.goalie + 1
+    //                 return true
+    //             }
+    //
+    //             if((!selectedPosition || selectedPosition === 'D') && player.position.abbreviation === 'D') {
+    //                 if(trendingCounts.defense >= 15) return false
+    //                 trendingCounts.defense = trendingCounts.defense + 1
+    //                 return true
+    //             }
+    //
+    //             if((!selectedPosition || selectedPosition === 'F') && (player.position.abbreviation === 'C' || player.position.abbreviation === 'RW' || player.position.abbreviation === 'LW')) {
+    //                 if(trendingCounts.forward >= 15) return false
+    //                 trendingCounts.forward = trendingCounts.forward + 1
+    //                 return true
+    //             }
+    //
+    //             return false
+    //         })
+    // }
 
     const setTeamId = (teamId) => {
         setFilter('teamId', filters.teamId === teamId ? null : teamId)
     }
 
     const setPosition = (position) => {
-        setTrending(shuffle(getTrending(position)))
+        // setTrending(shuffle(getTrending(position)))
         setFilter('position', position)
     }
 
@@ -118,7 +78,7 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
     }
 
     useEffect(() => {
-        setScrollDir(setUIVisible)
+        setUIVisible(true)
 
         if(!teamsLoaded) {
             getTeams(true)
@@ -181,12 +141,12 @@ const WelcomePage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPla
                 <title>Todo list | Nextbase</title>
             </Head>
 
-            <div className="nhl padded welcome">
+            <div className="nhl padded zearch">
 
-                <Title visible={true} />
+                <SearchInput searchStr={filters.searchStr} setSearchStr={searchStr => setFilter('searchStr', searchStr)} />
 
-                <p className="caption" onClick={() => setTopPicksVisible(!topPicksVisible)}>Top picks</p>
-                {topPicksVisible && <TopPicks games={games} getGame={getGame} teams={teams} />}
+                {/*<p className="caption" onClick={() => setTopPicksVisible(!topPicksVisible)}>Top picks</p>*/}
+                {/*{topPicksVisible && <TopPicks games={games} getGame={getGame} teams={teams} />}*/}
 
                 <p className="caption">Team</p>
                 <div className="filter2 filter-team">
