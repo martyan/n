@@ -35,9 +35,9 @@ export const PlayerHeader = ({ player }) => {
             </div>
 
             {player.hasOwnProperty('currentTeam') && (
-                <div className="team-logo" onClick={() => goToTeamFeed(player.currentTeam.id)}>
+                <a href={`/team/${player.currentTeam.id}`} className="team-logo" onClick={e => goToTeamFeed(player.currentTeam.id, e)}>
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.currentTeam.id}-dark.svg`} />
-                </div>
+                </a>
             )}
         </div>
     )
