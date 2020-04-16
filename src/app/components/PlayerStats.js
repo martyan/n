@@ -22,8 +22,12 @@ const Stats = ({ player }) => {
                             <td></td>
                             <td></td>
                             <td></td>
+                            <td></td>
                             <td className="group" colSpan="3">Power play</td>
                             <td className="group" colSpan="3">Short-handed</td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
@@ -36,16 +40,20 @@ const Stats = ({ player }) => {
                             <td>+/-</td>
                             <td>TOI</td>
                             <td>PIM</td>
-                            <td>FO %</td>
+                            <td>GWG</td>
+                            <td>OTG</td>
                             <td className="grouped">G</td>
-                            <td className="grouped">P</td>
+                            <td className="grouped">A</td>
                             <td className="grouped">TOI</td>
                             <td className="grouped">G</td>
-                            <td className="grouped">P</td>
+                            <td className="grouped">A</td>
                             <td className="grouped">TOI</td>
-                            <td>Shots</td>
-                            <td>Blocked</td>
-                            <td>Hits</td>
+                            <td>FO%</td>
+                            <td>S</td>
+                            <td>S%</td>
+                            <td>B</td>
+                            <td>H</td>
+                            <td>P/G</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -57,16 +65,20 @@ const Stats = ({ player }) => {
                             <td>{seasonStats.plusMinus}</td>
                             <td>{seasonStats.timeOnIcePerGame}</td>
                             <td>{seasonStats.penaltyMinutes}</td>
-                            <td>{seasonStats.faceOffPct}</td>
+                            <td>{seasonStats.gameWinningGoals}</td>
+                            <td>{seasonStats.overTimeGoals}</td>
                             <td className="grouped">{seasonStats.powerPlayGoals}</td>
-                            <td className="grouped">{seasonStats.powerPlayPoints}</td>
+                            <td className="grouped">{seasonStats.powerPlayPoints - seasonStats.powerPlayGoals}</td>
                             <td className="grouped">{seasonStats.powerPlayTimeOnIcePerGame}</td>
                             <td className="grouped">{seasonStats.shortHandedGoals}</td>
-                            <td className="grouped">{seasonStats.shortHandedPoints}</td>
+                            <td className="grouped">{seasonStats.shortHandedPoints - seasonStats.shortHandedGoals}</td>
                             <td className="grouped">{seasonStats.shortHandedTimeOnIcePerGame}</td>
+                            <td>{seasonStats.faceOffPct}</td>
                             <td>{seasonStats.shots}</td>
+                            <td>{seasonStats.shotPct}</td>
                             <td>{seasonStats.blocked}</td>
                             <td>{seasonStats.hits}</td>
+                            <td>{Math.round(seasonStats.points / seasonStats.games * 10) / 10}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -99,17 +111,17 @@ const Stats = ({ player }) => {
                         <td>SO</td>
                         <td>SA</td>
                         <td>SV</td>
-                        <td>SV %</td>
+                        <td>SV%</td>
                         <td>GAA</td>
                         <td>S</td>
                         <td>SV</td>
-                        <td>SV %</td>
+                        <td>SV%</td>
                         <td>S</td>
                         <td>SV</td>
-                        <td>SV %</td>
+                        <td>SV%</td>
                         <td>S</td>
                         <td>SV</td>
-                        <td>SV %</td>
+                        <td>SV%</td>
                     </tr>
                     </thead>
                     <tbody>
