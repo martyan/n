@@ -51,12 +51,15 @@ const GameTitle = ({ game }) => {
                     <span className="second">{getSecondLine(getWords(teamHomeName))}</span>
                 </span>
             </a>
-            <a href={`/game/${game.gamePk}`} className="score" onClick={e => goToGameFeed(game.gamePk, e)}>
-                <span>{getScore(game, 'home')}</span>
-                <span className="colon">:</span>
-                <span>{getScore(game, 'away')}</span>
+            <a href={`/game/${game.gamePk}`} className="result" onClick={e => goToGameFeed(game.gamePk, e)}>
+                <span className="score">
+                    <span>{getScore(game, 'home')}</span>
+                    <span className="colon">:</span>
+                    <span>{getScore(game, 'away')}</span>
+                </span>
+                {isOT && <div className="ot">{OT}</div>}
             </a>
-            {isOT && <div className="ot">{OT}</div>}
+
             <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamAwayId}-dark.svg`} />
