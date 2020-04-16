@@ -126,7 +126,7 @@ const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlay
 
         }
 
-        const matchesName = player.person.fullName.toLowerCase().indexOf(filters.searchStr) > -1
+        const matchesName = player.person.fullName.toLowerCase().indexOf(filters.searchStr.toLowerCase()) > -1
         const matchesNationality = player.person.nationality === filters.nationality
         const matchesTeam = player.person.currentTeam.id === filters.teamId
         const matchesPosition = filters.position === getPosition(player.position)
