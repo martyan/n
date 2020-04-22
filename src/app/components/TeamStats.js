@@ -1,10 +1,7 @@
 import React from 'react'
-import { getStats } from './TeamFeed'
 import './TeamStats.scss'
 
-const TeamStats = ({ player }) => {
-
-    if(!player) return null
+const TeamStats = ({ seasonStats, rankingStats }) => {
 
     return (
         <div className="team-stats">

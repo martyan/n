@@ -1,11 +1,10 @@
 import React from 'react'
 import { Parallax, Background } from 'react-parallax'
-import { getStats } from './TeamFeed'
 import { getRankText, getStatName } from '../helpers/stats'
 import { goToTeamFeed } from '../helpers/navigation'
 import moment from 'moment'
-import './PlayerComponents.scss'
 import useDebounce from 'use-debounce/lib/useDebounce'
+import './PlayerComponents.scss'
 
 export const PlayerHeader = ({ player }) => {
 

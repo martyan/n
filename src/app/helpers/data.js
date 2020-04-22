@@ -62,3 +62,20 @@ export const getThisSeasonSecondMonth = () => {
     if(today.get('month') + 1 <= 9) return `${firstDayOfMonth.subtract(1, 'year').set('month', 9).format('YYYY-MM-DD')}`
     return `${firstDayOfMonth.add(1, 'month').format('YYYY-MM-DD')}`
 }
+
+export const getStats = (type, stats) => {
+    if(!stats) return null
+
+    const selected = stats.find(stat => stat.type.displayName === type)
+    return (selected && selected.splits[0]) ? selected.splits[0].stat : null
+}
+
+export const getNextGame = (teamSchedule) => {
+    const game = [...teamSchedule].find(game => game.date >= moment.utc().format('YYYY-MM-DD'))
+    return game ? game.games[0] : null
+}
+
+export const getLastGame = (teamSchedule) => {
+    const game = [...teamSchedule].reverse().find(game => game.date < moment.utc().format('YYYY-MM-DD'))
+    return game ? game.games[0] : null
+}

@@ -1,5 +1,5 @@
 import React from 'react'
-import { getStats } from './TeamFeed'
+import { getStats } from '../helpers/data'
 import './PlayerStats.scss'
 
 const Stats = ({ player }) => {

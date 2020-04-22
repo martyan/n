@@ -1,4 +1,4 @@
-import { getStats } from '../components/TeamFeed'
+import { getStats } from './data'
 
 export const sortTeamsByName = (teams) => {
     return teams.sort((a, b) => {

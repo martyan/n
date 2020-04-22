@@ -1,9 +1,9 @@
 import React from 'react'
-import { getStats } from './TeamFeed'
 import SwipeableList from './SwipeableList/SwipeableList'
 import SwipeableListItem from './SwipeableList/SwipeableListItem'
 import { sortPlayersByPoints } from '../helpers/sort'
 import { Router } from '../../functions/routes'
+import { getStats } from '../helpers/data'
 import { goToPlayerFeed } from '../helpers/navigation'
 
 export const Player = ({ player }) => {

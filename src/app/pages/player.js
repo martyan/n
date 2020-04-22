@@ -22,9 +22,7 @@ import {
     PlayerHeader,
     PlayerHistory,
     PlayerInfo,
-    PlayerRankings,
-    PlayerSkeleton,
-    SubscribeBtn
+    PlayerSkeleton
 } from '../components/PlayerComponents'
 import PlayerStats from '../components/PlayerStats'
 import Game from '../components/Game'
