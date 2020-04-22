@@ -54,21 +54,16 @@
 
       h1 {
 
-        padding-top: 20%;
-        margin: 0;
+        padding-top: 10%;
+        max-width: 80%;
+        margin: 0 auto;
         color: white;
         font-weight: 400;
         font-family: 'Roboto Slab', serif;
 
-        div {
-          display: flex;
-          justify-content: center;
-        }
-
         .dash {
           font-size: 1.1em;
           line-height: 100%;
-          text-align: center;
         }
 
         .gram {
