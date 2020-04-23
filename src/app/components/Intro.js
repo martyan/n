@@ -9,6 +9,7 @@ import net from '../static/img/net.png'
 import tuukka from '../static/img/tuukka.png'
 import puck from '../static/img/puck.png'
 import panarin from '../static/img/panarin.png'
+import logo from '../static/img/logo.svg'
 
 const back = <svg viewBox="0 0 19 10"><g><polygon fill="#FFFFFF" points="19,1 9.5,10 0,1 1.1,0 9.5,8 17.9,0"/></g></svg>
 
@@ -113,6 +114,9 @@ const Intro = () => {
         <div className={introFixed ? 'intro fixed' : 'intro'} ref={ref}>
             <div className="inner">
                 <animated.div style={{ opacity: iWelcome }} className="overlay">
+                    <div className="logo">
+                        <img src={logo} alt=""/>
+                    </div>
                     <h1>
                         <div className="gram">NHLgram</div>
                         <div className="dash">-</div>
