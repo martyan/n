@@ -1,6 +1,7 @@
 import React from 'react'
 import { goToGameFeed, goToTeamFeed } from '../helpers/navigation'
 import './GameTitle.scss'
+import colors from '../helpers/colors'
 
 const getScore = (game, side) => {
     if(game.hasOwnProperty('teams')) {
@@ -39,10 +40,12 @@ const GameTitle = ({ game }) => {
     const getSecondLine = (words) => words.slice(words.length === 3 ? 2 : 1).join(' ')
     const isOT =  OT === 'OT' || OT === 'SO'
 
+    const homeColor = colors.find(clr => clr.teamId === teamHomeId)
+    const awayColor = colors.find(clr => clr.teamId === teamAwayId)
 
     return (
         <div className="game-title">
-            <a href={`/team/${teamHomeId}`} className="team" onClick={e => goToTeamFeed(teamHomeId, e)}>
+            <a href={`/team/${teamHomeId}`} className="team" onClick={e => goToTeamFeed(teamHomeId, e)} style={{background: homeColor.color}}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamHomeId}-dark.svg`} />
                 </span>
@@ -56,11 +59,11 @@ const GameTitle = ({ game }) => {
                     <span>{getScore(game, 'home')}</span>
                     <span className="colon">:</span>
                     <span>{getScore(game, 'away')}</span>
+                    {isOT && <span className="ot">{OT}</span>}
                 </span>
-                {isOT && <div className="ot">{OT}</div>}
             </a>
 
-            <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
+            <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)} style={{background: awayColor.color}}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamAwayId}-dark.svg`} />
                 </span>

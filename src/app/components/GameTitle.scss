@@ -1,18 +1,10 @@
 .game-title {
 
   display: flex;
-  height: 48px;
   align-items: center;
-  padding: 0 8px;
   position: relative;
-  border-top: 1px solid #eee;
   background: white;
-  border-bottom: 1px solid #eee;
   box-shadow: 0 3px 6px 0 rgba(#666, .5);
-
-  .result {
-    display: flex;
-  }
 
   .team {
 
@@ -22,6 +14,12 @@
     position: relative;
     color: inherit;
     text-decoration: none;
+    height: 40px;
+    padding: 0 8px;
+
+    @media (min-width: 420px) {
+      height: 48px;
+    }
 
     &.away {
 
@@ -57,10 +55,16 @@
       flex: 1;
       padding: 0 8px;
       text-align: left;
-      font-size: .85em;
+      font-size: .77em;
       font-weight: 700;
       text-transform: uppercase;
       line-height: 90%;
+      color: white;
+      opacity: .8;
+
+      @media (min-width: 420px) {
+        font-size: .85em;
+      }
 
       .first, .second {
         display: block;
@@ -75,40 +79,105 @@
 
   }
 
-  .score {
+  .result {
 
     display: flex;
-    align-items: center;
-    justify-content: center;
-    background: black;
-    padding: 3px 5px;
-    color: white;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    z-index: 99;
+    transform: translateX(-50%);
+    height: 40px;
     text-decoration: none;
 
+    @media (min-width: 420px) {
+      height: 48px;
+    }
+
+  }
+
+  .score {
+
+    position: relative;
+    display: flex;
+    width: 35px;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    color: black;
+    text-decoration: none;
+
+    @media (min-width: 420px) {
+      width: 40px;
+    }
+
+    &:before {
+
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      left: -20px;
+      border-width: 0px 0px 40px 20px;
+      border-style: solid;
+      border-color: transparent transparent #fff;
+
+      @media (min-width: 420px) {
+        left: -48px;
+        border-width: 0px 0px 48px 48px;
+      }
+
+    }
+
+    &:after {
+
+      content: '';
+      position: absolute;
+      z-index: -1;
+      top: 0;
+      right: -20px;
+      border-width: 40px 20px 0 0;
+      border-style: solid;
+      border-color: #fff transparent transparent #fff;
+
+      @media (min-width: 420px) {
+        right: -48px;
+        border-width: 48px 48px 0px 0px;
+      }
+
+    }
+
     span {
+
       font-family: 'Roboto Slab', serif;
-      font-size: 1em;
+      font-size: .95em;
       font-weight: 600;
+
+      @media (min-width: 420px) {
+        font-size: 1.05em;
+      }
+
     }
 
     .colon {
       font-family: 'Roboto Slab', serif;
       font-size: .9em;
       font-weight: 600;
-      padding: 0 5px;
+      padding: 0 2px;
     }
 
-  }
+    .ot {
 
-  .ot {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: black;
-    font-family: 'Muli', sans-serif;
-    margin-left: 1px;
-    padding: 3px 4px;
-    color: white;
+      margin-left: 1px;
+      font-family: 'Muli', sans-serif;
+      color: black;
+
+      @media (min-width: 420px) {
+        margin-left: 2px;
+      }
+
+    }
+
   }
 
 }
