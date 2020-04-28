@@ -33,6 +33,7 @@
 
   .logo {
     width: 100px;
+    margin: 40px auto;
   }
 
   .inner {
@@ -58,12 +59,12 @@
 
       h1 {
 
-        padding-top: 10%;
         max-width: 80%;
         margin: 0 auto;
         color: white;
         font-weight: 400;
         font-family: 'Roboto Slab', serif;
+        text-align: center;
 
         .dash {
           font-size: 1.1em;

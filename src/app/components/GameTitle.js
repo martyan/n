@@ -47,7 +47,7 @@ const GameTitle = ({ game }) => {
         <div className="game-title">
             <a href={`/team/${teamHomeId}`} className="team" onClick={e => goToTeamFeed(teamHomeId, e)} style={{background: homeColor.color}}>
                 <span className="logo">
-                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamHomeId}-dark.svg`} />
+                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamHomeId}-light.svg`} />
                 </span>
                 <span className="name">
                     <span className="first">{getFirstLine(getWords(teamHomeName))}</span>
@@ -65,7 +65,7 @@ const GameTitle = ({ game }) => {
 
             <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)} style={{background: awayColor.color}}>
                 <span className="logo">
-                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${teamAwayId}-dark.svg`} />
+                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamAwayId}-light.svg`} />
                 </span>
                 <span className="name">
                     <span className="first">{getFirstLine(getWords(teamAwayName))}</span>

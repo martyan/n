@@ -24,6 +24,10 @@ input::selection {
   color: white;
 }
 
+button {
+  cursor: pointer;
+}
+
 :focus {
   -webkit-tap-highlight-color: transparent;
 }
