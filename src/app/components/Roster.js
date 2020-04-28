@@ -1,6 +1,4 @@
 import React from 'react'
-import SwipeableList from './SwipeableList/SwipeableList'
-import SwipeableListItem from './SwipeableList/SwipeableListItem'
 import { sortPlayersByPoints } from '../helpers/sort'
 import { Router } from '../../functions/routes'
 import { getStats } from '../helpers/data'
@@ -53,18 +51,8 @@ const Roster = ({ roster, onClick }) => {
     const sorted = sortPlayersByPoints(roster)
     console.log(sorted)
 
-    const background = <span>Archive</span>;
-    const fakeContent = (
-        <div className="FakeContent">
-            <span>Swipe to delete</span>
-        </div>
-    );
-
     return (
         <div className="roster">
-            <SwipeableList background={background}>
-                <SwipeableListItem>{fakeContent}</SwipeableListItem>
-            </SwipeableList>
             <ul>
                 {sorted.map(player => <Player key={player.person.id} player={player} onClick={onClick}/>)}
             </ul>
