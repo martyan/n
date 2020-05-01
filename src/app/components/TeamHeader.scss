@@ -1,0 +1,112 @@
+.team-header {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  max-width: 480px;
+  margin: 0 auto;
+  z-index: 999;
+
+  .team-title {
+
+    display: flex;
+    align-items: center;
+    padding: 5px 10px;
+
+    .logo {
+
+      width: 50px;
+      height: 50px;
+      margin-right: 15px;
+
+      @media (min-width: 420px) {
+        margin-right: 15px;
+      }
+
+      img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
+
+    }
+
+    .info {
+
+      flex: 1;
+
+      .name {
+
+        color: white;
+        text-transform: uppercase;
+        font-weight: 600;
+        font-size: .95em;
+        margin-bottom: 3px;
+
+        @media (min-width: 420px) {
+          font-size: 1.05em;
+        }
+
+      }
+
+      .conference {
+        text-transform: uppercase;
+        font-size: .7em;
+        font-weight: 300;
+        color: rgba(white, .85);
+      }
+
+    }
+
+  }
+
+  .tabs {
+
+    display: flex;
+    justify-content: center;
+    background: white;
+    border-bottom: 3px solid rgba(66, 66, 66, 0.2);
+    margin-bottom: 10px;
+    opacity: .9;
+
+    button {
+
+      position: relative;
+      flex: 0 0 50px;
+      padding: 10px 15px;
+      background: transparent;
+      border: 0;
+      font-size: .85em;
+      color: #222;
+      font-weight: 300;
+      transition: .5s ease;
+
+      &:after {
+        content: '';
+        position: absolute;
+        bottom: -3px;
+        left: 15px;
+        width: calc(100% - 30px);
+        height: 3px;
+        background: transparent;
+        transition: .5s ease;
+      }
+
+      &.active {
+
+        font-weight: 600;
+
+        &:after {
+          background: indianred;
+        }
+
+      }
+
+    }
+
+  }
+
+}

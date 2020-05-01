@@ -1,0 +1,158 @@
+.player-list-item {
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+
+  &:last-child:after {
+    content: none;
+  }
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 83px;
+    top: 100%;
+    width: calc(100% - 100px);
+    height: 1px;
+    background: #ddd;
+  }
+
+  .avatar {
+
+    position: relative;
+    flex: 0 0 50px;
+    margin: 0 15px 0 8px;
+
+    img.photo {
+      display: block;
+      width: 50px;
+      max-height: 50px;
+      border-radius: 50%;
+      overflow: hidden;
+    }
+
+    img.badge {
+      position: absolute;
+      top: 10%;
+      left: 100px;
+      display: block;
+      display: none;
+      height: 90%;
+      opacity: .1;
+    }
+
+    .number {
+      position: absolute;
+      width: 12px;
+      top: 12px;
+      left: -5px;
+      font-size: .65em;
+      text-align: center;
+      color: #444;
+      font-weight: 300;
+      font-family: 'Roboto Slab', serif;
+    }
+
+    .cpt {
+      position: absolute;
+      top: 10px;
+      right: -7px;
+      display: flex;
+      width: 16px;
+      height: 16px;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50%;
+      font-size: .66em;
+      background: #444;
+      font-weight: 300;
+      color: rgba(white, .9);
+      font-family: 'Roboto Slab', serif;
+    }
+
+  }
+
+  .info {
+
+    flex: 1;
+
+    .top {
+
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3px;
+
+      .name {
+        color: #222;
+        font-size: .95em;
+      }
+
+      .stats {
+
+        position: relative;
+        padding-right: 10px;
+        font-family: 'Roboto Slab', serif;
+
+        .points, .pctg {
+
+          font-size: .9em;
+          color: #444;
+
+          .unit {
+            font-weight: 300;
+            font-family: 'Muli', sans-serif;
+            letter-spacing: 1px;
+          }
+
+        }
+
+        .separate, .gp {
+
+          position: absolute;
+          top: calc(100% + 2px);
+          left: 0;
+          white-space: nowrap;
+          font-size: .6em;
+          letter-spacing: 1px;
+          color: #777;
+
+          &.separate .unit {
+            margin-right: 1px;
+          }
+
+          &.gp .unit {
+            margin-left: 1px;
+          }
+
+          .unit {
+            opacity: .6;
+            font-weight: 100;
+            font-family: 'Muli', sans-serif;
+          }
+
+        }
+
+      }
+
+    }
+
+    .position {
+      text-transform: uppercase;
+      font-size: .7em;
+      font-weight: 300;
+      color: #888;
+    }
+
+    .conference {
+      text-transform: uppercase;
+      font-size: .7em;
+      font-weight: 300;
+      color: #aaa;
+    }
+
+  }
+
+}

@@ -6,14 +6,39 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
-import TeamFeed from '../components/TeamFeed'
-import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams } from '../lib/app/actions'
-import { getPlayedGames } from '../helpers/data'
+import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams, setUIVisible } from '../lib/app/actions'
+import { getLastGame, getNextGame, getPlayedGames, getStats } from '../helpers/data'
 import './index.scss'
+import Schedule from '../components/Schedule'
+import Roster from '../components/Roster'
+import TeamStats from '../components/TeamStats'
+import { goToTeamFeed } from '../helpers/navigation'
+import colors from '../helpers/colors'
+import { setScrollDir } from '../helpers/UI'
+import NavBar from '../components/NavBar'
+import TeamHeader from '../components/TeamHeader'
 
-const TeamPage = ({ teamId, team, teams, setTeam, teamStats, teamSchedule, getTeam, getTeams, getTeamStats, getTeamSchedule }) => {
+const TeamPage = ({
+    teamId,
+    team,
+    teams,
+    setTeam,
+    teamStats,
+    teamSchedule,
+    getTeam,
+    getTeams,
+    getTeamStats,
+    getTeamSchedule,
+    UIVisible,
+    setUIVisible,
+    history
+}) => {
+
+    const [ tab, setTab ] = useState('roster')
 
     useEffect(() => {
+        setScrollDir(setUIVisible)
+
         if(teams.length === 0) {
             getTeams()
                 .catch(console.error)
@@ -35,9 +60,15 @@ const TeamPage = ({ teamId, team, teams, setTeam, teamStats, teamSchedule, getTe
         }
     }, [])
 
-    if(!team) return null
+    if(!team || !teamStats.length) return null
 
-    console.log(team)
+    const seasonStats = getStats('statsSingleSeason', teamStats)
+    const rankingStats = getStats('regularSeasonStatRankings', teamStats)
+
+    const lastGame = getLastGame(teamSchedule)
+    const nextGame = getNextGame(teamSchedule)
+
+    const color = colors.find(clr => clr.teamId === team.id)
 
     return (
         <PageWrapper>
@@ -49,12 +80,34 @@ const TeamPage = ({ teamId, team, teams, setTeam, teamStats, teamSchedule, getTe
 
             <div className="nhl">
 
-                <TeamFeed
-                    team={team}
-                    teams={teams}
-                    teamStats={teamStats}
-                    teamSchedule={getPlayedGames(teamSchedule)}
-                />
+                <div className="team-feed">
+
+                    <TeamHeader
+                        team={team}
+                        color={color}
+                        tab={tab}
+                        setTab={setTab}
+                    />
+
+                    {tab === 'schedule' && <Schedule schedule={getPlayedGames(teamSchedule)} teams={teams} />}
+
+                    {(tab === 'roster' && seasonStats) && (
+                        <Roster
+                            roster={team.roster.roster}
+                            gamesPlayed={seasonStats.gamesPlayed}
+                        />
+                    )}
+
+                    {(tab === 'overview' && (seasonStats || rankingStats)) && (
+                        <TeamStats
+                            rankingStats={seasonStats}
+                            seasonStats={seasonStats}
+                        />
+                    )}
+
+                </div>
+
+                <NavBar visible={UIVisible} history={history} />
 
             </div>
         </PageWrapper>
@@ -76,7 +129,9 @@ const mapStateToProps = (state) => ({
     team: state.app.team,
     teams: state.app.teams,
     teamStats: state.app.teamStats,
-    teamSchedule: state.app.teamSchedule
+    teamSchedule: state.app.teamSchedule,
+    UIVisible: state.app.UIVisible,
+    history: state.app.history
 })
 
 const mapDispatchToProps = (dispatch) => (
@@ -85,7 +140,8 @@ const mapDispatchToProps = (dispatch) => (
         getTeam,
         getTeams,
         getTeamStats,
-        getTeamSchedule
+        getTeamSchedule,
+        setUIVisible
     }, dispatch)
 )
 

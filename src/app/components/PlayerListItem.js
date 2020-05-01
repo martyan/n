@@ -1,9 +1,11 @@
 import React from 'react'
 import { getStats } from '../helpers/data'
 import { goToPlayerFeed } from '../helpers/navigation'
+import colors from '../helpers/colors'
 
 const PlayerListItem = ({ player }) => {
     const stats = getStats('statsSingleSeason', player.person.stats)
+    const color = colors.find(clr => clr.teamId === player.teamId)
 
     return (
         <li className="player" onClick={() => goToPlayerFeed(player.person.id)}>
