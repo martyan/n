@@ -4,11 +4,22 @@ import GameTitle from './GameTitle'
 import { getPlayersFromTeams, getPlayersMedia } from '../helpers/data'
 import Sticky from 'react-sticky-el'
 
-const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia, setActiveMedia }) => {
+const Game = ({
+    game,
+    date,
+    gameContent,
+    player,
+    teams,
+    activeMedia,
+    setActiveMedia,
+    playerOnly,
+    gameOnly
+}) => {
 
     if(!game || !gameContent || (playerOnly && !player) || teams.length === 0) return null
 
-    const media = playerOnly ? getPlayersMedia(player, gameContent.highlights.scoreboard.items) : gameContent.highlights.scoreboard.items
+    const highlights = playerOnly ? getPlayersMedia(player, gameContent.highlights.scoreboard.items) : gameContent.highlights.scoreboard.items
+    const recap = gameContent.media.epg.find(media => media.title === 'Recap').items[0]
 
     const applicableTeams = teams.filter(team => team.id === game.teams.home.team.id || team.id === game.teams.away.team.id)
     const applicablePlayers = getPlayersFromTeams(applicableTeams)
@@ -19,7 +30,18 @@ const Game = ({ playerOnly, game, date, gameContent, player, teams, activeMedia,
                 <GameTitle game={game} />
             </Sticky>
 
-            {media.map(media => (
+            {gameOnly && (
+                <Post
+                    game={game}
+                    media={recap}
+                    players={applicablePlayers}
+                    activeMedia={activeMedia}
+                    setActiveMedia={setActiveMedia}
+                    date={date}
+                />
+            )}
+
+            {highlights.map(media => (
                 <Post
                     key={media.id}
                     game={game}

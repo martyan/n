@@ -55,6 +55,7 @@ const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedi
                         activeMedia={activeMedia}
                         setActiveMedia={setActiveMedia}
                         date={game.gameDate}
+                        gameOnly
                     />
 
                     <NavBar visible={UIVisible} history={history} />
