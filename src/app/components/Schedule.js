@@ -32,11 +32,11 @@ const Game = ({ game }) => {
             <GameTitle game={game} />
 
             <div className="scorers" onClick={e => goToGameFeed(game.gamePk, e)}>
-                <div className="team home">
-                    {teamHomeScoringPlays.map(play => <Play play={play} home />)}
-                </div>
                 <div className="team away">
                     {teamAwayScoringPlays.map(play => <Play play={play} />)}
+                </div>
+                <div className="team home">
+                    {teamHomeScoringPlays.map(play => <Play play={play} home />)}
                 </div>
             </div>
         </div>

@@ -44,25 +44,7 @@ const GameTitle = ({ game }) => {
 
     return (
         <div className="game-title">
-            <a href={`/team/${teamHomeId}`} className={`team team-${teamHomeId}-bg`} onClick={e => goToTeamFeed(teamHomeId, e)}>
-                <span className="logo">
-                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamHomeId}-light.svg`} />
-                </span>
-                <span className="name">
-                    <span className="first">{getFirstLine(getWords(teamHomeName))}</span>
-                    <span className="second">{getSecondLine(getWords(teamHomeName))}</span>
-                </span>
-            </a>
-            <a href={`/game/${game.gamePk}`} className="result" onClick={e => goToGameFeed(game.gamePk, e)}>
-                <span className="score">
-                    <span>{getScore(game, 'home')}</span>
-                    <span className="colon">:</span>
-                    <span>{getScore(game, 'away')}</span>
-                    {isOT && <span className="ot">{OT}</span>}
-                </span>
-            </a>
-
-            <a href={`/team/${game.teams.away.team.id}`} className={`team away team-${teamAwayId}-bg`} onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
+            <a href={`/team/${game.teams.away.team.id}`} className={`team team-${teamAwayId}-bg`} onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamAwayId}-light.svg`} />
                 </span>
@@ -72,8 +54,27 @@ const GameTitle = ({ game }) => {
                 </span>
             </a>
 
+            <a href={`/game/${game.gamePk}`} className="result" onClick={e => goToGameFeed(game.gamePk, e)}>
+                <span className="score">
+                    <span>{getScore(game, 'home')}</span>
+                    <span className="colon">:</span>
+                    <span>{getScore(game, 'away')}</span>
+                    {isOT && <span className="ot">{OT}</span>}
+                </span>
+            </a>
+
+            <a href={`/team/${teamHomeId}`} className={`team home team-${teamHomeId}-bg`} onClick={e => goToTeamFeed(teamHomeId, e)}>
+                <span className="logo">
+                    <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamHomeId}-light.svg`} />
+                </span>
+                <span className="name">
+                    <span className="first">{getFirstLine(getWords(teamHomeName))}</span>
+                    <span className="second">{getSecondLine(getWords(teamHomeName))}</span>
+                </span>
+            </a>
+
             <div className="date">
-                <span className={`team-${teamAwayId}-bg team-${teamAwayId}-before`}>{getDateText(date)}</span>
+                <span className={`team-${teamHomeId}-bg team-${teamHomeId}-before`}>{getDateText(date)}</span>
             </div>
         </div>
     )
