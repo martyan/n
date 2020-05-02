@@ -19,9 +19,9 @@ const TeamHeader = ({ team, color, tab, setTab }) => {
             </div>
 
             <div className="tabs">
-                <button className={tabIsActive('overview') ? `team-${team.id}-after active` : ''} onClick={() => setTab('overview')} style={{borderColor: color.color}}>Overview</button>
-                <button className={tabIsActive('roster') ? `team-${team.id}-after active` : ''} onClick={() => setTab('roster')}>Roster</button>
-                <button className={tabIsActive('schedule') ? `team-${team.id}-after active` : ''} onClick={() => setTab('schedule')}>Schedule</button>
+                <button className={tabIsActive('overview') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('overview')} style={{borderColor: color.color}}>Overview</button>
+                <button className={tabIsActive('roster') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('roster')}>Roster</button>
+                <button className={tabIsActive('schedule') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('schedule')}>Schedule</button>
             </div>
 
         </div>

@@ -17,6 +17,7 @@ import colors from '../helpers/colors'
 import { setScrollDir } from '../helpers/UI'
 import NavBar from '../components/NavBar'
 import TeamHeader from '../components/TeamHeader'
+import ScheduleOld from '../components/ScheduleOld'
 
 const TeamPage = ({
     teamId,
@@ -34,7 +35,7 @@ const TeamPage = ({
     history
 }) => {
 
-    const [ tab, setTab ] = useState('roster')
+    const [ tab, setTab ] = useState('schedule')
 
     useEffect(() => {
         setScrollDir(setUIVisible)
@@ -104,6 +105,7 @@ const TeamPage = ({
                             seasonStats={seasonStats}
                         />
                     )}
+                    {tab === 'overview' && <ScheduleOld schedule={getPlayedGames(teamSchedule)} teams={teams} />}
 
                 </div>
 

@@ -80,7 +80,7 @@ export const getTeam = (teamId) => ({
 export const getTeamSchedule = (teamId) => ({
     [CALL_API]: {
         type: 'GET_TEAM_SCHEDULE',
-        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${getThisSeason()}`,
+        endpoint: `${NHL_API}/schedule?teamId=${teamId}&season=${getThisSeason()}&hydrate=linescore,decisions,scoringplays`,
         method: 'GET'
     }
 })

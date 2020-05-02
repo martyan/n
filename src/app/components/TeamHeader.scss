@@ -69,7 +69,6 @@
     justify-content: center;
     background: white;
     border-bottom: 3px solid rgba(66, 66, 66, 0.2);
-    margin-bottom: 10px;
     opacity: .9;
 
     button {
@@ -92,12 +91,11 @@
         width: calc(100% - 30px);
         height: 3px;
         background: transparent;
+        border-radius: 20%;
         transition: .5s ease;
       }
 
       &.active {
-
-        font-weight: 600;
 
         &:after {
           background: indianred;

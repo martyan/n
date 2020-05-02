@@ -80,46 +80,4 @@
 
   }
 
-  .foot {
-
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 0 15px;
-
-    .date {
-      font-size: .8em;
-      color: #999;
-      font-weight: 300;
-    }
-
-    .teams {
-
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-
-      img {
-        width: 20px;
-        max-height: 20px;
-        //filter: grayscale(100%);
-        opacity: .7;
-      }
-
-      span {
-        display: inline-block;
-        margin: 0 2px;
-        font-size: .7em;
-        color: #aaa;
-        font-weight: 300;
-      }
-
-      &.away {
-        flex-direction: row-reverse;
-      }
-
-    }
-
-  }
-
 }

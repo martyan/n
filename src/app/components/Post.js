@@ -84,10 +84,6 @@ const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMe
             <div className="caption">
                 {enhancedDesc}
             </div>
-            <div className="foot">
-                <div className="date">{getDateText(gameDate)}</div>
-            </div>
-
         </div>
     )
 

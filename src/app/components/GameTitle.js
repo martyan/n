@@ -1,7 +1,8 @@
 import React from 'react'
 import { goToGameFeed, goToTeamFeed } from '../helpers/navigation'
+import moment from 'moment'
+import { getDateText } from '../helpers/data'
 import './GameTitle.scss'
-import colors from '../helpers/colors'
 
 const getScore = (game, side) => {
     if(game.hasOwnProperty('teams')) {
@@ -34,18 +35,16 @@ const GameTitle = ({ game }) => {
     const teamHomeName = getTeamName(game, 'home')
     const teamAwayName = getTeamName(game, 'away')
     const OT = getOT(game)
+    const date = moment(game.gameDate)
 
     const getWords = (name) => name.split(' ')
     const getFirstLine = (words) => words.slice(0, words.length === 3 ? 2 : 1).join(' ')
     const getSecondLine = (words) => words.slice(words.length === 3 ? 2 : 1).join(' ')
     const isOT =  OT === 'OT' || OT === 'SO'
 
-    const homeColor = colors.find(clr => clr.teamId === teamHomeId)
-    const awayColor = colors.find(clr => clr.teamId === teamAwayId)
-
     return (
         <div className="game-title">
-            <a href={`/team/${teamHomeId}`} className="team" onClick={e => goToTeamFeed(teamHomeId, e)} style={{background: homeColor.color}}>
+            <a href={`/team/${teamHomeId}`} className={`team team-${teamHomeId}-bg`} onClick={e => goToTeamFeed(teamHomeId, e)}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamHomeId}-light.svg`} />
                 </span>
@@ -63,7 +62,7 @@ const GameTitle = ({ game }) => {
                 </span>
             </a>
 
-            <a href={`/team/${game.teams.away.team.id}`} className="team away" onClick={e => goToTeamFeed(game.teams.away.team.id, e)} style={{background: awayColor.color}}>
+            <a href={`/team/${game.teams.away.team.id}`} className={`team away team-${teamAwayId}-bg`} onClick={e => goToTeamFeed(game.teams.away.team.id, e)}>
                 <span className="logo">
                     <img src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamAwayId}-light.svg`} />
                 </span>
@@ -72,6 +71,10 @@ const GameTitle = ({ game }) => {
                     <span className="second">{getSecondLine(getWords(teamAwayName))}</span>
                 </span>
             </a>
+
+            <div className="date">
+                <span className={`team-${teamAwayId}-bg team-${teamAwayId}-before`}>{getDateText(date)}</span>
+            </div>
         </div>
     )
 

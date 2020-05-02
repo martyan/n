@@ -1,3 +1,47 @@
+.game-list {
+
+  padding-top: 20px;
+
+  .game-list-item {
+
+    .scorers {
+
+      display: flex;
+      padding: 5px 5px 30px;
+
+      .team {
+        flex: 1 0 50%;
+        padding: 0 0 0 10px;
+
+        &.home {
+          text-align: right;
+          padding: 0 10px 0 0;
+        }
+      }
+
+    }
+
+  }
+
+  .play-item {
+
+    font-size: .75em;
+    color: #222;
+    margin-bottom: 4px;
+
+    &.home {
+    }
+
+    .assists {
+      font-weight: 300;
+      color: #666;
+      font-size: .9em;
+    }
+
+  }
+
+}
+
 .schedule {
 
   position: relative;
@@ -75,7 +119,7 @@
       &:after {
         content: none;
       }
-      
+
     }
 
     .team {
