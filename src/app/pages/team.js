@@ -35,7 +35,7 @@ const TeamPage = ({
     history
 }) => {
 
-    const [ tab, setTab ] = useState('schedule')
+    const [ tab, setTab ] = useState('overview')
 
     useEffect(() => {
         setScrollDir(setUIVisible)

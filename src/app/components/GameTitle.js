@@ -56,9 +56,9 @@ const GameTitle = ({ game }) => {
 
             <a href={`/game/${game.gamePk}`} className="result" onClick={e => goToGameFeed(game.gamePk, e)}>
                 <span className="score">
-                    <span>{getScore(game, 'home')}</span>
-                    <span className="colon">:</span>
                     <span>{getScore(game, 'away')}</span>
+                    <span className="colon">:</span>
+                    <span>{getScore(game, 'home')}</span>
                     {isOT && <span className="ot">{OT}</span>}
                 </span>
             </a>
