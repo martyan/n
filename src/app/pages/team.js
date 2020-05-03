@@ -12,8 +12,6 @@ import './index.scss'
 import Schedule from '../components/Schedule'
 import Roster from '../components/Roster'
 import TeamStats from '../components/TeamStats'
-import { goToTeamFeed } from '../helpers/navigation'
-import colors from '../helpers/colors'
 import { setScrollDir } from '../helpers/UI'
 import NavBar from '../components/NavBar'
 import TeamHeader from '../components/TeamHeader'
@@ -45,7 +43,11 @@ const TeamPage = ({
                 .catch(console.error)
         }
 
-        if(!team) {
+        return () => setTeam(null)
+    }, [])
+
+    useEffect(() => {
+        if(!team || team.id !== teamId) {
             getTeam(teamId)
                 .catch(console.error)
 
@@ -55,11 +57,7 @@ const TeamPage = ({
             getTeamSchedule(teamId)
                 .catch(console.error)
         }
-
-        return () => {
-            setTeam(null)
-        }
-    }, [])
+    }, [teamId])
 
     if(!team || !teamStats.length) return null
 
@@ -68,8 +66,6 @@ const TeamPage = ({
 
     const lastGame = getLastGame(teamSchedule)
     const nextGame = getNextGame(teamSchedule)
-
-    const color = colors.find(clr => clr.teamId === team.id)
 
     return (
         <PageWrapper>
@@ -85,7 +81,6 @@ const TeamPage = ({
 
                     <TeamHeader
                         team={team}
-                        color={color}
                         tab={tab}
                         setTab={setTab}
                     />

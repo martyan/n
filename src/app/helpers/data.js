@@ -27,8 +27,8 @@ export const getDateText = (d) => {
     if(hoursDiff < 24) return `${hoursDiff} hours ago`
     if(d.isSame(yesterday, 'day')) return '1 day ago'
     if(daysDiff < 7) return `${daysDiff} days ago`
-    if(now.get('year') > d.get('year')) return d.format('D MMM YYYY')
-    return d.format('D MMM')
+    if(now.get('year') > d.get('year')) return d.format('MMMM D, YYYY')
+    return d.format('MMMM D')
 }
 
 export const getPlayedGames = (teamSchedule) => {

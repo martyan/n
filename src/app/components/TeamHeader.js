@@ -1,7 +1,7 @@
 import React from 'react'
 import './TeamHeader.scss'
 
-const TeamHeader = ({ team, color, tab, setTab }) => {
+const TeamHeader = ({ team, tab, setTab }) => {
 
     const tabIsActive = tabName => tab === tabName
 
@@ -19,7 +19,7 @@ const TeamHeader = ({ team, color, tab, setTab }) => {
             </div>
 
             <div className="tabs">
-                <button className={tabIsActive('overview') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('overview')} style={{borderColor: color.color}}>Overview</button>
+                <button className={tabIsActive('overview') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('overview')}>Overview</button>
                 <button className={tabIsActive('roster') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('roster')}>Roster</button>
                 <button className={tabIsActive('schedule') ? `team-${team.id}-after team-${team.id}-clr active` : ''} onClick={() => setTab('schedule')}>Schedule</button>
             </div>

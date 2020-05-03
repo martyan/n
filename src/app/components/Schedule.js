@@ -14,7 +14,7 @@ const Play = ({ play, home }) => {
     return (
         <div className={home ? 'play-item home' : 'play-item'}>
             {scorer && <span>{scorer.player.fullName.split(' ').pop()} </span>}
-            {assists.map((assist, i) => <span className="assists">{isFirst(i) && '('}{assist.player.fullName.split(' ').pop()}{!isLast(assists, i) ? ', ' : ')'}</span>)}
+            {assists.map((assist, i) => <span className="assists" key={i}>{isFirst(i) && '('}{assist.player.fullName.split(' ').pop()}{!isLast(assists, i) ? ', ' : ')'}</span>)}
         </div>
     )
 
@@ -33,10 +33,10 @@ const Game = ({ game }) => {
 
             <div className="scorers" onClick={e => goToGameFeed(game.gamePk, e)}>
                 <div className="team away">
-                    {teamAwayScoringPlays.map(play => <Play play={play} />)}
+                    {teamAwayScoringPlays.map((play, i) => <Play key={i} play={play} />)}
                 </div>
                 <div className="team home">
-                    {teamHomeScoringPlays.map(play => <Play play={play} home />)}
+                    {teamHomeScoringPlays.map((play, i) => <Play key={i} play={play} home />)}
                 </div>
             </div>
         </div>
