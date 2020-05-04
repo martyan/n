@@ -1,3 +1,7 @@
+.sticky .game-title .date {
+  opacity: 0;
+}
+
 .game-title {
 
   display: flex;
@@ -9,21 +13,36 @@
 
   .date {
     position: absolute;
-    bottom: 100%;
+    top: 100%;
     left: 0;
     width: 100%;
+    height: 22px;
+    line-height: 22px;
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    font-size: .75em;
+    font-size: .7em;
     color: white;
     font-weight: 300;
+    opacity: .85;
+    overflow: hidden;
+    transition: .5s ease;
+
+    @media (min-width: 420px) {
+      height: 26px;
+      line-height: 26px;
+      font-size: .75em;
+    }
 
     span {
 
       position: relative;
-      padding: 3px 15px;
+      padding: 0 15px 0 0;
       background: #222;
+
+      @media (min-width: 420px) {
+        padding: 0 15px 0 8px;
+      }
 
       &:before {
 
@@ -31,13 +50,13 @@
         position: absolute;
         z-index: -1;
         top: 0;
-        left: -20px;
-        border-width: 0px 0px 40px 20px;
+        left: -22px;
+        border-width: 0 22px 44px 0;
         border-style: solid;
 
         @media (min-width: 420px) {
-          left: -48px;
-          border-width: 0px 0px 48px 48px;
+          left: -26px;
+          border-width: 0 26px 26px 0;
         }
 
       }
