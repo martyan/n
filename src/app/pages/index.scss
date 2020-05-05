@@ -154,7 +154,6 @@
 
     position: relative;
     display: block;
-    margin-bottom: 15px;
 
     input {
 
@@ -190,9 +189,6 @@
 
   .filters {
 
-    padding: 0 15px;
-    margin-bottom: 15px;
-
     .toggle {
 
       display: block;
@@ -202,6 +198,7 @@
       background: #111;
       color: white;
       border: 1px solid black;
+      border-width: 1px 0;
       font-size: .85em;
       text-transform: uppercase;
       letter-spacing: .05em;
@@ -209,9 +206,9 @@
       cursor: pointer;
 
       &.active {
-        margin-top: 10px;
         background: transparent;
         color: black;
+        margin-top: 10px;
       }
 
     }

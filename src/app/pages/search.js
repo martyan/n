@@ -20,11 +20,13 @@ import flags from '../components/flags'
 import TopPicks from '../components/TopPicks'
 import { shuffle } from '../helpers/sort'
 import './index.scss'
+import { useDebounce } from 'use-debounce'
 
 const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlayers, nationalities, filters, setFilter, getGame, games }) => {
 
     const [ topPicksVisible, setTopPicksVisible ] = useState(false)
     const [ filtersVisible, setFiltersVisible ] = useState(false)
+    const [ debouncedFilters] = useDebounce(filters, 500)
 
     const teamsLoaded = teams.length > 0 && teams[0].roster.roster[0].person.hasOwnProperty('stats')
 
@@ -98,8 +100,8 @@ const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlay
     const searchResults = allPlayers.filter(player => {
 
         let noFilters = true
-        for(let key in filters) {
-            if(typeof filters[key] === 'string' ? (filters[key].length !== 0) : (filters[key] !== null)) noFilters = false
+        for(let key in debouncedFilters) {
+            if(typeof debouncedFilters[key] === 'string' ? (debouncedFilters[key].length !== 0) : (debouncedFilters[key] !== null)) noFilters = false
         }
 
         if(noFilters) {
@@ -126,15 +128,15 @@ const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlay
 
         }
 
-        const matchesName = player.person.fullName.toLowerCase().indexOf(filters.searchStr.toLowerCase()) > -1
-        const matchesNationality = player.person.nationality === filters.nationality
-        const matchesTeam = player.person.currentTeam.id === filters.teamId
-        const matchesPosition = filters.position === getPosition(player.position)
+        const matchesName = player.person.fullName.toLowerCase().indexOf(debouncedFilters.searchStr.toLowerCase()) > -1
+        const matchesNationality = player.person.nationality === debouncedFilters.nationality
+        const matchesTeam = player.person.currentTeam.id === debouncedFilters.teamId
+        const matchesPosition = debouncedFilters.position === getPosition(player.position)
 
-        return (filters.searchStr.length === 0 || matchesName) &&
-            (filters.nationality === null || matchesNationality) &&
-            (filters.teamId === null || matchesTeam) &&
-            (filters.position === null || matchesPosition)
+        return (debouncedFilters.searchStr.length === 0 || matchesName) &&
+            (debouncedFilters.nationality === null || matchesNationality) &&
+            (debouncedFilters.teamId === null || matchesTeam) &&
+            (debouncedFilters.position === null || matchesPosition)
 
     })
 

@@ -8,7 +8,7 @@ const PlayerListItem = ({ player }) => {
     const color = colors.find(clr => clr.teamId === player.teamId)
 
     return (
-        <li className="player" onClick={() => goToPlayerFeed(player.person.id)}>
+        <li className="player-list-item" onClick={() => goToPlayerFeed(player.person.id)}>
             <div className="avatar">
                 <img className="photo" src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`} />
                 {player.teamId && <img className="badge" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.teamId}-dark.svg`} />}
