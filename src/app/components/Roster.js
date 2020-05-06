@@ -8,7 +8,6 @@ const Roster = ({ roster, onClick }) => {
     if(!roster) return null
 
     const sorted = sortPlayersByPoints(roster)
-    console.log(sorted)
 
     return (
         <div className="roster">

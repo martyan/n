@@ -26,7 +26,7 @@ export const PlayerHeader = ({ player }) => {
             {player.rookie && <div className="rookie">Rookie</div>}
 
             <div className="caption">
-                <span className="no">{player.primaryNumber}</span>
+                <span className={`no team-${player.currentTeam.id}-bg`}>{player.primaryNumber}</span>
                 <h1 className="name">{player.fullName}</h1>
                 {(player.captain || player.alternateCaptain) && (
                     <span className="cpt">{player.captain ? 'C' : 'A'}</span>
