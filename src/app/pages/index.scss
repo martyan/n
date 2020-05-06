@@ -282,6 +282,8 @@
 
       ul li {
 
+        cursor: pointer;
+
         &:last-child {
 
           position: relative;
@@ -428,6 +430,7 @@
         border-radius: 5px;
         box-shadow: 0 3px 3px 1px rgba(66,66,66, .1);
         font-size: .9em;
+        cursor: pointer;
 
         &.active {
           background: black;

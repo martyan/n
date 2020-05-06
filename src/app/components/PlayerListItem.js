@@ -2,6 +2,7 @@ import React from 'react'
 import { getStats } from '../helpers/data'
 import { goToPlayerFeed } from '../helpers/navigation'
 import colors from '../helpers/colors'
+import './PlayerListItem.scss'
 
 const PlayerListItem = ({ player }) => {
     const stats = getStats('statsSingleSeason', player.person.stats)

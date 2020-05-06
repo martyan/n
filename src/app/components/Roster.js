@@ -2,7 +2,6 @@ import React from 'react'
 import { sortPlayersByPoints } from '../helpers/sort'
 import { Router } from '../../functions/routes'
 import PlayerListItem from './PlayerListItem'
-import './Roster.scss'
 
 const Roster = ({ roster, onClick }) => {
 
