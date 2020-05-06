@@ -7,7 +7,7 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams, setUIVisible } from '../lib/app/actions'
-import { getLastGame, getNextGame, getPlayedGames, getStats } from '../helpers/data'
+import { getLastGame, getNextGame, getTeamPlayedGames, getStats } from '../helpers/data'
 import './index.scss'
 import Schedule from '../components/Schedule'
 import Roster from '../components/Roster'
@@ -85,7 +85,7 @@ const TeamPage = ({
                         setTab={setTab}
                     />
 
-                    {tab === 'schedule' && <Schedule schedule={getPlayedGames(teamSchedule)} teams={teams} />}
+                    {tab === 'schedule' && <Schedule schedule={getTeamPlayedGames(teamSchedule)} teams={teams} />}
 
                     {(tab === 'roster' && seasonStats) && (
                         <Roster
@@ -100,7 +100,7 @@ const TeamPage = ({
                             seasonStats={seasonStats}
                         />
                     )}
-                    {tab === 'overview' && <ScheduleOld schedule={getPlayedGames(teamSchedule)} teams={teams} />}
+                    {tab === 'overview' && <ScheduleOld schedule={getTeamPlayedGames(teamSchedule)} teams={teams} />}
 
                 </div>
 

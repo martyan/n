@@ -92,8 +92,9 @@ const HomePage = ({
     }
 
     const loadMoreSchedule = () => {
-        const start = moment.utc().subtract(scheduleOffset * 2 + 1, 'days')
-        const end = moment.utc().subtract(scheduleOffset * 2, 'days')
+        const mockedDate = moment.utc('2020-03-12')
+        const start = mockedDate.clone().subtract(scheduleOffset * 2 + 1, 'days')
+        const end = mockedDate.clone().subtract(scheduleOffset * 2, 'days')
         getSchedule(start.format('YYYY-MM-DD'), end.format('YYYY-MM-DD'))
 
         setScheduleOffset(scheduleOffset + 1)
@@ -109,28 +110,32 @@ const HomePage = ({
 
         if(schedule.length === 0) loadMoreSchedule()
         else setGameSchedule(getGameSchedule(schedule))
-
-        // axios.get(`https://statsapi.web.nhl.com/api/v1/schedule?startDate=${yesterday}&endDate=${today}&hydrate=linescore,game(content(media(epg),highlights(scoreboard)))`)
-        //     .then(r => setFeed(r.data.dates.reverse().reduce((acc, curr) => [...acc, ...curr.games], [])))
     }, [])
 
     useEffect(() => {
 
-        if(schedule.length > 0 && scheduleRef.current !== schedule) {
-            if(indexInited && scheduleRef.current.length === 0) {
-                console.error('skedzly se nebudou tahat')
+        if(schedule.length > 0) {
+
+            if(schedule[schedule.length - 1].length === 0) {
+                console.error('loaded schedule is empty -> load more schedule then (xmass break etc)')
+                loadMoreSchedule()
+            } else if(schedule[schedule.length - 1].length > 0 && scheduleRef.current !== schedule) {
+                if(indexInited && scheduleRef.current.length === 0) {
+                    console.error(`schedules will not be loaded`)
+                    scheduleRef.current = schedule
+                    return
+                }
+
+                console.error(`schedules loaded -> load games`)
+
+                const gameSchedule = getGameSchedule(schedule)
+                setGameSchedule(gameSchedule)
+                loadMoreGames(gameSchedule)
+
+                if(!indexInited) setIndexInited(true)
                 scheduleRef.current = schedule
-                return
             }
 
-            console.error('stahl se skedzl loadni hry', scheduleRef.current, schedule)
-
-            const gameSchedule = getGameSchedule(schedule)
-            setGameSchedule(gameSchedule)
-            loadMoreGames(gameSchedule)
-
-            if(!indexInited) setIndexInited(true)
-            scheduleRef.current = schedule
         }
 
     }, [schedule])
@@ -148,7 +153,7 @@ const HomePage = ({
             const allGamesLoaded = loadedGamesChecklist.every(gameLoaded => gameLoaded === true)
 
             if(allGamesLoaded) {
-                console.error('all gejmz loudyd => louding more skedzlz')
+                console.error(`all games loaded -> load more schedule`)
                 loadMoreSchedule()
             }
 

@@ -16,13 +16,13 @@ const LoadMore = ({ loadMore }) => {
     }, [inView])
 
     return (
-        <div
+        <button
             onClick={() => loadMore()}
             ref={ref}
             className="load-more"
         >
             load more
-        </div>
+        </button>
     )
 
 }

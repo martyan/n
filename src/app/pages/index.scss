@@ -14,7 +14,7 @@
   }
 
   &.padded {
-    padding-bottom: 48px;
+    padding-bottom: 41px;
   }
 
   ul {
@@ -143,11 +143,17 @@
 
   .load-more {
     text-align: center;
-    padding: 30px 15px 45px;
+    padding: 25px 15px;
     text-transform: uppercase;
-    color: #555;
-    background: white;
+    color: white;
+    background: rgba(black, .9);
     font-size: .85em;
+    display: block;
+    width: 100%;
+    border: 0;
+    border-bottom: 1px solid #333;
+    border-top: 1px solid #222;
+    font-weight: 600;
   }
 
   .search {

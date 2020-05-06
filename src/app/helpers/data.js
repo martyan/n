@@ -31,7 +31,7 @@ export const getDateText = (d) => {
     return d.format('MMMM D')
 }
 
-export const getPlayedGames = (teamSchedule) => {
+export const getTeamPlayedGames = (teamSchedule) => {
     const today = moment.utc()
     return teamSchedule.filter(schedule => schedule.games[0].status.abstractGameState === 'Final' && schedule.date <= today.format('YYYY-MM-DD')).reverse()
 }

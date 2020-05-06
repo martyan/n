@@ -172,7 +172,7 @@ const PlayerPage = ({
                 <title>Todo list | Nextbase</title>
             </Head>
 
-            <div className="nhl">
+            <div className="nhl padded">
 
                 <PlayerSkeleton playerSkeletonVisible={!player || playerSkeletonVisible} />
 
