@@ -1,0 +1,82 @@
+.standings {
+
+  padding: 0 15px;
+
+  .division {
+
+    margin-bottom: 15px;
+
+    .title {
+      padding: 20px 5px 10px;
+      font-family: 'Roboto Slab', serif;
+    }
+
+  }
+
+  .show-all {
+    display: block;
+    width: 120px;
+    margin: 30px auto 0;
+    background: #222;
+    color: white;
+    border: 0;
+    padding: 9px;
+    font-size: .83em;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .standing-item {
+
+    display: flex;
+    align-items: center;
+    padding: 7px 0;
+    font-size: .9em;
+    position: relative;
+    cursor: pointer;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 53px;
+      bottom: 0;
+      width: calc(100% - 57px);
+      height: 1px;
+      background: #ddd;
+    }
+
+    &.hl {
+      font-weight: bold;
+    }
+
+    span {
+      flex: 1 0 35px;
+      margin: 0 10px 0 0;
+      text-align: right;
+
+      &.no {
+        flex: 0 0 10px;
+        color: #666;
+        font-weight: 300;
+      }
+
+      &.name {
+        flex: 1 0 50px;
+        text-align: left;
+        font-size: .95em;
+      }
+
+      &.record {
+        flex: 0 0 80px;
+      }
+    }
+
+    img {
+      width: 20px;
+      margin: 0 15px 0 0;
+    }
+
+  }
+
+
+}

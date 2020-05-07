@@ -108,3 +108,11 @@ export const getSchedule = (startDate, endDate) => ({
         method: 'GET'
     }
 })
+
+export const getStandings = () => ({
+    [CALL_API]: {
+        type: 'GET_STANDINGS',
+        endpoint: `${NHL_API}/standings`,
+        method: 'GET'
+    }
+})

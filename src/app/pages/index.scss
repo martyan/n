@@ -23,31 +23,6 @@
     margin: 0;
   }
 
-  .title {
-
-    //position: fixed;
-    //top: 0;
-    //left: 0;
-    //width: 100%;
-    margin: 0;
-    height: 48px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1.2em;
-    font-family: 'Roboto Slab', serif;
-    text-align: center;
-    background: rgba(black, .9);
-    color: white;
-    z-index: 99;
-    transition: .5s ease;
-
-    &.hidden {
-      top: -48px;
-    }
-
-  }
-
   .nav-bar {
 
     position: fixed;
@@ -227,6 +202,7 @@
     background: #eee;
     padding-top: 99px;
     padding-bottom: 50px;
+    min-height: 100vh;
 
   }
 

@@ -6,7 +6,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
-import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams, setUIVisible } from '../lib/app/actions'
+import { getTeam, setTeam, getTeamStats, getTeamSchedule, getTeams, getStandings, setUIVisible } from '../lib/app/actions'
 import { getLastGame, getNextGame, getTeamPlayedGames, getStats } from '../helpers/data'
 import './index.scss'
 import Schedule from '../components/Schedule'
@@ -16,6 +16,7 @@ import { setScrollDir } from '../helpers/UI'
 import NavBar from '../components/NavBar'
 import TeamHeader from '../components/TeamHeader'
 import ScheduleOld from '../components/ScheduleOld'
+import Standings from '../components/Standings'
 
 const TeamPage = ({
     teamId,
@@ -24,10 +25,12 @@ const TeamPage = ({
     setTeam,
     teamStats,
     teamSchedule,
+    standings,
     getTeam,
     getTeams,
     getTeamStats,
     getTeamSchedule,
+    getStandings,
     UIVisible,
     setUIVisible,
     history
@@ -37,6 +40,11 @@ const TeamPage = ({
 
     useEffect(() => {
         setScrollDir(setUIVisible)
+
+        if(standings.length === 0) {
+            getStandings()
+                .catch(console.error)
+        }
 
         if(teams.length === 0) {
             getTeams()
@@ -94,13 +102,16 @@ const TeamPage = ({
                         />
                     )}
 
-                    {(tab === 'overview' && (seasonStats || rankingStats)) && (
+                    {tab === 'overview' && <Standings standings={standings} teamId={parseInt(teamId)} teams={teams} />}
+
+                    {false && (tab === 'overview' && (seasonStats || rankingStats)) && (
                         <TeamStats
-                            rankingStats={seasonStats}
+                            rankingStats={rankingStats}
                             seasonStats={seasonStats}
                         />
                     )}
-                    {tab === 'overview' && <ScheduleOld schedule={getTeamPlayedGames(teamSchedule)} teams={teams} />}
+
+                    {false && tab === 'overview' && <ScheduleOld schedule={getTeamPlayedGames(teamSchedule)} teams={teams} />}
 
                 </div>
 
@@ -127,6 +138,7 @@ const mapStateToProps = (state) => ({
     teams: state.app.teams,
     teamStats: state.app.teamStats,
     teamSchedule: state.app.teamSchedule,
+    standings: state.app.standings,
     UIVisible: state.app.UIVisible,
     history: state.app.history
 })
@@ -138,6 +150,7 @@ const mapDispatchToProps = (dispatch) => (
         getTeams,
         getTeamStats,
         getTeamSchedule,
+        getStandings,
         setUIVisible
     }, dispatch)
 )

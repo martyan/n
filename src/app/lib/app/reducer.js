@@ -22,6 +22,7 @@ export const initialState = {
     history: [],
     nationalities: [],
     UIVisible: false,
+    standings: [],
     filters: {
         searchStr: '',
         teamId: null,
@@ -116,6 +117,9 @@ const reducer = (state = initialState, action) => {
 
         case 'GET_SCHEDULE_SUCCESS':
             return {...state, schedule: [...state.schedule, [...action.payload.dates.reverse()]]}
+
+        case 'GET_STANDINGS_SUCCESS':
+            return {...state, standings: action.payload.records}
 
         default:
             return state

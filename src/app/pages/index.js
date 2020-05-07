@@ -21,7 +21,6 @@ import {
     setUIVisible,
     setIndexInited
 } from '../lib/app/actions'
-import Title from '../components/Title'
 import LoadMore from '../components/LoadMore'
 import { setScrollDir } from '../helpers/UI'
 import Intro from '../components/Intro'
@@ -177,8 +176,6 @@ const HomePage = ({
             </Head>
 
             <div className="nhl with-intro padded">
-
-                {/*<Title visible={true} />*/}
 
                 <Intro />
 
