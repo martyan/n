@@ -26,6 +26,18 @@
     text-transform: uppercase;
   }
 
+  .standing-header {
+
+    font-size: .8em;
+    color: #555;
+    font-weight: 300;
+
+    &:after {
+      content: none !important;
+    }
+
+  }
+
   .standing-item {
 
     display: flex;
@@ -71,7 +83,8 @@
       }
     }
 
-    img {
+    .img {
+      flex: 0 0 20px;
       width: 20px;
       margin: 0 15px 0 0;
     }
