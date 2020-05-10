@@ -15,11 +15,11 @@
 
   .show-all {
     display: block;
-    width: 120px;
+    width: 140px;
     margin: 30px auto 0;
-    background: #222;
-    color: white;
-    border: 0;
+    background: transparent;
+    color: #000;
+    border: 1px solid #222;
     padding: 9px;
     font-size: .83em;
     text-align: center;
@@ -28,7 +28,7 @@
 
   .standing-header {
 
-    font-size: .8em;
+    font-size: .8em !important;
     color: #555;
     font-weight: 300;
 
