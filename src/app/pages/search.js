@@ -212,7 +212,7 @@ const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlay
                 </div>
 
                 <ul className="roster">
-                    {searchResults.map(player => <PlayerListItem key={player.person.id} player={player} />)}
+                    {searchResults.map(player => <PlayerListItem key={player.person.id} player={player} withTeamBadge />)}
                 </ul>
 
                 <NavBar visible={UIVisible} history={history} />

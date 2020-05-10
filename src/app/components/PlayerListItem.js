@@ -4,7 +4,7 @@ import { goToPlayerFeed } from '../helpers/navigation'
 import colors from '../helpers/colors'
 import './PlayerListItem.scss'
 
-const PlayerListItem = ({ player }) => {
+const PlayerListItem = ({ player, withTeamBadge }) => {
     const stats = getStats('statsSingleSeason', player.person.stats)
     const color = colors.find(clr => clr.teamId === player.teamId)
 
@@ -12,7 +12,7 @@ const PlayerListItem = ({ player }) => {
         <li className="player-list-item" onClick={() => goToPlayerFeed(player.person.id)}>
             <div className="avatar">
                 <img className="photo" src={`https://nhl.bamcontent.com/images/headshots/current/168x168/${player.person.id}.jpg`} />
-                {player.teamId && <img className="badge" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.teamId}-dark.svg`} />}
+                {withTeamBadge && <img className="badge" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/a2d98717aeb7d8dfe2694701e13bd3922887b1f2_1542226749/images/logos/team/current/team-${player.teamId}-dark.svg`} />}
                 <span className="number">{player.jerseyNumber}</span>
                 {(player.person.captain || player.person.alternateCaptain) && (
                     <span className="cpt">{player.person.captain ? 'C' : 'A'}</span>

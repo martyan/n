@@ -37,12 +37,10 @@
 
     img.badge {
       position: absolute;
-      top: 10%;
-      left: 100px;
+      bottom: -3px;
+      right: -8px;
       display: block;
-      display: none;
-      height: 90%;
-      opacity: .1;
+      width: 18px;
     }
 
     .number {
