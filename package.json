@@ -43,7 +43,7 @@
         "prop-types": "^15.7.2",
         "react": "^16.8.6",
         "react-dom": "^16.8.6",
-        "react-ga": "^2.5.7",
+        "react-ga": "^2.7.0",
         "react-id-swiper": "^3.0.0",
         "react-intersection-observer": "^8.25.2",
         "react-lazy-load-image-component": "^1.4.1",
