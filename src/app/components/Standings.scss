@@ -1,6 +1,6 @@
 .standings {
 
-  padding: 0 15px;
+  padding: 0 15px 50px;
 
   .division {
 
@@ -55,6 +55,10 @@
       width: calc(100% - 57px);
       height: 1px;
       background: #ddd;
+    }
+
+    &:last-child:after {
+      content: none;
     }
 
     &.hl {
