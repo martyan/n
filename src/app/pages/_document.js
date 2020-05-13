@@ -16,7 +16,7 @@ class MyDocument extends Document {
         return (
             <Html>
                 <Head>
-                    <meta name="theme-color" content="#000"/>
+                    <meta name="theme-color" content="#000" />
                     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
                     {this.props.styleTags}
                 </Head>

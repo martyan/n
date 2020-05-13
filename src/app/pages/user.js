@@ -34,7 +34,7 @@ class User extends React.Component {
                 <div className="user">
 
                     <Head>
-                        <title>My account | Nextbase</title>
+                        <title>My account | NHLgram</title>
                     </Head>
 
                     <Header />

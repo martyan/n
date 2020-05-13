@@ -143,9 +143,7 @@ const SearchPage = ({ teams, getTeams, UIVisible, setUIVisible, history, allPlay
     return (
         <PageWrapper>
             <Head>
-                <meta name="description" content="Minimalistic serverless boilerplate based on NextJS and Firebase" />
-                <meta name="keywords" content="nextjs, react, firebase, serverless, minimalistic, boilerplate, full-stack, authentication, todos" />
-                <title>Todo list | Nextbase</title>
+                <title>Search | NHLgram</title>
             </Head>
 
             <div className="nhl padded zearch">

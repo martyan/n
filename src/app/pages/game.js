@@ -39,9 +39,7 @@ const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedi
     return (
         <PageWrapper>
             <Head>
-                <meta name="description" content="Minimalistic serverless boilerplate based on NextJS and Firebase" />
-                <meta name="keywords" content="nextjs, react, firebase, serverless, minimalistic, boilerplate, full-stack, authentication, todos" />
-                <title>Todo list | Nextbase</title>
+                <title>Game | NHLgram</title>
             </Head>
 
             <div className="nhl padded">
