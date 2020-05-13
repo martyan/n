@@ -1,11 +1,11 @@
+<p align="center">
+    <img src="https://martinjuzl.com/nhlgram.png" />
+</p>
+<br />
+
 ### NHLgram - unofficial video feed of current NHL season
 
 #### <a href="https://nhlgram.com/">https://nhlgram.com</a>
-
-<br />
-<p align="center">
-    <img src="https://martinjuzl.com/nhlgram.png" style="width: 220px;">
-</p>
 
 ## Stack
 - **[NextJS](https://nextjs.org/learn/basics/getting-started)**
