@@ -36,7 +36,7 @@ const TeamPage = ({
     history
 }) => {
 
-    const [ tab, setTab ] = useState('overview')
+    const [ tab, setTab ] = useState('roster')
 
     useEffect(() => {
         setScrollDir(setUIVisible)
@@ -100,7 +100,7 @@ const TeamPage = ({
                         />
                     )}
 
-                    {tab === 'overview' && <Standings standings={standings} teamId={parseInt(teamId)} teams={teams} />}
+                    {tab === 'standings' && <Standings standings={standings} teamId={parseInt(teamId)} teams={teams} />}
 
                     {false && (tab === 'overview' && (seasonStats || rankingStats)) && (
                         <TeamStats
