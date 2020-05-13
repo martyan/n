@@ -1,8 +1,7 @@
 {
-    "name": "nextbase",
+    "name": "nhlgram",
     "version": "0.1.0",
-    "description": "Minimalistic serverless boilerplate based on NextJS and Firebase",
-    "main": "index.js",
+    "description": "Unofficial video feed of current NHL season",
     "scripts": {
         "dev": "node \"./src/functions/devServer.js\"",
         "preserve": "npm run build-all && npm run copy-deps && npm run install-deps",
@@ -21,7 +20,7 @@
         "node": "8"
     },
     "author": "Martin Juzl",
-    "license": "ISC",
+    "license": "MIT",
     "dependencies": {
         "@zeit/next-css": "^1.0.1",
         "@zeit/next-sass": "^1.0.1",
