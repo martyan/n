@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://martinjuzl.com/nhlgram.png?v3" />
+    <img src="https://martinjuzl.com/nhlgram.png?v4" />
 </p>
 <br />
 
