@@ -2,14 +2,14 @@ import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useSpring, animated, interpolate } from 'react-spring'
 import './Intro.scss'
 
-import fans from '../static/img/fans.png'
-import mantinel from '../static/img/mantinel.png'
-import lines from '../static/img/lines.png'
-import net from '../static/img/net.png'
-import tuukka from '../static/img/tuukka.png'
-import puck from '../static/img/puck.png'
-import panarin from '../static/img/panarin.png'
-import logo from '../static/img/logo.svg'
+import fans from '../public/static/img/fans.png'
+import mantinel from '../public/static/img/mantinel.png'
+import lines from '../public/static/img/lines.png'
+import net from '../public/static/img/net.png'
+import tuukka from '../public/static/img/tuukka.png'
+import puck from '../public/static/img/puck.png'
+import panarin from '../public/static/img/panarin.png'
+import logo from '../public/static/img/logo.svg'
 
 const back = <svg viewBox="0 0 19 10"><g><polygon fill="#FFFFFF" points="19,1 9.5,10 0,1 1.1,0 9.5,8 17.9,0"/></g></svg>
 

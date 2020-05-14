@@ -3,13 +3,27 @@ import { ServerStyleSheet } from 'styled-components'
 
 class MyDocument extends Document {
     static async getInitialProps(ctx) {
-        const initialProps = await Document.getInitialProps(ctx)
-
         const sheet = new ServerStyleSheet()
-        const page = ctx.renderPage(App => props => sheet.collectStyles(<App {...props} />))
-        const styleTags = sheet.getStyleElement()
+        const originalRenderPage = ctx.renderPage
 
-        return { ...initialProps, ...page, styleTags }
+        try {
+            ctx.renderPage = () =>
+                originalRenderPage({
+                    enhanceApp: App => props => sheet.collectStyles(<App {...props} />)
+                })
+            const initialProps = await Document.getInitialProps(ctx)
+            return {
+                ...initialProps,
+                styles: (
+                    <>
+                        {initialProps.styles}
+                        {sheet.getStyleElement()}
+                    </>
+                )
+            }
+        } finally {
+            sheet.seal()
+        }
     }
 
     render() {
@@ -17,6 +31,7 @@ class MyDocument extends Document {
             <Html>
                 <Head>
                     <meta name="theme-color" content="#000" />
+                    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
                     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
                     {this.props.styleTags}
                 </Head>
