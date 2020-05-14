@@ -7,15 +7,19 @@ const debug = process.env.NODE_ENV !== 'production'
 const GAWrapper = (WrappedComponent) => (
     class GaWrapper extends Component {
 
-        // componentDidMount = () => {
-        //     this.initGa()
-        //     this.trackPageview()
-        //     Router.router.events.on('routeChangeComplete', this.trackPageview)
-        // }
-        //
-        // componentWillUnmount = () => {
-        //     Router.router.events.off('routeChangeComplete', this.trackPageview)
-        // }
+        componentDidMount = () => {
+            if(process.env.NODE_ENV === 'development') return
+
+            this.initGa()
+            this.trackPageview()
+            Router.router.events.on('routeChangeComplete', this.trackPageview)
+        }
+
+        componentWillUnmount = () => {
+            if(process.env.NODE_ENV === 'development') return
+
+            Router.router.events.off('routeChangeComplete', this.trackPageview)
+        }
 
         trackPageview = (path = document.location.pathname) => {
             if(path !== this.lastTrackedPath) {

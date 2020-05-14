@@ -3,7 +3,6 @@ import App, { AppInitialProps, AppContext } from 'next/app'
 import { connect } from 'react-redux'
 import Router from 'next/dist/client/router'
 import { setHistory, setPlayerSkeletonVisible } from '../lib/app/actions'
-import ReactGA from 'react-ga'
 import { wrapper } from '../lib/store'
 
 let resizeTimeout = null
@@ -14,10 +13,6 @@ const calculateVH = () => {
         let vh = window.innerHeight * 0.01
         document.documentElement.style.setProperty('--vh', `${vh}px`)
     }, 200)
-}
-
-const logPageView = (window) => {
-    ReactGA.pageview(window.location.pathname + window.location.search)
 }
 
 class MyApp extends App {
@@ -45,11 +40,6 @@ class MyApp extends App {
 
         dispatch(setHistory([Router.router.asPath]))
 
-        try {
-            ReactGA.initialize(process.env.GOOGLE_ANALYTICS_ID)
-            logPageView(window)
-        } catch(error) {}
-
         Router.beforePopState(({url, as, opts}) => {
             const { history } = this.props
             if(history.length < 2) return true
@@ -75,7 +65,6 @@ class MyApp extends App {
         Router.events.on('routeChangeComplete', () => {
             //scroll to top on page change
             try {
-                logPageView(window)
                 window.scrollTo(0, 0)
             } catch(error) {}
         })
