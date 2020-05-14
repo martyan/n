@@ -1,3 +1,4 @@
+import { HYDRATE } from 'next-redux-wrapper'
 import { sortTeamsByName, sortPlayersByPoints } from '../../helpers/sort'
 import { getPlayersFromTeams } from '../../helpers/data'
 
@@ -33,6 +34,9 @@ export const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case HYDRATE:
+            return {...state, ...action.payload.app}
+
         case 'SET_FILTER':
             return {...state, filters: {...state.filters, [action.key]: action.value}}
 
