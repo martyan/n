@@ -6,10 +6,10 @@ import { bindActionCreators } from 'redux'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import { getGame, getTeams, setActiveMedia } from '../lib/app/actions'
-import BackBtn from '../components/BackBtn'
 import Game from '../components/Game'
 import NavBar from '../components/NavBar'
 import { setScrollDir } from '../helpers/UI'
+import moment from 'moment'
 import './index.scss'
 
 const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedia, setActiveMedia }) => {
@@ -34,12 +34,16 @@ const GamePage = ({ gameId, games, history, teams, getGame, getTeams, activeMedi
         }
     }, [])
 
-    if(!gameLoaded) return null
+    if(!gameLoaded || !teamsLoaded) return null
+
+    const homeAbbrev = teams.find(team => team.id === parseInt(game.teams.home.team.id)).abbreviation
+    const awayAbbrev = teams.find(team => team.id === parseInt(game.teams.away.team.id)).abbreviation
+    const date = moment(game.gameDate).format('MM/DD/YYYY')
 
     return (
         <PageWrapper>
             <Head>
-                <title>Game | NHLgram</title>
+                <title>{awayAbbrev}@{homeAbbrev} {date} | NHLgram</title>
             </Head>
 
             <div className="nhl padded">

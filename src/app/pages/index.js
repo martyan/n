@@ -170,7 +170,7 @@ const HomePage = ({
     return (
         <PageWrapper>
             <Head>
-                <title>NHL Video Feed | NHLgram</title>
+                <title>Unofficial video feed of NHL | NHLgram</title>
             </Head>
 
             <div className="nhl with-intro padded">

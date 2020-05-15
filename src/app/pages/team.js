@@ -78,7 +78,7 @@ const TeamPage = ({
     return (
         <PageWrapper>
             <Head>
-                <title>Team | NHLgram</title>
+                <title>{team.name} | NHLgram</title>
             </Head>
 
             <div className="nhl">

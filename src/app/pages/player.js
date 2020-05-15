@@ -32,6 +32,7 @@ import './index.scss'
 
 const PlayerPage = ({
     playerId,
+    title,
     player,
     teams,
     getPlayer,
@@ -120,7 +121,7 @@ const PlayerPage = ({
             //load dependencies
             Promise
                 .all([
-                    getPlayer(playerId),
+                    // getPlayer(playerId),
                     getPlayerSchedule(playerId)
                 ])
                 .then(() => {
@@ -167,7 +168,7 @@ const PlayerPage = ({
     return (
         <PageWrapper>
             <Head>
-                <title>Player | NHLgram</title>
+                <title>{title} | NHLgram</title>
             </Head>
 
             <div className="nhl padded">
@@ -218,9 +219,14 @@ const PlayerPage = ({
 }
 
 PlayerPage.getInitialProps = async ({ store, query }) => {
-    // await store.dispatch(getProduct(query.id))
+    let player
+    try {
+        player = await store.dispatch(getPlayer(query.id))
+    } catch(error) {}
+
     return {
-        playerId: query.id
+        playerId: query.id,
+        title: player ? player.people[0].fullName : 'Not found'
     }
 }
 
