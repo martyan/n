@@ -23,8 +23,10 @@ const Standings = ({ standings, teamId, teams }) => {
                             <span className="img">&nbsp;</span>
                             <span className="name">&nbsp;</span>
                             <span>GP</span>
-                            <span>P</span>
-                            <span className="record">Record</span>
+                            <span>W</span>
+                            <span>L</span>
+                            <span>OT</span>
+                            <span>PTS</span>
                         </div>
                         <div>
                         {division.teamRecords.map((record, i) => {
@@ -38,8 +40,10 @@ const Standings = ({ standings, teamId, teams }) => {
                                     <img className="img" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${record.team.id}-dark.svg`} />
                                     <span className="name">{team.abbreviation}</span>
                                     <span className="font-number">{record.gamesPlayed}</span>
+                                    <span className="font-number">{record.leagueRecord.wins}</span>
+                                    <span className="font-number">{record.leagueRecord.losses}</span>
+                                    <span className="font-number">{record.leagueRecord.ot}</span>
                                     <span className="font-number">{record.points}</span>
-                                    <span className="record font-number">{record.leagueRecord.wins}-{record.leagueRecord.ot}-{record.leagueRecord.losses}</span>
                                 </div>
                             )
                         })}

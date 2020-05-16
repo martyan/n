@@ -4,6 +4,9 @@
 
   .division {
 
+    display: block;
+    width: 100%;
+    overflow: auto;
     margin-bottom: 15px;
 
     .title {
@@ -66,9 +69,13 @@
     }
 
     span {
-      flex: 1 0 35px;
+      flex: 1 0 20px;
       margin: 0 10px 0 0;
       text-align: right;
+
+      &:last-child {
+        margin-right: 0;
+      }
 
       &.no {
         flex: 0 0 10px;
@@ -80,10 +87,6 @@
         flex: 1 0 50px;
         text-align: left;
         font-size: .95em;
-      }
-
-      &.record {
-        flex: 0 0 80px;
       }
     }
 
