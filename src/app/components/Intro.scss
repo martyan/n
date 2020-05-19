@@ -36,6 +36,32 @@
     margin: 40px auto;
   }
 
+  .teams {
+
+    display: flex;
+    position: absolute;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    z-index: -1;
+
+    .swiper-slide {
+      display: flex;
+      align-items: center;
+    }
+
+    .team {
+      max-width: 40px;
+      max-height: 40px;
+
+      @media (min-width: $tablet) {
+        max-width: 45px;
+        max-height: 45px;
+      }
+    }
+
+  }
+
   .inner {
 
     overflow: hidden;

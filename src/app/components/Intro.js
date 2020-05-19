@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react'
 import { useSpring, animated, interpolate } from 'react-spring'
+import Swiper from 'react-id-swiper'
+import './react-id-swiper.scss'
 import './Intro.scss'
 
 import fans from '../public/static/img/fans.png'
@@ -110,12 +112,29 @@ const Intro = () => {
         o => `${1 - (1 / 100 * o)}`
     )
 
+    const params = {
+        slidesPerView: 6,
+        spaceBetween: 30,
+        freeMode: true,
+        loop: true
+    }
+
     return (
         <div className={introFixed ? 'intro fixed' : 'intro'} ref={ref}>
             <div className="inner">
                 <animated.div style={{ opacity: iWelcome }} className="overlay">
                     <div className="logo">
-                        <img src={logo} alt=""/>
+                        <img src={logo} alt="" />
+                    </div>
+                    <div className="teams">
+                        <Swiper {...params}>
+                            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 52, 53, 54]
+                                .map(teamId => (
+                                    <div>
+                                        <img className="team" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamId}-light.svg`} alt="" />
+                                    </div>
+                                ))}
+                        </Swiper>
                     </div>
                     <h1>
                         <div className="gram">NHLgram</div>
