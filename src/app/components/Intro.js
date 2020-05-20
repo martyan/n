@@ -16,7 +16,7 @@ import { shuffle } from '../helpers/sort'
 import { goToTeamFeed } from '../helpers/navigation'
 
 const back = <svg viewBox="0 0 19 10"><g><polygon fill="#FFFFFF" points="19,1 9.5,10 0,1 1.1,0 9.5,8 17.9,0"/></g></svg>
-const teams = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 52, 53, 54]
+const teams = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 28, 29, 30, 52, 53, 54])
 
 const debounce = (func, wait = 5, immediate = true) => {
     let timeout
@@ -40,7 +40,6 @@ const Intro = () => {
     const [ prlxHeight, setPrlxHeight ] = useState(0)
     const [ introFixed, setIntroFixed ] = useState(true)
     const [ arrowVisible, setArrowVisible ] = useState(true)
-    const [ shuffledTeams, setShuffledTeams ] = useState(shuffle(teams))
 
     const springOptions = {
         st: 0,
@@ -118,9 +117,10 @@ const Intro = () => {
 
     const params = {
         slidesPerView: 6,
-        spaceBetween: 20,
+        spaceBetween: 15,
         freeMode: true,
-        loop: true
+        loop: true,
+        // shouldSwiperUpdate: true
     }
 
     return (
@@ -133,8 +133,8 @@ const Intro = () => {
                     <div className="teams">
                         <div className="wrapper">
                             <Swiper {...params}>
-                                {shuffledTeams.map(teamId => (
-                                    <div onClick={() => goToTeamFeed(teamId)}>
+                                {teams.map(teamId => (
+                                    <div key={teamId} onClick={() => goToTeamFeed(teamId)}>
                                         <img className="team" src={`https://www-league.nhlstatic.com/nhl.com/builds/site-core/d7b71b1f9618bc99b318310b894f5e60a533547c_1586449115/images/logos/team/current/team-${teamId}-light.svg`} alt="" />
                                     </div>
                                 ))}
