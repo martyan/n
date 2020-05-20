@@ -2,16 +2,11 @@
 
 .intro {
 
-  //z-index: -1;
   position: relative;
   height: 420px;
-  //position: absolute;
-  //top: 0;
-  //left: 0;
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-  //height: calc(100vw / 0.563380282);
 
   background: #e7e7e8;
 
@@ -38,12 +33,41 @@
 
   .teams {
 
-    display: flex;
     position: absolute;
     top: 70px;
     left: 0;
     width: 100%;
     z-index: -1;
+    opacity: .9;
+
+    .wrapper {
+      position: relative;
+      display: flex;
+
+      &:before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 20px;
+        height: 100%;
+        background: linear-gradient(to left, rgba(black, 0), rgba(black, 1));
+        pointer-events: none;
+        z-index: 9;
+      }
+
+      &:after {
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 100%;
+        background: linear-gradient(to right, rgba(black, 0), rgba(black, 1));
+        pointer-events: none;
+        z-index: 9;
+      }
+    }
 
     .swiper-slide {
       display: flex;
@@ -67,10 +91,6 @@
     overflow: hidden;
     position: relative;
     height: 100%;
-
-    //& > *{
-    //  transition: .1s ease;
-    //}
 
     .overlay {
 
