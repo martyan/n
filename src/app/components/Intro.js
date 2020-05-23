@@ -40,6 +40,7 @@ const Intro = () => {
     const [ prlxHeight, setPrlxHeight ] = useState(0)
     const [ introFixed, setIntroFixed ] = useState(true)
     const [ arrowVisible, setArrowVisible ] = useState(true)
+    const [ logoBehind, setLogoBehind ] = useState(false)
 
     const springOptions = {
         st: 0,
@@ -120,14 +121,23 @@ const Intro = () => {
         spaceBetween: 15,
         freeMode: true,
         loop: true,
-        // shouldSwiperUpdate: true
+        breakpoints: {
+            420: {
+                slidesPerView: 7,
+                spaceBetween: 30
+            }
+        },
+        on: {
+            'touchStart': () => setLogoBehind(true),
+            'touchEnd': () => setLogoBehind(false)
+        }
     }
 
     return (
         <div className={introFixed ? 'intro fixed' : 'intro'} ref={ref}>
             <div className="inner">
                 <animated.div style={{ opacity: iWelcome }} className="overlay">
-                    <div className="logo">
+                    <div className={logoBehind ? 'logo behind' : 'logo'}>
                         <img src={logo} alt="" />
                     </div>
                     <div className="teams">

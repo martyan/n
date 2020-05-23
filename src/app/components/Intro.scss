@@ -29,6 +29,15 @@
   .logo {
     width: 120px;
     margin: 40px auto;
+    pointer-events: none;
+    transition: .5s ease .5s;
+
+    &.behind {
+      position: relative;
+      z-index: -1;
+      opacity: .05;
+      transition: .5s ease;
+    }
   }
 
   .teams {
@@ -44,28 +53,29 @@
       position: relative;
       display: flex;
 
-      &:before {
+      &:before, &:after {
         content: '';
         position: absolute;
-        top: 0;
-        left: 0;
         width: 20px;
         height: 100%;
-        background: linear-gradient(to left, rgba(black, 0), rgba(black, 1));
         pointer-events: none;
         z-index: 9;
+
+        @media (min-width: 420px) {
+          width: 40px;
+        }
+      }
+
+      &:before {
+        top: 0;
+        left: 0;
+        background: linear-gradient(to left, rgba(black, 0), rgba(black, 1));
       }
 
       &:after {
-        content: '';
-        position: absolute;
         top: 0;
         right: 0;
-        width: 20px;
-        height: 100%;
         background: linear-gradient(to right, rgba(black, 0), rgba(black, 1));
-        pointer-events: none;
-        z-index: 9;
       }
     }
 
