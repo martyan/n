@@ -3,11 +3,11 @@
 .intro {
 
   position: relative;
-  height: 420px;
+  height: 480px;
   width: 100%;
   max-width: 640px;
   margin: 0 auto;
-
+  user-select: none;
   background: #e7e7e8;
 
   &:not(.fixed) {
@@ -30,14 +30,7 @@
     width: 120px;
     margin: 40px auto;
     pointer-events: none;
-    transition: .5s ease .5s;
-
-    &.behind {
-      position: relative;
-      z-index: -1;
-      opacity: .05;
-      transition: .5s ease;
-    }
+    transition: .5s ease;
   }
 
   .teams {
@@ -47,7 +40,7 @@
     left: 0;
     width: 100%;
     z-index: -1;
-    opacity: .8;
+    opacity: .5;
 
     .wrapper {
       position: relative;
@@ -88,6 +81,7 @@
       max-width: 40px;
       max-height: 40px;
       cursor: pointer;
+      //filter: grayscale(100%);
 
       @media (min-width: $tablet) {
         max-width: 45px;

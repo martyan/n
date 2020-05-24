@@ -8,7 +8,6 @@ import { Router } from '../../functions/routes'
 import withAuthentication from '../lib/withAuthentication'
 import PageWrapper from '../components/PageWrapper'
 import moment from 'moment'
-import axios from 'axios'
 import NavBar from '../components/NavBar'
 import Game from '../components/Game'
 import {
