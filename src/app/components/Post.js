@@ -6,6 +6,7 @@ import moment from 'moment'
 import { getDateText } from '../helpers/data'
 import { goToPlayerFeed } from '../helpers/navigation'
 import stringReplace from 'react-string-replace'
+import { play } from './icons'
 import './Post.scss'
 
 const Video = ({ media }) => {
@@ -70,7 +71,7 @@ const Post = ({ playerOnly, date, game, media, players, activeMedia, setActiveMe
         <div className="post">
             <div className="media" ref={ref}>
                 <span className={media.id === activeMedia ? 'play is-playing' : 'play'}>
-                    <i className="fa fa-play"></i>
+                    {play}
                 </span>
 
                 {media.id === debouncedActiveMedia && <Video media={media} />}

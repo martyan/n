@@ -19,7 +19,7 @@ const Game = ({
     if(!game || !gameContent || (playerOnly && !player) || teams.length === 0) return null
 
     const highlights = playerOnly ? getPlayersMedia(player, gameContent.highlights.scoreboard.items) : gameContent.highlights.scoreboard.items
-    const recap = gameContent.media.epg.find(media => media.title === 'Recap').items[0]
+    const recap = gameContent.media ? gameContent.media.epg.find(media => media.title === 'Recap').items[0] : null
 
     const applicableTeams = teams.filter(team => team.id === game.teams.home.team.id || team.id === game.teams.away.team.id)
     const applicablePlayers = getPlayersFromTeams(applicableTeams)
