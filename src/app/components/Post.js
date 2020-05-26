@@ -21,14 +21,14 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
     const thumb = media.image.cuts['640x360']
     if(!thumb) return null
 
-    return (
-        <img
-            src={thumb.src}
-            alt=""
-            className={activeMedia === media.id ? 'hidden' : ''}
-            onClick={() => setActiveMedia(media.id)}
-        />
-    )
+    // return (
+    //     <img
+    //         src={thumb.src}
+    //         alt=""
+    //         className={activeMedia === media.id ? 'hidden' : ''}
+    //         onClick={() => setActiveMedia(media.id)}
+    //     />
+    // )
 
     return (
         <LazyLoadImage
