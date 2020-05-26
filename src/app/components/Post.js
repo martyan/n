@@ -32,6 +32,7 @@ const Thumb = ({ media, activeMedia, setActiveMedia }) => {
 
     return (
         <LazyLoadImage
+            threshold={0}
             // alt={image.alt}
             // width={'100vw'}
             // height={360}
