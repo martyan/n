@@ -20,7 +20,7 @@
         "install-deps": "cd \"dist/functions\" && npm i"
     },
     "engines": {
-        "node": "8"
+        "node": "12"
     },
     "author": "Martin Juzl",
     "license": "MIT",
@@ -39,7 +39,6 @@
         "next-images": "^1.1.1",
         "next-redux-wrapper": "^6.0.0",
         "next-routes": "^1.4.2",
-        "node-sass": "^4.14.1",
         "nodemailer": "^6.2.1",
         "normalize.css": "^8.0.1",
         "prop-types": "^15.7.2",
@@ -71,6 +70,7 @@
         "cpx": "^1.5.0",
         "cross-env": "^5.2.0",
         "firebase-tools": "^6.12.0",
+        "node-sass": "^4.14.1",
         "rimraf": "^2.6.0"
     }
 }
