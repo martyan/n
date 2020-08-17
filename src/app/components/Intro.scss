@@ -3,9 +3,9 @@
 .intro {
 
   position: relative;
-  height: 480px;
+  height: 450px;
   width: 100%;
-  max-width: 640px;
+  max-width: 720px;
   margin: 0 auto;
   background: #e7e7e8;
 
@@ -27,7 +27,7 @@
 
   .logo {
     width: 120px;
-    margin: 40px auto;
+    margin: 60px auto 40px;
     pointer-events: none;
     transition: .5s ease;
   }
@@ -35,7 +35,7 @@
   .teams {
 
     position: absolute;
-    top: 80px;
+    top: 100px;
     left: 0;
     width: 100%;
     z-index: -1;
@@ -166,6 +166,7 @@
 
       .scroll {
 
+        display: none !important;
         position: absolute;
         display: flex;
         justify-content: center;

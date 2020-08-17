@@ -4,12 +4,12 @@
 .nhl {
 
   width: 100%;
-  max-width: 480px;
+  max-width: 720px;
   min-height: 100vh;
   margin: 0 auto;
   background: white;
 
-  @media (min-width: 480px) {
+  @media (min-width: 720px) {
     box-shadow: 0 0 5px 1px rgba(0, 0, 0, .5);
   }
 
@@ -39,7 +39,7 @@
     .inner {
       display: flex;
       width: 100%;
-      max-width: 480px;
+      max-width: 720px;
       margin: 0 auto;
       background: rgba(black, .9);
       overflow: hidden;
