@@ -5,4 +5,5 @@ routes
     .add('team', '/team/:id')
     .add('player', '/player/:id')
     .add('game', '/game/:id')
+    .add('search')
     .add('user')
