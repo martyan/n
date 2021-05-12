@@ -61,7 +61,7 @@
         "redux-thunk": "^2.3.0",
         "scrolldir-observable": "^1.0.0",
         "styled-components": "^5.1.0",
-        "swiper": "^5.3.8",
+        "swiper": "^6.5.1",
         "use-debounce": "^3.3.0"
     },
     "devDependencies": {
